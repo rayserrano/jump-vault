@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Jump Vault — The Revenue Layer Under the Fan Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #0b0f14; color: #e5e9f0; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.masthead { text-align: center; padding: 72px 24px 48px; border-bottom: 1px solid #1e2733; }
+.wordmark { font-size: 3.2rem; font-weight: 800; letter-spacing: 0.04em; color: #ffffff; }
+.wordmark .vault { color: #fbbf24; }
+.mast-sub { font-size: 1.25rem; color: #9aa7b8; margin-top: 8px; font-weight: 500; }
+.tagline { font-size: 0.95rem; color: #6b7686; margin-top: 18px; font-style: italic; }
+.concept-note { font-size: 0.8rem; color: #55606e; margin-top: 10px; }
+section { padding: 56px 0; border-bottom: 1px solid #161d27; }
+h2 { font-size: 1.7rem; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
+.kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #fbbf24; margin-bottom: 10px; }
+.lede { font-size: 1.12rem; color: #c4cdd9; max-width: 62rem; }
+.engines { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 32px; }
+.engine { background: #121924; border: 1px solid #1f2a38; border-radius: 12px; padding: 26px; }
+.engine h3 { font-size: 1.15rem; color: #ffffff; margin-bottom: 4px; }
+.engine h3 span { color: #fbbf24; }
+.engine .promise { font-size: 0.85rem; font-weight: 600; color: #34d399; margin-bottom: 12px; }
+.engine p { font-size: 0.95rem; color: #aeb9c7; }
+.engine.bench { background: #101620; }
+.engine ul { margin: 10px 0 0 18px; font-size: 0.92rem; color: #aeb9c7; }
+.panel { background: #121924; border: 1px solid #1f2a38; border-radius: 12px; padding: 30px; margin-top: 28px; }
+.panel-header { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+.panel-number { background: #fbbf24; color: #3b2f04; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; }
+.panel-title { font-size: 1.3rem; font-weight: 700; color: #ffffff; }
+.panel-subtitle { color: #8b98a9; font-size: 0.92rem; margin: 0 0 20px 52px; }
+.split-view { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.source-box { background: #0b0f14; border-radius: 8px; padding: 18px; border: 1.5px solid #334155; }
+.source-header { font-weight: 600; font-size: 0.98rem; margin-bottom: 10px; color: #e5e9f0; }
+.badge { padding: 3px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 700; margin-left: 8px; }
+.badge.tix { background: #3b82f6; color: #ffffff; }
+.badge.merch { background: #8b5cf6; color: #ffffff; }
+.badge.app { background: #ec4899; color: #ffffff; }
+table { width: 100%; font-size: 0.8rem; border-collapse: collapse; }
+table th { background: #1c2735; padding: 7px; text-align: left; font-weight: 600; color: #cbd5e1; border: 1px solid #2b3849; }
+table td { padding: 7px; border: 1px solid #223041; color: #9fb0c3; font-family: 'Courier New', monospace; }
+.hl { color: #fbbf24; font-weight: 700; }
+.udm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.udm-table { background: #0b0f14; border: 1.5px solid #10b981; border-radius: 8px; padding: 14px; }
+.udm-table-name { font-weight: 700; color: #10b981; margin-bottom: 8px; font-size: 0.9rem; letter-spacing: 0.03em; }
+.mart-box { background: #0b0f14; border: 1.5px solid #6366f1; border-radius: 8px; padding: 20px; }
+.sql-box { background: #070a0e; border-radius: 6px; padding: 14px; margin-top: 14px; font-family: 'Courier New', monospace; font-size: 0.85rem; color: #9fb0c3; overflow-x: auto; }
+.sql-k { color: #60a5fa; font-weight: 700; }
+.insight-value { font-size: 2.4rem; font-weight: 800; color: #34d399; text-align: center; margin: 18px 0 4px; }
+.insight-sub { text-align: center; color: #8b98a9; font-size: 0.92rem; }
+.caption { color: #7d8a9b; font-size: 0.88rem; margin-top: 18px; border-left: 3px solid #fbbf24; padding-left: 12px; }
+.flywheel-wrap { text-align: center; margin-top: 28px; }
+.controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin: 26px 0; }
+.control { background: #121924; border: 1px solid #1f2a38; border-radius: 10px; padding: 16px; }
+.control label { display: block; font-size: 0.82rem; font-weight: 600; color: #cbd5e1; margin-bottom: 8px; }
+.control .val { color: #fbbf24; font-weight: 700; }
+input[type=range] { width: 100%; accent-color: #fbbf24; }
+.chart-wrap { background: #121924; border: 1px solid #1f2a38; border-radius: 12px; padding: 24px; }
+.readouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 22px; }
+.readout { background: #0f1520; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #1f2a38; }
+.readout .path-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.readout .cross { font-size: 1.5rem; font-weight: 800; color: #ffffff; }
+.readout .gain { font-size: 0.82rem; color: #34d399; margin-top: 4px; min-height: 1.2em; }
+.assumptions { font-size: 0.8rem; color: #6b7686; margin-top: 18px; }
+.caveat { background: #16130a; border: 1.5px solid #fbbf24; border-radius: 12px; padding: 26px; margin-top: 10px; }
+.caveat p { color: #d9c78a; font-size: 1.02rem; }
+.northstar { background: #0e1a16; border: 1.5px solid #10b981; border-radius: 12px; padding: 26px; }
+.northstar .big { font-size: 1.9rem; font-weight: 800; color: #34d399; }
+.about p { color: #aeb9c7; font-size: 0.98rem; max-width: 62rem; }
+.about .edu { color: #7d8a9b; font-size: 0.9rem; margin-top: 14px; }
+footer { text-align: center; padding: 44px 24px 60px; color: #55606e; font-size: 0.85rem; }
+footer .tagline { margin-bottom: 8px; }
+@media (max-width: 640px) { .wordmark { font-size: 2.2rem; } }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="wordmark">JUMP <span class="vault">VAULT</span></div>
+  <div class="mast-sub">The revenue layer under the fan experience.</div>
+  <div class="tagline">Lighting the way from red to black. Dunks included.</div>
+  <div class="concept-note">A concept sketch. &ldquo;Vault&rdquo; is a concept name for illustration.</div>
+</div>
+
+<div class="container">
+
+<section id="premise">
+  <div class="kicker">The Premise</div>
+  <h2>The data platform is not infrastructure. It is the revenue engine.</h2>
+  <p class="lede" style="margin-top:14px">Jump earns a share of every fan transaction. That single fact reorders the architecture: the data platform does not <em>support</em> the revenue model &mdash; it <em>is</em> the revenue model, expressed as a system. Every capability it ships maps to one of three lines: more spend per fan, more clients live faster, or revenue that does not exist yet. Vault is that platform, organized as three engines around one number.</p>
+</section>
+
+<section id="engines">
+  <div class="kicker">The Three Engines</div>
+  <h2>Every engine feeds a revenue line</h2>
+  <div class="engines">
+    <div class="engine">
+      <h3>VAULT <span>YIELD</span></h3>
+      <div class="promise">Raise spend per fan, on every client</div>
+      <p>AI agents on a governed semantic layer, hunting revenue in fan data: the season holder who never bought merch, the merch buyer who never upgraded, the group-buy organizer who should be seeing suite offers. Bundling analysis across ticket, merch, and concession. Segment expansion wherever engagement outruns monetization.</p>
+      <p style="margin-top:10px">Mechanics: one governed metric truth per client mart, agents querying the system of record. Every incremental fan dollar drips a share into Jump&rsquo;s line. The 2026 agent launch proved the pattern &mdash; Yield industrializes it.</p>
+    </div>
+    <div class="engine">
+      <h3>VAULT <span>ONBOARD</span></h3>
+      <div class="promise">Turn client acquisition into manufacturing</div>
+      <p>Today every new club is a bespoke integration, so onboarding capacity throttles the growth story. The fix is an integration layer on a canonical model: onboarding stops being custom engineering and becomes <em>mapping</em> &mdash; ticketing, commerce, app, historical CRM into one universal model &mdash; with the client mart stamped out on top.</p>
+      <p style="margin-top:10px">Product metric: <strong>time-to-live-revenue per client</strong>. With multiple go-lives stacking in 2027, this engine is the difference between a queue and a production line.</p>
+    </div>
+    <div class="engine bench">
+      <h3>VAULT <span>BENCH</span></h3>
+      <div class="promise">Revenue that does not exist yet</div>
+      <p>The multi-client foundation enables offerings only a unified platform can make:</p>
+      <ul>
+        <li>Benchmarking tiers &mdash; &ldquo;your merch attach rate vs. league peers&rdquo;</li>
+        <li>Sponsorship intelligence &mdash; fan data that proves sponsor ROI</li>
+        <li>Long horizon, governance first: the cross-property fan graph itself</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section id="model">
+  <div class="kicker">How It Works</div>
+  <h2>From incompatible sources to one revenue-grade foundation</h2>
+  <p class="lede" style="margin-top:14px">The same four-step story on every client. Illustrative data throughout.</p>
+
+  <!-- PANEL 1: THE PROBLEM -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-number">1</div>
+      <div class="panel-title">The Problem: Every club arrives as incompatible systems</div>
+    </div>
+    <p class="panel-subtitle">Same fan, three identities, zero joins &mdash; multiplied by every source, every club</p>
+    <div class="split-view">
+      <div class="source-box">
+        <div class="source-header">Ticketing Export <span class="badge tix">SOURCE A</span></div>
+        <table>
+          <tr><th>ACCT_ID</th><th>NAME</th><th>EMAIL</th><th>PLAN</th><th>2026 SPEND</th></tr>
+          <tr><td class="hl">88213</td><td>J. Alvarez</td><td>jalvarez@mail.com</td><td>HALF-SEASON</td><td>$1,840</td></tr>
+        </table>
+      </div>
+      <div class="source-box">
+        <div class="source-header">Commerce / Merch <span class="badge merch">SOURCE B</span></div>
+        <table>
+          <tr><th>CUSTOMER_NO</th><th>NAME</th><th>EMAIL</th><th>ORDERS</th><th>LTV</th></tr>
+          <tr><td class="hl">C-4471</td><td>Jessica Alvarez</td><td>JALVAREZ@MAIL.COM</td><td>6</td><td>$412</td></tr>
+        </table>
+      </div>
+      <div class="source-box">
+        <div class="source-header">Branded App <span class="badge app">SOURCE C</span></div>
+        <table>
+          <tr><th>USER_GUID</th><th>PUSH</th><th>FAV PLAYER</th><th>SESSIONS</th></tr>
+          <tr><td class="hl">7f3a-91c2</td><td>OPT-IN</td><td>#23</td><td>41</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="caption">Per-team identity is the right call for the brand promise &mdash; which makes identity resolution <em>underneath</em> the branded surfaces the platform&rsquo;s job, not the fan&rsquo;s.</p>
+  </div>
+
+  <!-- PANEL 2: THE SOLUTION -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-number">2</div>
+      <div class="panel-title">The Solution: One canonical model &mdash; onboarding becomes mapping</div>
+    </div>
+    <p class="panel-subtitle">Universal Data Model integration layer: instance view of the same fan, resolved</p>
+    <div class="udm-grid">
+      <div class="udm-table">
+        <div class="udm-table-name">PARTY</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>TYPE</th></tr>
+          <tr><td class="hl">501</td><td>PERSON</td></tr>
+        </table>
+      </div>
+      <div class="udm-table">
+        <div class="udm-table-name">PARTY_IDENTIFICATION</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>SOURCE</th><th>SOURCE_KEY</th></tr>
+          <tr><td>501</td><td>TICKETING</td><td>88213</td></tr>
+          <tr><td>501</td><td>COMMERCE</td><td>C-4471</td></tr>
+          <tr><td>501</td><td>APP</td><td>7f3a-91c2</td></tr>
+        </table>
+      </div>
+      <div class="udm-table">
+        <div class="udm-table-name">PARTY_RELATIONSHIP</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>REL_TYPE</th><th>CLIENT (TENANT)</th></tr>
+          <tr><td>501</td><td>FAN_OF</td><td class="hl">CLUB_A</td></tr>
+          <tr><td>501</td><td>SEASON_HOLDER</td><td class="hl">CLUB_A</td></tr>
+        </table>
+      </div>
+      <div class="udm-table">
+        <div class="udm-table-name">FAN_TRANSACTION</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>TYPE</th><th>AMOUNT</th></tr>
+          <tr><td>501</td><td>TICKET</td><td>$1,840</td></tr>
+          <tr><td>501</td><td>MERCH</td><td>$412</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="caption">Tenancy lives on the <em>relationship</em>, not the person. That founding decision keeps every club fully isolated today &mdash; and is the only thing that leaves a cross-property fan graph possible tomorrow.</p>
+  </div>
+
+  <!-- PANEL 3: THE SIMPLIFICATION -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-number">3</div>
+      <div class="panel-title">The Simplification: A governed mart per client, stamped from the same model</div>
+    </div>
+    <p class="panel-subtitle">UDM complexity hidden behind one clean, governed dimensional layer per tenant</p>
+    <div class="mart-box">
+      <div style="font-weight:700;color:#a5b4fc;margin-bottom:8px">CLUB_A.FAN_360</div>
+      <table>
+        <tr><th>FAN_KEY</th><th>TENURE</th><th>TICKET_SPEND</th><th>MERCH_SPEND</th><th>MERCH_ATTACH</th><th>UPSELL_SCORE</th></tr>
+        <tr><td>501</td><td>3 SEASONS</td><td>$1,840</td><td>$412</td><td>TRUE</td><td>0.82</td></tr>
+      </table>
+      <div class="sql-box"><span class="sql-k">SELECT</span> COUNT(*) <span class="sql-k">FROM</span> club_a.fan_360<br><span class="sql-k">WHERE</span> plan_type = 'SEASON' <span class="sql-k">AND</span> merch_attach = FALSE;</div>
+      <div class="insight-value">4,212</div>
+      <p class="insight-sub">season holders with zero merch history &mdash; a Vault Yield target list, generated by an agent inside the system of record</p>
+    </div>
+    <p class="caption">One metric truth per client. The governed semantic layer is what makes agents <em>safe</em> at scale &mdash; the difference between AI on the data and AI guessing at it.</p>
+  </div>
+</section>
+
+<section id="flywheel">
+  <div class="kicker">The Flywheel</div>
+  <h2>Three engines, one compounding loop</h2>
+  <div class="flywheel-wrap">
+    <svg viewBox="0 0 760 560" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vault flywheel diagram">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24"/>
+        </marker>
+      </defs>
+      <circle cx="380" cy="280" r="190" fill="none" stroke="#2b3849" stroke-width="1.5" stroke-dasharray="5 6"/>
+      <path d="M 380 90 A 190 190 0 0 1 545 185" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M 545 185 A 190 190 0 0 1 545 375" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M 545 375 A 190 190 0 0 1 380 470" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M 380 470 A 190 190 0 0 1 215 375" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M 215 375 A 190 190 0 0 1 215 185" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+      <path d="M 215 185 A 190 190 0 0 1 380 90" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr)"/>
+      <circle cx="380" cy="280" r="92" fill="#121924" stroke="#10b981" stroke-width="2"/>
+      <text x="380" y="270" text-anchor="middle" fill="#e5e9f0" font-size="17" font-weight="700" font-family="Inter, Arial">THE DATA</text>
+      <text x="380" y="294" text-anchor="middle" fill="#e5e9f0" font-size="17" font-weight="700" font-family="Inter, Arial">PLATFORM</text>
+      <g font-family="Inter, Arial" font-size="13.5" fill="#c4cdd9" font-weight="600">
+        <rect x="290" y="42" width="180" height="40" rx="10" fill="#0f1520" stroke="#334155"/>
+        <text x="380" y="67" text-anchor="middle">YIELD lifts fan spend</text>
+        <rect x="530" y="140" width="196" height="40" rx="10" fill="#0f1520" stroke="#334155"/>
+        <text x="628" y="165" text-anchor="middle">Jump&rsquo;s take grows</text>
+        <rect x="540" y="370" width="196" height="40" rx="10" fill="#0f1520" stroke="#334155"/>
+        <text x="638" y="395" text-anchor="middle">Proof powers the pitch</text>
+        <rect x="286" y="482" width="188" height="40" rx="10" fill="#0f1520" stroke="#334155"/>
+        <text x="380" y="507" text-anchor="middle">ONBOARD delivers fast</text>
+        <rect x="26" y="370" width="196" height="40" rx="10" fill="#0f1520" stroke="#334155"/>
+        <text x="124" y="395" text-anchor="middle">More clients, more data</text>
+        <rect x="30" y="140" width="192" height="40" rx="10" fill="#0f1520" stroke="#334155"/>
+        <text x="126" y="165" text-anchor="middle">BENCH compounds it</text>
+      </g>
+    </svg>
+  </div>
+  <p class="caption" style="max-width:48rem;margin:22px auto 0">Yield lifts fan spend &rarr; the take grows &rarr; documented lift becomes the sales deck &rarr; pipeline converts faster &rarr; Onboard gets clients live in weeks &rarr; more clients mean more data &rarr; Bench benchmarks sharpen &rarr; which lifts Yield again. The platform sits at the center of all three loops.</p>
+</section>
+
+<section id="breakeven">
+  <div class="kicker">Panel 4 &middot; The Destination</div>
+  <h2>The Path to Black</h2>
+  <p class="lede" style="margin-top:14px">Three scenarios. All of them winning &mdash; at different speeds. The gap between the crossing points is the value of the platform, measured in months. These are public-information estimates: you know the real numbers, so plug them in. <strong>The machine is the point, not the defaults.</strong></p>
+
+  <div class="controls">
+    <div class="control">
+      <label>New clients per year (baseline) <span class="val" id="v-clients">4</span></label>
+      <input type="range" id="s-clients" min="1" max="10" step="1" value="4">
+    </div>
+    <div class="control">
+      <label>Blended revenue per client <span class="val" id="v-rev">$1.5M</span></label>
+      <input type="range" id="s-rev" min="0.5" max="3" step="0.1" value="1.5">
+    </div>
+    <div class="control">
+      <label>Yield lift per year (engines on) <span class="val" id="v-yield">15%</span></label>
+      <input type="range" id="s-yield" min="0" max="30" step="1" value="15">
+    </div>
+    <div class="control">
+      <label>Opex growth per year <span class="val" id="v-opex">8%</span></label>
+      <input type="range" id="s-opex" min="0" max="20" step="1" value="8">
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="breakevenChart" height="120"></canvas>
+  </div>
+
+  <div class="readouts">
+    <div class="readout">
+      <div class="path-name" style="color:#93c5fd">Path 1 &middot; Steady Climb</div>
+      <div class="cross" id="r-base">&mdash;</div>
+      <div class="gain"></div>
+    </div>
+    <div class="readout">
+      <div class="path-name" style="color:#2dd4bf">Path 2 &middot; + Vault Onboard</div>
+      <div class="cross" id="r-onb">&mdash;</div>
+      <div class="gain" id="g-onb"></div>
+    </div>
+    <div class="readout">
+      <div class="path-name" style="color:#34d399">Path 3 &middot; + Yield &amp; Bench</div>
+      <div class="cross" id="r-full">&mdash;</div>
+      <div class="gain" id="g-full"></div>
+    </div>
+  </div>
+
+  <p class="assumptions">Fixed starting point (editable in spirit): ~6 clients live, ~$9M run-rate revenue, ~$14M opex (midpoint of public $13&ndash;16M estimates). Vault Onboard modeled as +75% client velocity. Yield &amp; Bench modeled as compounding per-client revenue lift at the slider rate. Illustrative, directional, and yours to overwrite.</p>
+</section>
+
+<section id="caveat-block">
+  <div class="caveat">
+    <p><strong>Built entirely from public information.</strong> This is the bucket &mdash; ready to be filled with Jump&rsquo;s institutional knowledge. Every number above is an outside estimate standing in for a real one; every mechanism is the industry-standard pattern, ready to implement. &ldquo;Jump Vault&rdquo; is a concept name for illustration.</p>
+  </div>
+</section>
+
+<section id="northstar">
+  <div class="kicker">The North Star</div>
+  <div class="northstar">
+    <div class="big">IFR/C &mdash; Incremental Fan Revenue per Client</div>
+    <p style="margin-top:12px;color:#a7c4b8">How many incremental fan dollars did the platform generate, per client, this quarter? Yield raises it. Onboard multiplies how many clients count toward it. Bench adds margin to it. One number the board, the sales deck, and the roadmap can all share &mdash; and the anti-feature-creep anchor: if a roadmap item does not move IFR/C, it waits.</p>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="kicker">About</div>
+  <h2>Ray Serrano</h2>
+  <p style="margin-top:14px">Data platform leader who builds the governed foundation that agentic AI depends on. Resolves messy, incompatible first- and third-party sources into one canonical, multi-tenant single source of truth, across cruise, retail, payroll, consumer goods, HR, and subscription-revenue domains. That integration layer is the hard center of every data platform, and it is where AI still needs deep human judgment. Most recently built a governed dbt semantic layer over a $232M revenue dataset that let AI agents query enterprise metrics safely and surfaced more than $50M in business value, and trained an LLM to generate Silverston-correct integration models on demand. Acknowledged contributor to Len Silverston&rsquo;s <em>The Data Model Resource Book, Volume 3</em>.</p>
+  <p class="edu">Master of Liberal Arts, Information Management Systems, Harvard University, Dean&rsquo;s List &middot; Data Science Certification, Harvard University &middot; B.S. Computer Science, Inter-American University, Cum Laude</p>
+</section>
+
+</div>
+
+<footer>
+  <div class="tagline">Lighting the way from red to black. Dunks included.</div>
+  <div>Built entirely from public information &middot; &ldquo;Jump Vault&rdquo; is a concept name for illustration &middot; Ray Serrano, 2026</div>
+</footer>
+
+<script>
+(function () {
+  var QUARTERS = 26;            // mid-2026 through 2032
+  var START_CLIENTS = 6;        // live clients at t0 (public estimate)
+  var START_OPEX = 14;          // $M, midpoint of public 13-16 estimate
+  var ONBOARD_VELOCITY = 1.75;  // Onboard modeled as +75% client velocity
+
+  function qLabel(q) {
+    var totalMonths = 6 + q * 3;                 // t0 = July 2026
+    var year = 2026 + Math.floor(totalMonths / 12);
+    var quarter = Math.floor((totalMonths % 12) / 3) + 1;
+    return 'Q' + quarter + ' ' + year;
+  }
+
+  function series(params) {
+    var base = [], onb = [], full = [], opex = [];
+    for (var q = 0; q < QUARTERS; q++) {
+      var years = q / 4;
+      var cBase = START_CLIENTS + params.clientsPerYear * years;
+      var cOnb  = START_CLIENTS + params.clientsPerYear * ONBOARD_VELOCITY * years;
+      base.push(cBase * params.revPerClient);
+      onb.push(cOnb * params.revPerClient);
+      full.push(cOnb * params.revPerClient * Math.pow(1 + params.yieldLift / 100, years));
+      opex.push(START_OPEX * Math.pow(1 + params.opexGrowth / 100, years));
+    }
+    return { base: base, onb: onb, full: full, opex: opex };
+  }
+
+  function crossing(rev, opex) {
+    for (var q = 0; q < QUARTERS; q++) {
+      if (rev[q] >= opex[q]) {
+        if (q === 0) return 0;
+        var prevGap = opex[q - 1] - rev[q - 1];
+        var nowGain = rev[q] - opex[q];
+        var frac = prevGap / (prevGap + nowGain);
+        return (q - 1) + (isFinite(frac) ? frac : 0);
+      }
+    }
+    return null;
+  }
+
+  function crossLabel(qFloat) {
+    if (qFloat === null) return 'beyond 2032';
+    return qLabel(Math.round(qFloat));
+  }
+
+  function readParams() {
+    return {
+      clientsPerYear: parseFloat(document.getElementById('s-clients').value),
+      revPerClient:   parseFloat(document.getElementById('s-rev').value),
+      yieldLift:      parseFloat(document.getElementById('s-yield').value),
+      opexGrowth:     parseFloat(document.getElementById('s-opex').value)
+    };
+  }
+
+  var labels = [];
+  for (var i = 0; i < QUARTERS; i++) labels.push(qLabel(i));
+
+  var ctx = document.getElementById('breakevenChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Path 1 - Steady Climb', data: [], borderColor: '#93c5fd', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, tension: 0.25 },
+        { label: 'Path 2 - + Vault Onboard', data: [], borderColor: '#2dd4bf', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 0, tension: 0.25 },
+        { label: 'Path 3 - + Yield & Bench', data: [], borderColor: '#34d399', backgroundColor: 'transparent', borderWidth: 3.5, pointRadius: 0, tension: 0.25 },
+        { label: 'Opex', data: [], borderColor: '#94a3b8', backgroundColor: 'transparent', borderWidth: 2, borderDash: [7, 6], pointRadius: 0, tension: 0.1 }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: '#cbd5e1', font: { family: 'Inter' } } },
+        tooltip: {
+          callbacks: {
+            label: function (item) {
+              return item.dataset.label + ': $' + item.parsed.y.toFixed(1) + 'M';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#8b98a9',
+            maxRotation: 0,
+            callback: function (val, idx) {
+              var l = this.getLabelForValue(val);
+              return l.indexOf('Q1') === 0 ? l.slice(3) : '';
+            }
+          },
+          grid: { color: '#161d27' }
+        },
+        y: {
+          title: { display: true, text: 'Annual run-rate ($M)', color: '#8b98a9' },
+          ticks: { color: '#8b98a9', callback: function (v) { return '$' + v + 'M'; } },
+          grid: { color: '#161d27' }
+        }
+      }
+    }
+  });
+
+  function fmtGain(crossX, crossBase) {
+    if (crossX === null || crossBase === null) return '';
+    var months = Math.round((crossBase - crossX) * 3);
+    if (months <= 0) return '';
+    return '+' + months + ' months earlier than baseline';
+  }
+
+  function update() {
+    var p = readParams();
+    document.getElementById('v-clients').textContent = p.clientsPerYear;
+    document.getElementById('v-rev').textContent = '$' + p.revPerClient.toFixed(1) + 'M';
+    document.getElementById('v-yield').textContent = p.yieldLift + '%';
+    document.getElementById('v-opex').textContent = p.opexGrowth + '%';
+
+    var s = series(p);
+    chart.data.datasets[0].data = s.base;
+    chart.data.datasets[1].data = s.onb;
+    chart.data.datasets[2].data = s.full;
+    chart.data.datasets[3].data = s.opex;
+    chart.update('none');
+
+    var cBase = crossing(s.base, s.opex);
+    var cOnb  = crossing(s.onb, s.opex);
+    var cFull = crossing(s.full, s.opex);
+    document.getElementById('r-base').textContent = crossLabel(cBase);
+    document.getElementById('r-onb').textContent  = crossLabel(cOnb);
+    document.getElementById('r-full').textContent = crossLabel(cFull);
+    document.getElementById('g-onb').textContent  = fmtGain(cOnb, cBase);
+    document.getElementById('g-full').textContent = fmtGain(cFull, cBase);
+  }
+
+  ['s-clients', 's-rev', 's-yield', 's-opex'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', update);
+  });
+  update();
+})();
+</script>
+</body>
+</html>
+
