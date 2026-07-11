@@ -46,7 +46,7 @@ table { width: 100%; font-size: 0.8rem; border-collapse: collapse; }
 table th { background: #1c2735; padding: 7px; text-align: left; font-weight: 600; color: #cbd5e1; border: 1px solid #2b3849; }
 table td { padding: 7px; border: 1px solid #223041; color: #9fb0c3; font-family: 'Courier New', monospace; }
 .hl { color: #fbbf24; font-weight: 700; }
-.udm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.udm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .udm-table { background: #0b0f14; border: 1.5px solid #10b981; border-radius: 8px; padding: 14px; }
 .udm-table-name { font-weight: 700; color: #10b981; margin-bottom: 8px; font-size: 0.9rem; letter-spacing: 0.03em; }
 .mart-box { background: #0b0f14; border: 1.5px solid #6366f1; border-radius: 8px; padding: 20px; }
@@ -76,7 +76,10 @@ input[type=range] { width: 100%; accent-color: #fbbf24; }
 .about .edu { color: #7d8a9b; font-size: 0.9rem; margin-top: 14px; }
 footer { text-align: center; padding: 44px 24px 60px; color: #55606e; font-size: 0.85rem; }
 footer .tagline { margin-bottom: 8px; }
-@media (max-width: 640px) { .wordmark { font-size: 2.2rem; } }
+.source-box { overflow-x: auto; }
+.source-box table { font-size: 0.72rem; }
+.source-box td, .source-box th { padding: 5px; word-break: break-all; }
+@media (max-width: 640px) { .wordmark { font-size: 2.2rem; } .udm-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -140,22 +143,22 @@ footer .tagline { margin-bottom: 8px; }
       <div class="source-box">
         <div class="source-header">Ticketing Export <span class="badge tix">SOURCE A</span></div>
         <table>
-          <tr><th>ACCT_ID</th><th>NAME</th><th>EMAIL</th><th>PLAN</th><th>2026 SPEND</th></tr>
-          <tr><td class="hl">88213</td><td>J. Alvarez</td><td>jalvarez@mail.com</td><td>HALF-SEASON</td><td>$1,840</td></tr>
+          <tr><th>ACCT_ID</th><th>NAME</th><th>EMAIL</th><th>2026 SPEND</th></tr>
+          <tr><td class="hl">88213</td><td>J. Alvarez</td><td>jalvarez@mail.com</td><td>$1,840</td></tr>
         </table>
       </div>
       <div class="source-box">
         <div class="source-header">Commerce / Merch <span class="badge merch">SOURCE B</span></div>
         <table>
-          <tr><th>CUSTOMER_NO</th><th>NAME</th><th>EMAIL</th><th>ORDERS</th><th>LTV</th></tr>
-          <tr><td class="hl">C-4471</td><td>Jessica Alvarez</td><td>JALVAREZ@MAIL.COM</td><td>6</td><td>$412</td></tr>
+          <tr><th>CUSTOMER_NO</th><th>NAME</th><th>EMAIL</th><th>LTV</th></tr>
+          <tr><td class="hl">C-4471</td><td>Jessica Alvarez</td><td>JALVAREZ@MAIL.COM</td><td>$412</td></tr>
         </table>
       </div>
       <div class="source-box">
         <div class="source-header">Branded App <span class="badge app">SOURCE C</span></div>
         <table>
-          <tr><th>USER_GUID</th><th>PUSH</th><th>FAV PLAYER</th><th>SESSIONS</th></tr>
-          <tr><td class="hl">7f3a-91c2</td><td>OPT-IN</td><td>#23</td><td>41</td></tr>
+          <tr><th>USER_GUID</th><th>FAV PLAYER</th><th>SESSIONS</th></tr>
+          <tr><td class="hl">7f3a-91c2</td><td>#23</td><td>41</td></tr>
         </table>
       </div>
     </div>
@@ -345,7 +348,7 @@ footer .tagline { margin-bottom: 8px; }
 
 <script>
 (function () {
-  var QUARTERS = 26;            // mid-2026 through 2032
+  var QUARTERS = 18;            // mid-2026 through 2030
   var START_CLIENTS = 6;        // live clients at t0 (public estimate)
   var START_OPEX = 14;          // $M, midpoint of public 13-16 estimate
   var ONBOARD_VELOCITY = 1.75;  // Onboard modeled as +75% client velocity
@@ -385,8 +388,10 @@ footer .tagline { margin-bottom: 8px; }
   }
 
   function crossLabel(qFloat) {
-    if (qFloat === null) return 'beyond 2032';
-    return qLabel(Math.round(qFloat));
+    if (qFloat === null) return 'beyond 2030';
+    var MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var tm = 6 + Math.round(qFloat * 3);
+    return MN[tm % 12] + ' ' + (2026 + Math.floor(tm / 12));
   }
 
   function readParams() {
@@ -407,9 +412,9 @@ footer .tagline { margin-bottom: 8px; }
     data: {
       labels: labels,
       datasets: [
-        { label: 'Path 1 - Steady Climb', data: [], borderColor: '#93c5fd', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, tension: 0.25 },
-        { label: 'Path 2 - + Vault Onboard', data: [], borderColor: '#2dd4bf', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 0, tension: 0.25 },
-        { label: 'Path 3 - + Yield & Bench', data: [], borderColor: '#34d399', backgroundColor: 'transparent', borderWidth: 3.5, pointRadius: 0, tension: 0.25 },
+        { label: 'Path 1 · Steady Climb', data: [], borderColor: '#93c5fd', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, tension: 0.25 },
+        { label: 'Path 2 · + Vault Onboard', data: [], borderColor: '#2dd4bf', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 0, tension: 0.25 },
+        { label: 'Path 3 · + Yield & Bench', data: [], borderColor: '#34d399', backgroundColor: 'transparent', borderWidth: 3.5, pointRadius: 0, tension: 0.25 },
         { label: 'Opex', data: [], borderColor: '#94a3b8', backgroundColor: 'transparent', borderWidth: 2, borderDash: [7, 6], pointRadius: 0, tension: 0.1 }
       ]
     },
