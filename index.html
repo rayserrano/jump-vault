@@ -77,8 +77,9 @@ input[type=range] { width: 100%; accent-color: #fbbf24; }
 footer { text-align: center; padding: 44px 24px 60px; color: #55606e; font-size: 0.85rem; }
 footer .tagline { margin-bottom: 8px; }
 .source-box { overflow-x: auto; }
-.source-box table { font-size: 0.72rem; }
-.source-box td, .source-box th { padding: 5px; word-break: break-all; }
+.source-box table { font-size: 0.78rem; }
+.source-box td, .source-box th { padding: 5px 8px; word-break: normal; overflow-wrap: break-word; text-align: left; }
+.source-box th { width: 40%; }
 @media (max-width: 640px) { .wordmark { font-size: 2.2rem; } .udm-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -143,22 +144,27 @@ footer .tagline { margin-bottom: 8px; }
       <div class="source-box">
         <div class="source-header">Ticketing Export <span class="badge tix">SOURCE A</span></div>
         <table>
-          <tr><th>ACCT_ID</th><th>NAME</th><th>EMAIL</th><th>2026 SPEND</th></tr>
-          <tr><td class="hl">88213</td><td>J. Alvarez</td><td>jalvarez@mail.com</td><td>$1,840</td></tr>
+          <tr><th>ACCT_ID</th><td class="hl">88213</td></tr>
+          <tr><th>NAME</th><td>J. Alvarez</td></tr>
+          <tr><th>EMAIL</th><td>jalvarez@mail.com</td></tr>
+          <tr><th>2026 SPEND</th><td>$1,840</td></tr>
         </table>
       </div>
       <div class="source-box">
         <div class="source-header">Commerce / Merch <span class="badge merch">SOURCE B</span></div>
         <table>
-          <tr><th>CUSTOMER_NO</th><th>NAME</th><th>EMAIL</th><th>LTV</th></tr>
-          <tr><td class="hl">C-4471</td><td>Jessica Alvarez</td><td>JALVAREZ@MAIL.COM</td><td>$412</td></tr>
+          <tr><th>CUSTOMER_NO</th><td class="hl">C-4471</td></tr>
+          <tr><th>NAME</th><td>Jessica Alvarez</td></tr>
+          <tr><th>EMAIL</th><td>JALVAREZ@MAIL.COM</td></tr>
+          <tr><th>LTV</th><td>$412</td></tr>
         </table>
       </div>
       <div class="source-box">
         <div class="source-header">Branded App <span class="badge app">SOURCE C</span></div>
         <table>
-          <tr><th>USER_GUID</th><th>FAV PLAYER</th><th>SESSIONS</th></tr>
-          <tr><td class="hl">7f3a-91c2</td><td>#23</td><td>41</td></tr>
+          <tr><th>USER_GUID</th><td class="hl">7f3a-91c2</td></tr>
+          <tr><th>FAV PLAYER</th><td>#23</td></tr>
+          <tr><th>SESSIONS</th><td>41</td></tr>
         </table>
       </div>
     </div>
