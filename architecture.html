@@ -7,7 +7,7 @@
 <title>Jump Vault | Architecture</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vault.css?v=5">
+<link rel="stylesheet" href="assets/vault.css?v=6">
 </head>
 <body>
 
@@ -26,8 +26,85 @@
 
 <section>
   <div class="kicker">Architecture</div>
-  <h2>This page is being built.</h2>
-  <p class="lede" style="margin-top:14px">The content for this section arrives in the next commits.</p>
+  <h2>Nine rungs hold the whole platform.</h2>
+  <p class="lede" style="margin-top:14px">The rest of the site showed the architecture working. This page names it, one rung at a time, from the foundation to the open frontier. Every choice here is a settled pattern with its reasons on the table, and the two most forward-leaning rungs are field reports rather than proposals.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 1 &middot; The Foundation</div>
+  <h2>One integration layer beats fifty stitched marts.</h2>
+  <p class="lede" style="margin-top:14px">Everything on this site has quietly been Inmon&rsquo;s Corporate Information Factory wearing Jump clothes. The Map&rsquo;s floor diagram is the factory. The Onboard page is the integration layer working on camera. This page says the name out loud: one integration layer holds the canonical fan, client marts are derived above it, and the alternative of fifty club warehouses stitched together after the fact is how two-truths disease starts.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 2 &middot; The Model</div>
+  <h2>Vault is the product. Silverston is the model.</h2>
+  <p class="lede" style="margin-top:14px">Data engineers hear the word Vault and think of the Data Vault methodology: hubs, links, and satellites. That is a fine school, and it is a different one. The model underneath this product is Silverston&rsquo;s Party pattern: typed parties, typed relationships, and tenancy on the relationship edge. For a shared canonical fan under multi-tenant marts, that pattern wins on the criteria that matter here: identity resolves in one place, isolation lives on the edge, and every mart is a cheap stamped derivative. The debate with Data Vault and with dbt-native staging-and-marts is live and worth having, and this page takes its side with the reasons shown.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 3 &middot; The Access</div>
+  <h2>The semantic layer is the constitution.</h2>
+  <p class="lede" style="margin-top:14px">Every consumer on the floor, human or agent, reads metrics from one governed semantic layer. A metric is defined once, in the open, with lineage, and no dashboard, model, or rule may redefine it. This is what makes agent-authored artifacts safe: a dashboard built on governed metrics cannot lie about revenue.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 4 &middot; The Intelligence</div>
+  <h2>Models predict. Agents author. Rules execute.</h2>
+  <p class="lede" style="margin-top:14px">The division of labor is strict. Models predict: propensity, uplift, and the scores on every fan row. Agents author: they read the warehouse, write rules, build assets, and retire what stops working. Rules execute: every high-volume decision runs deterministically. Nothing with a per-transaction cost sits inside a language model loop.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 5 &middot; The Serving</div>
+  <h2>The warehouse thinks. The serving layer answers.</h2>
+  <p class="lede" style="margin-top:14px">Agents changed the shape of the query load. Club analysts ran bursty dashboards where seconds were fine. Embedded analytics for every club, fan-facing surfaces, and agents in reasoning loops produce thousands of small queries around the clock, and a slow answer stalls an agent mid-thought. Pointing that workload at the thinking tier buys a warehouse that never sleeps: warehouse-seconds economics applied to a workload that wants cost-per-query economics. This tradeoff has been run in production, and the page carries the judgment.</p>
+  <div class="panel">
+    <table class="temps">
+      <tr><th>TIER</th><th>SYSTEM</th><th>JOB</th><th>LATENCY CLASS</th></tr>
+      <tr><td>OLTP</td><td>The nine modules&rsquo; operational stores</td><td>It transacts</td><td>Operational</td></tr>
+      <tr><td>WAREHOUSE</td><td>Integration layer, marts, semantic layer, training</td><td>It thinks</td><td>Seconds</td></tr>
+      <tr><td>SERVING</td><td>High-concurrency OLAP for surfaces and agents</td><td>It answers</td><td>Milliseconds</td></tr>
+      <tr><td>RULES</td><td>Compiled decisions in the transaction path</td><td>It decides</td><td>Per transaction</td></tr>
+    </table>
+  </div>
+  <p class="lede" style="margin-top:18px">The semantic layer spans the temperatures. The serving store materializes governed metrics and never redefines them, and data flows one way: integration, then marts, then materialize, then serve. A serving copy outside the warehouse makes freshness and consistency governed properties too; ignore that and you reinvent the two-truths disease the platform exists to cure.</p>
+  <p class="lede" style="margin-top:14px">Whether one platform now fills both analytical temperatures or two engines share one contract is a criteria decision: concurrency, latency, cost per query, operations burden, and semantic-layer integration. The warehouse vendors moved into interactive serving this year, and the dedicated engines are not standing still. The architecture holds either way, and the choice is margin engineering: platform cost per client lands directly on the Path to Black.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 6 &middot; The Execution</div>
+  <h2>The rules engine decides at zero token cost.</h2>
+  <p class="lede" style="margin-top:14px">Rules engines are a category with a graveyard, and this page says so. They died because humans could not maintain thousands of rules, and sprawl rotted every deployment. Agents fix the exact failure that killed the category: an agent observes outcomes through the warehouse, retires stale rules, proposes refinements, and backtests before anything deploys. And rules fix what stalls agents, because tokens cannot price a per-transaction decision, while a compiled rule decides at a marginal cost near zero. AI makes rules possible. Rules make AI possible at scale.</p>
+  <p class="lede" style="margin-top:14px">The loop is the flywheel&rsquo;s inner gearbox: the agent analyzes the warehouse, proposes a rule, the backtest scores it, a human approves inside guardrails, the engine deploys, telemetry flows back, and the agent refines. Every decision traces to a rule version: inspectable, reversible, and auditable, which matters more the day the first European club goes live and automated decisions meet European regulation. This pattern is also a field report: agents composing rules against a governed warehouse is a system that has run in production, not a concept from a slide.</p>
+  <p class="lede" style="margin-top:14px">Jump&rsquo;s own launch copy describes the Pricing Manager modeling scenarios and pushing pricing changes across events in minutes. That is rule authorship and deployment, already shipped. Five of the nine modules are rules domains wearing product clothes: pricing, yield, journey triggers, loyalty accrual, and ingress entitlements. Vault proposes one governed decision layer instead of five embedded ones. The general law follows: the agent is the composer and the analytics estate is the composition. Models, rules, and BI assets are all authored expensively in tokens, executed at near-zero cost, and governed by the same semantic constitution.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 7 &middot; The Boundary</div>
+  <h2>Centralize the integration. Federate the consumption.</h2>
+  <p class="lede" style="margin-top:14px">Centralization and mesh stop being rivals when each takes the half it is good at. The integration stays centralized: one canonical fan, one place identity resolves. The consumption federates: capable organizations receive governed data products, with contracts and lineage attached, published into their own stacks. That is the third DWaaS tier from the Map, and it is the boundary where the platform ends on purpose.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 8 &middot; The Identity</div>
+  <h2>The whole person lives in the integration layer, and each club owns its truth.</h2>
+  <p class="lede" style="margin-top:14px">The identity ontology follows the layering. The integration layer holds the resolved person: every source key mapped, every relationship typed. Each club&rsquo;s mart carries only that club&rsquo;s truth. Progressive profiling, customer 360, and lifetime value are all views stamped from the same resolved party, which is why they agree with each other, and why the fan graph option on the Bench page costs nothing to keep open.</p>
+</section>
+
+<section>
+  <div class="kicker">Rung 9 &middot; The Horizon</div>
+  <h2>The frontier is attention.</h2>
+  <p class="lede" style="margin-top:14px">Every layer above answers what is true, faster and cheaper each rung down. The open question is what deserves attention.</p>
+  <div class="expr-box">activation = base_level + contextual_boost + novelty_bonus</div>
+  <p class="lede">The shape comes from cognitive science, Baars on the global workspace, Oberauer on working memory, and Anderson on activation, and it runs in the rules engine at zero token cost, with the language model outside the attention loop.</p>
+</section>
+
+<section>
+  <div class="kicker">The Fort</div>
+  <div class="fort">
+    <p class="dedication">To the engineer holding this fort, and the crew that rallied to it: help is on the way, and it&rsquo;s bringing an <span>aircraft carrier</span>.</p>
+    <p class="lock">Everything on this page is leverage for the work that already held the line.</p>
+  </div>
 </section>
 
 </div>
