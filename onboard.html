@@ -25,9 +25,120 @@
 <div class="container page-body">
 
 <section>
-  <div class="kicker">Onboard</div>
-  <h2>This page is being built.</h2>
-  <p class="lede" style="margin-top:14px">The content for this section arrives in the next commits.</p>
+  <div class="kicker">The Onboard Engine</div>
+  <h2>Onboard turns client acquisition into manufacturing.</h2>
+  <p class="lede" style="margin-top:14px">Today every new club is a bespoke integration, and onboarding capacity throttles the growth story. Three launches are already stacked for 2027, with the first international club behind them. Onboard replaces the bespoke project with a factory: one canonical model to map into, and a client mart stamped out on top. All data on this page is illustrative.</p>
+</section>
+
+<section>
+  <div class="kicker">The Problem</div>
+  <h2>Every club arrives as incompatible systems.</h2>
+  <p class="lede" style="margin-top:14px">The same fan carries three identities with zero joins, multiplied by every source and every club.</p>
+  <div class="panel">
+    <div class="split-view">
+      <div class="source-box">
+        <div class="source-header">Ticketing Export <span class="badge tix">SOURCE A</span></div>
+        <table>
+          <tr><th>ACCT_ID</th><td class="hl">88213</td></tr>
+          <tr><th>NAME</th><td>J. Alvarez</td></tr>
+          <tr><th>EMAIL</th><td>jalvarez@mail.com</td></tr>
+          <tr><th>2026 SPEND</th><td>$1,840</td></tr>
+        </table>
+      </div>
+      <div class="source-box">
+        <div class="source-header">Commerce / Merch <span class="badge merch">SOURCE B</span></div>
+        <table>
+          <tr><th>CUSTOMER_NO</th><td class="hl">C-4471</td></tr>
+          <tr><th>NAME</th><td>Jessica Alvarez</td></tr>
+          <tr><th>EMAIL</th><td>JALVAREZ@MAIL.COM</td></tr>
+          <tr><th>LTV</th><td>$412</td></tr>
+        </table>
+      </div>
+      <div class="source-box">
+        <div class="source-header">Branded App <span class="badge app">SOURCE C</span></div>
+        <table>
+          <tr><th>USER_GUID</th><td class="hl">7f3a-91c2</td></tr>
+          <tr><th>FAV PLAYER</th><td>#23</td></tr>
+          <tr><th>SESSIONS</th><td>41</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="caption">Per-team identity is the right call for the brand promise, which makes identity resolution underneath the branded surfaces the platform&rsquo;s job rather than the fan&rsquo;s.</p>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">The Founding Decision</div>
+  <h2>Tenancy lives on the relationship edge.</h2>
+  <p class="lede" style="margin-top:14px">The integration layer resolves all three identities to one canonical person, and then it makes the decision that everything else inherits: the person carries no tenant. The club lives on the relationship, so a fan of two Jump clubs is one person with two edges, each fully isolated inside its club&rsquo;s walls.</p>
+  <div class="panel">
+    <div class="udm-grid">
+      <div class="udm-table">
+        <div class="udm-table-name">PARTY</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>TYPE</th></tr>
+          <tr><td class="hl">501</td><td>PERSON</td></tr>
+        </table>
+      </div>
+      <div class="udm-table">
+        <div class="udm-table-name">PARTY_IDENTIFICATION</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>SOURCE</th><th>SOURCE_KEY</th></tr>
+          <tr><td>501</td><td>TICKETING</td><td>88213</td></tr>
+          <tr><td>501</td><td>COMMERCE</td><td>C-4471</td></tr>
+          <tr><td>501</td><td>APP</td><td>7f3a-91c2</td></tr>
+        </table>
+      </div>
+      <div class="udm-table">
+        <div class="udm-table-name">PARTY_RELATIONSHIP</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>REL_TYPE</th><th>CLIENT (TENANT)</th></tr>
+          <tr><td>501</td><td>FAN_OF</td><td class="hl">CLUB_A</td></tr>
+          <tr><td>501</td><td>SEASON_HOLDER</td><td class="hl">CLUB_A</td></tr>
+        </table>
+      </div>
+      <div class="udm-table">
+        <div class="udm-table-name">FAN_TRANSACTION</div>
+        <table>
+          <tr><th>PARTY_ID</th><th>TYPE</th><th>AMOUNT</th></tr>
+          <tr><td>501</td><td>TICKET</td><td>$1,840</td></tr>
+          <tr><td>501</td><td>MERCH</td><td>$412</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="caption">Tenancy on the relationship keeps every club fully isolated today, and it is the only design that leaves a cross-property fan graph possible tomorrow. Whether fans ever get one account across clubs is a product decision, and this model is the one that refuses to foreclose it.</p>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">The Factory</div>
+  <h2>Every client mart comes off the same press.</h2>
+  <p class="lede" style="margin-top:14px">Once a club&rsquo;s sources map into the model, the mart is generated: the same dimensional shapes, the same governed metrics, and only the mapping is client-specific. The dashed box in the Map&rsquo;s floor diagram is this press waiting for its next job.</p>
+  <div class="panel">
+    <div class="split-view">
+      <div class="mart-box">
+        <div style="font-weight:700;color:#425df0;margin-bottom:8px">CLUB_A.FAN_360</div>
+        <table>
+          <tr><th>FAN_KEY</th><th>TENURE</th><th>TICKET_SPEND</th><th>MERCH_ATTACH</th></tr>
+          <tr><td>501</td><td>3 SEASONS</td><td>$1,840</td><td>TRUE</td></tr>
+        </table>
+      </div>
+      <div class="mart-box">
+        <div style="font-weight:700;color:#425df0;margin-bottom:8px">CLUB_B.FAN_360</div>
+        <table>
+          <tr><th>FAN_KEY</th><th>TENURE</th><th>TICKET_SPEND</th><th>MERCH_ATTACH</th></tr>
+          <tr><td>7702</td><td>1 SEASON</td><td>$960</td><td>FALSE</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="caption">Two clubs, one schema, zero redesign. The second mart cost a mapping, and the third will cost less than the second.</p>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">The Metric</div>
+  <h2>Time-to-live-revenue is the product metric.</h2>
+  <p class="lede" style="margin-top:14px">Onboard is measured in the time from contract to the first revenue-bearing transaction on the platform. With the Sounders, the Reign, Atl&eacute;tico Dallas, and Aberdeen stacked for 2027, this engine is the difference between a queue and a production line. Every week cut from onboarding starts the revenue share earlier, and both ledgers feel it.</p>
 </section>
 
 </div>
