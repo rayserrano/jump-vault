@@ -109,3 +109,13 @@ footer .tagline { margin-bottom: 8px; font-style: italic; color: var(--green); }
 .source-box th { width: 40%; }
 
 @media (max-width: 640px) { .wordmark { font-size: 2.2rem; } .udm-grid { grid-template-columns: 1fr; } }
+
+/* Site navigation (added with the Phase 2 scaffold) */
+.sitenav { background: var(--black); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 14px 24px; position: sticky; top: 0; z-index: 10; }
+.nav-home { color: var(--white); font-weight: 800; letter-spacing: -0.02em; text-decoration: none; font-size: 1.05rem; }
+.nav-home .vault { color: var(--green); }
+.nav-links a { color: #b3b3b3; text-decoration: none; font-size: 0.88rem; font-weight: 600; margin-left: 22px; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a.current { color: var(--green); }
+.page-body { min-height: 55vh; }
+@media (max-width: 640px) { .nav-links a { margin-left: 12px; font-size: 0.8rem; } }
