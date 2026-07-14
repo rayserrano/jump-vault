@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="assets/vault.css?v=6">
+<link rel="stylesheet" href="assets/vault.css?v=7">
 </head>
 <body>
 
@@ -56,12 +56,14 @@
       <div class="promise">Raise spend per fan, on every client</div>
       <p>AI agents run on a governed semantic layer and hunt revenue in fan data: the season holder who never bought merch, the merch buyer who never upgraded, the group-buy organizer who should be seeing suite offers. The same agents run bundling analysis across ticket, merch, and concession, and they find segments where engagement outruns monetization.</p>
       <p style="margin-top:10px">The mechanics are one governed metric truth per client mart and agents that query the system of record. Every incremental fan dollar drips a share into Jump&rsquo;s line. The 2026 agent launch proved the pattern once. Yield repeats it on every client.</p>
+      <a class="deeper" href="yield.html">Go deeper: the Yield page &rarr;</a>
     </div>
     <div class="engine">
       <h3>VAULT <span>ONBOARD</span></h3>
       <div class="promise">Turn client acquisition into manufacturing</div>
       <p>Today every new club is a bespoke integration, so onboarding capacity throttles the growth story. The fix is an integration layer on a canonical model. Under that layer, onboarding is a mapping exercise: ticketing, commerce, app, and historical CRM map into one universal model, and the client mart is stamped out on top.</p>
       <p style="margin-top:10px">The product metric is <strong>time-to-live-revenue per client</strong>. With multiple go-lives stacking in 2027, this engine is the difference between a queue and a production line.</p>
+      <a class="deeper" href="onboard.html">Go deeper: the Onboard page &rarr;</a>
     </div>
     <div class="engine bench">
       <h3>VAULT <span>BENCH</span></h3>
@@ -72,115 +74,14 @@
         <li>Sponsorship intelligence: fan data that proves sponsor ROI</li>
         <li>The long-horizon option, governance first: the cross-property fan graph itself</li>
       </ul>
+      <a class="deeper" href="bench.html">Go deeper: the Bench page &rarr;</a>
     </div>
   </div>
 </section>
 <section id="model">
   <div class="kicker">How It Works</div>
   <h2>From incompatible sources to one revenue-grade foundation</h2>
-  <p class="lede" style="margin-top:14px">The same four-step story repeats on every client. All data shown is illustrative.</p>
-
-  <!-- PANEL 1: THE PROBLEM -->
-  <div class="panel">
-    <div class="panel-header">
-      <div class="panel-number">1</div>
-      <div class="panel-title">The Problem: Every club arrives as incompatible systems</div>
-    </div>
-    <p class="panel-subtitle">The same fan carries three identities with zero joins, multiplied by every source and every club</p>
-    <div class="split-view">
-      <div class="source-box">
-        <div class="source-header">Ticketing Export <span class="badge tix">SOURCE A</span></div>
-        <table>
-          <tr><th>ACCT_ID</th><td class="hl">88213</td></tr>
-          <tr><th>NAME</th><td>J. Alvarez</td></tr>
-          <tr><th>EMAIL</th><td>jalvarez@mail.com</td></tr>
-          <tr><th>2026 SPEND</th><td>$1,840</td></tr>
-        </table>
-      </div>
-      <div class="source-box">
-        <div class="source-header">Commerce / Merch <span class="badge merch">SOURCE B</span></div>
-        <table>
-          <tr><th>CUSTOMER_NO</th><td class="hl">C-4471</td></tr>
-          <tr><th>NAME</th><td>Jessica Alvarez</td></tr>
-          <tr><th>EMAIL</th><td>JALVAREZ@MAIL.COM</td></tr>
-          <tr><th>LTV</th><td>$412</td></tr>
-        </table>
-      </div>
-      <div class="source-box">
-        <div class="source-header">Branded App <span class="badge app">SOURCE C</span></div>
-        <table>
-          <tr><th>USER_GUID</th><td class="hl">7f3a-91c2</td></tr>
-          <tr><th>FAV PLAYER</th><td>#23</td></tr>
-          <tr><th>SESSIONS</th><td>41</td></tr>
-        </table>
-      </div>
-    </div>
-    <p class="caption">Per-team identity is the right call for the brand promise, which makes identity resolution <em>underneath</em> the branded surfaces the platform&rsquo;s job rather than the fan&rsquo;s.</p>
-  </div>
-
-  <!-- PANEL 2: THE SOLUTION -->
-  <div class="panel">
-    <div class="panel-header">
-      <div class="panel-number">2</div>
-      <div class="panel-title">The Solution: One canonical model makes onboarding a mapping exercise</div>
-    </div>
-    <p class="panel-subtitle">The Universal Data Model integration layer shows the same fan resolved to one party</p>
-    <div class="udm-grid">
-      <div class="udm-table">
-        <div class="udm-table-name">PARTY</div>
-        <table>
-          <tr><th>PARTY_ID</th><th>TYPE</th></tr>
-          <tr><td class="hl">501</td><td>PERSON</td></tr>
-        </table>
-      </div>
-      <div class="udm-table">
-        <div class="udm-table-name">PARTY_IDENTIFICATION</div>
-        <table>
-          <tr><th>PARTY_ID</th><th>SOURCE</th><th>SOURCE_KEY</th></tr>
-          <tr><td>501</td><td>TICKETING</td><td>88213</td></tr>
-          <tr><td>501</td><td>COMMERCE</td><td>C-4471</td></tr>
-          <tr><td>501</td><td>APP</td><td>7f3a-91c2</td></tr>
-        </table>
-      </div>
-      <div class="udm-table">
-        <div class="udm-table-name">PARTY_RELATIONSHIP</div>
-        <table>
-          <tr><th>PARTY_ID</th><th>REL_TYPE</th><th>CLIENT (TENANT)</th></tr>
-          <tr><td>501</td><td>FAN_OF</td><td class="hl">CLUB_A</td></tr>
-          <tr><td>501</td><td>SEASON_HOLDER</td><td class="hl">CLUB_A</td></tr>
-        </table>
-      </div>
-      <div class="udm-table">
-        <div class="udm-table-name">FAN_TRANSACTION</div>
-        <table>
-          <tr><th>PARTY_ID</th><th>TYPE</th><th>AMOUNT</th></tr>
-          <tr><td>501</td><td>TICKET</td><td>$1,840</td></tr>
-          <tr><td>501</td><td>MERCH</td><td>$412</td></tr>
-        </table>
-      </div>
-    </div>
-    <p class="caption">Tenancy lives on the <em>relationship</em>, not the person. That founding decision keeps every club fully isolated today, and it is the only design that leaves a cross-property fan graph possible tomorrow.</p>
-  </div>
-
-  <!-- PANEL 3: THE SIMPLIFICATION -->
-  <div class="panel">
-    <div class="panel-header">
-      <div class="panel-number">3</div>
-      <div class="panel-title">The Simplification: A governed mart per client, stamped from the same model</div>
-    </div>
-    <p class="panel-subtitle">UDM complexity sits behind one clean, governed dimensional layer per tenant</p>
-    <div class="mart-box">
-      <div style="font-weight:700;color:#425df0;margin-bottom:8px">CLUB_A.FAN_360</div>
-      <table>
-        <tr><th>FAN_KEY</th><th>TENURE</th><th>TICKET_SPEND</th><th>MERCH_SPEND</th><th>MERCH_ATTACH</th><th>UPSELL_SCORE</th></tr>
-        <tr><td>501</td><td>3 SEASONS</td><td>$1,840</td><td>$412</td><td>TRUE</td><td>0.82</td></tr>
-      </table>
-      <div class="sql-box"><span class="sql-k">SELECT</span> COUNT(*) <span class="sql-k">FROM</span> club_a.fan_360<br><span class="sql-k">WHERE</span> plan_type = 'SEASON' <span class="sql-k">AND</span> merch_attach = FALSE;</div>
-      <div class="insight-value">4,212</div>
-      <p class="insight-sub">season holders with zero merch history: a Vault Yield target list generated by an agent inside the system of record</p>
-    </div>
-    <p class="caption">Each client mart carries one metric truth. The governed semantic layer is what makes agents <em>safe</em> at scale; it is the difference between AI reading the data and AI guessing at it.</p>
-  </div>
+  <p class="lede" style="margin-top:14px">Every club arrives as incompatible systems: the same fan carries a ticketing account, a commerce profile, and an app identity with zero joins between them. The integration layer resolves them to one canonical fan, with the club held on the relationship rather than the person. A governed mart is stamped per client from that one model, and the agents hunt inside it: one query on the finished record can produce a target list of thousands. The full mechanism, table by table, lives on the <a href="onboard.html" style="color:#425df0;font-weight:700">Onboard</a> and <a href="yield.html" style="color:#425df0;font-weight:700">Yield</a> pages.</p>
 </section>
 
 <section id="flywheel">

@@ -145,3 +145,6 @@ footer .tagline { margin-bottom: 8px; font-style: italic; color: var(--green); }
 .fort .dedication { color: var(--white); font-size: 1.25rem; font-weight: 600; line-height: 1.65; max-width: 42rem; margin: 0 auto; }
 .fort .dedication span { color: var(--green); white-space: nowrap; }
 .fort .lock { color: var(--muted); font-size: 0.9rem; margin-top: 18px; }
+
+.deeper { display: inline-block; margin-top: 12px; font-weight: 700; font-size: 0.85rem; color: var(--blue-deep); text-decoration: none; }
+.deeper:hover { text-decoration: underline; }
