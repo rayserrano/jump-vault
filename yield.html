@@ -25,9 +25,49 @@
 <div class="container page-body">
 
 <section>
-  <div class="kicker">Yield</div>
-  <h2>This page is being built.</h2>
-  <p class="lede" style="margin-top:14px">The content for this section arrives in the next commits.</p>
+  <div class="kicker">The Yield Engine</div>
+  <h2>Yield raises what every fan spends.</h2>
+  <p class="lede" style="margin-top:14px">The 2026 agents proved the pattern inside the ticketing system of record. Yield is that same intelligence given the whole floor: it runs the hunt across every module, on every client, against one governed metric truth, and it counts only the revenue that would not have arrived on its own. All data on this page is illustrative.</p>
+</section>
+
+<section>
+  <div class="kicker">The Raw Material</div>
+  <h2>The floor hands Yield a finished fan record.</h2>
+  <p class="lede" style="margin-top:14px">Every module writes to the same canonical fan, so the mart row already holds the whole wallet: ticket spend, merch spend, the attach flag, and a score for the next purchase. Nobody assembles a spreadsheet before the hunt begins. The record arrives finished.</p>
+  <div class="panel">
+    <div class="mart-box">
+      <div style="font-weight:700;color:#425df0;margin-bottom:8px">CLUB_A.FAN_360</div>
+      <table>
+        <tr><th>FAN_KEY</th><th>TENURE</th><th>TICKET_SPEND</th><th>MERCH_SPEND</th><th>MERCH_ATTACH</th><th>UPSELL_SCORE</th></tr>
+        <tr><td>501</td><td>3 SEASONS</td><td>$1,840</td><td>$412</td><td>TRUE</td><td>0.82</td></tr>
+      </table>
+    </div>
+    <p class="caption">One governed row per fan, and one metric truth per club. Yield never queries raw sources.</p>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">The Mechanism</div>
+  <h2>One query finds the money.</h2>
+  <div class="panel">
+    <div class="sql-box"><span class="sql-k">SELECT</span> COUNT(*) <span class="sql-k">FROM</span> club_a.fan_360<br><span class="sql-k">WHERE</span> plan_type = 'SEASON' <span class="sql-k">AND</span> merch_attach = FALSE;</div>
+    <div class="insight-value">4,212</div>
+    <p class="insight-sub">season holders with zero merch history: a target list an agent can generate inside the system of record</p>
+  </div>
+  <p class="lede" style="margin-top:18px">The list flows into Fan Journey as a campaign, the offer ships under the club&rsquo;s own brand, and the fans who respond post new transactions back onto the same floor that found them. The loop closes in the data, and that closed loop is what makes the next section possible.</p>
+</section>
+
+<section>
+  <div class="kicker">The Adjudication</div>
+  <h2>The models predict, and the holdout decides.</h2>
+  <p class="lede" style="margin-top:14px">Two models score every candidate. Propensity finds the fans who are likely to buy anyway. Uplift finds the fans who move only if asked. Yield spends its offers on the second group, because the first group was already coming.</p>
+  <p class="lede" style="margin-top:14px">Every campaign backtests against history before it ships. Every campaign keeps a holdout that never sees the offer. The difference between the offered group and the holdout is the lift, and only that lift posts to IFR/C. The number is earned before it is reported.</p>
+</section>
+
+<section>
+  <div class="kicker">The Extension</div>
+  <h2>Every module becomes a signal and a surface.</h2>
+  <p class="lede" style="margin-top:14px">On the floor, the intelligence that hunts in ticketing reads merch, concessions, the app, loyalty, and ingress as one record, and it can act through any of them: a concession credit for the fan who leaves at halftime, a renewal nudge timed to app engagement, a suite offer for the group organizer. Each module contributes signal, each module carries offers, and every measured dollar of lift lands in the same numerator: incremental fan revenue per client.</p>
 </section>
 
 </div>
