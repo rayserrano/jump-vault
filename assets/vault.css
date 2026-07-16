@@ -154,3 +154,9 @@ footer .tagline { margin-bottom: 8px; font-style: italic; color: var(--green); }
 .story-arc { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
 
 .build-stamp { font-size: 0.7rem; color: #cfcfcf; margin-top: 10px; letter-spacing: 0.05em; font-family: 'Courier New', monospace; }
+
+/* Dark phase (full-black beat, e.g. Compounding) */
+section.dark { background: var(--black); border-bottom-color: #333; padding: 44px 22px; border-radius: 14px; margin: 8px 0; }
+section.dark h2 { color: var(--white); }
+section.dark .diagram-wrap { background: var(--black); border-color: #333; }
+section.dark .caption { color: #cfcfcf; border-left-color: var(--green); }
