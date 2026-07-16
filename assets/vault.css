@@ -148,3 +148,5 @@ footer .tagline { margin-bottom: 8px; font-style: italic; color: var(--green); }
 
 .deeper { display: inline-block; margin-top: 12px; font-weight: 700; font-size: 0.85rem; color: var(--blue-deep); text-decoration: none; }
 .deeper:hover { text-decoration: underline; }
+
+.mast-sub2 { font-size: 0.95rem; color: #7a7a7a; margin-top: 4px; font-weight: 500; letter-spacing: 0.02em; }
