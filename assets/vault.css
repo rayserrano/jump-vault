@@ -160,3 +160,12 @@ section.dark { background: var(--black); border-bottom-color: #333; padding: 44p
 section.dark h2 { color: var(--white); }
 section.dark .diagram-wrap { background: var(--black); border-color: #333; }
 section.dark .caption { color: #cfcfcf; border-left-color: var(--green); }
+
+/* Dark section - module cards variant (Map Applications: Jump's existing product) */
+section.dark .module { background: #e8e8e8; border-color: #e8e8e8; }
+section.dark .module h4 { color: #111111; }
+section.dark .module p { color: #444444; }
+section.dark .module.agents { border: 1.5px solid var(--green); }
+section.dark .agents-note { background: #141414; border-color: #333; border-left-color: var(--green); color: #cfcfcf; }
+section.dark .agents-note strong { color: var(--white); }
+
