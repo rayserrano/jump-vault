@@ -233,3 +233,8 @@ section.dark .agents-note strong { color: var(--white); }
 .view-card small { display: block; font-size: 0.85rem; color: #6f6f6f; line-height: 1.4; }
 @media (max-width: 640px) { .views-strip { grid-template-columns: 1fr; } }
 
+
+/* v24: Engineering code exhibits */
+.code-exhibit { background: var(--black-light); border-radius: 8px; padding: 18px 20px; margin-top: 14px; overflow-x: auto; }
+.code-exhibit .file { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+.code-exhibit pre { margin: 0; font-family: 'Courier New', monospace; font-size: 0.82rem; line-height: 1.5; color: var(--medium-grey); white-space: pre; }

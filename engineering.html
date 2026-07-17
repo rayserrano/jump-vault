@@ -7,7 +7,7 @@
 <title>Jump Vault | Engineering</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vault.css?v=23">
+<link rel="stylesheet" href="assets/vault.css?v=24">
 </head>
 <body>
 
@@ -46,9 +46,182 @@
 <section>
   <div class="kicker">The Patterns</div>
   <h2>Working code carries the claims.</h2>
-  <p class="lede" style="margin-top:14px">Everything above is easy to say. This section shows the dbt patterns themselves: a model chain that takes raw ticketing and order data through staging, into the integration layer, and out to a club mart, together with the test suite that guards every step. All examples are original work written for this study, set in Jump&rsquo;s own domain of fans, clubs, tickets, and orders, and every table and number in them is illustrative.</p>
-  <p class="lede" style="margin-top:14px">The tests are the part most portfolios skip. The suite runs in layers, from column checks to reconciliation against source totals, and each layer exists to catch a different kind of failure. A pattern without its tests is only a demo. The tests are what make it safe to run in production.</p>
-  <p class="caption" style="margin-top:14px">Build note: the exemplar model chain and its test suite land here in the next pass.</p>
+  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows three exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Every table, name, and number in them is illustrative. Together they put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan.</p>
+
+  <div class="code-exhibit">
+    <div class="file">models/integration/ticketing/integrator_ticketing_fan_club_relationship.sql</div>
+    <pre>-- Ticketing memberships -> PARTY_RELATIONSHIP.
+-- Links a fan (FAN role) to a club (CLUB role), one row per fan-club edge.
+-- Tenancy lives here, on the relationship, never on the fan: the same
+-- person holding memberships at two clubs produces two edges and stays
+-- one PARTY. Rows are only built where both sides already resolved.
+
+{{
+    config(
+        materialized="merge_into",
+        meta={
+            "target_schema": "INTEGRATION",
+            "target_table": "PARTY_RELATIONSHIP",
+            "unique_key": "PARTY_RELATIONSHIP_ID",
+            "diff_key": "PARTY_RELATIONSHIP_HDIFF",
+            "ts_key": "UPDATED_AT",
+        },
+    )
+}}
+
+WITH source AS (
+    {{
+        current_from_history(
+            history_rel=ref("hist_ticketing_membership"),
+            key_column="membership_hkey"
+        )
+    }}
+),
+
+resolved AS (
+    SELECT
+        fan.party_code  AS fan_party_code,
+        club.party_code AS club_party_code,
+        s.member_since,
+        s.load_ts_utc
+    FROM source s
+    INNER JOIN {{ ref('party_read') }} fan
+        ON fan.party_code = 'TIX|FAN|' || CAST(s.fan_id AS VARCHAR)
+    INNER JOIN {{ ref('person_read') }} per
+        ON per.party_id = fan.party_id
+    INNER JOIN {{ ref('party_read') }} club
+        ON club.party_code = 'TIX|CLUB|' || CAST(s.club_id AS VARCHAR)
+    INNER JOIN {{ ref('organization_read') }} org
+        ON org.party_id = club.party_id
+),
+
+final AS (
+    SELECT
+        {{ dbt_utils.generate_surrogate_key(
+            ["fan_party_code", "'FAN'", "club_party_code", "'CLUB'"]
+        ) }} AS party_relationship_id,
+        {{ dbt_utils.generate_surrogate_key(
+            ["fan_party_code", "'FAN'"]
+        ) }} AS from_party_role_id,
+        {{ dbt_utils.generate_surrogate_key(
+            ["club_party_code", "'CLUB'"]
+        ) }} AS to_party_role_id,
+        member_since AS from_date,
+        CAST(NULL AS DATE) AS thru_date,
+        {{ dbt_utils.generate_surrogate_key(
+            ["fan_party_code", "club_party_code", "member_since"]
+        ) }} AS party_relationship_hdiff,
+        load_ts_utc AS updated_at
+    FROM resolved
+)
+
+SELECT * FROM final</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">The walk from top to bottom. The source reads current membership state from history. Resolution joins each side to the party layer through namespaced source keys, and the subtype joins prove the fan is a person and the club is an organization before any edge is built. The surrogate keys then compose the two party roles, fan on one end and club on the other, into one relationship row. When a second club arrives, nothing about the fan changes. The fan stays one party, and the platform adds an edge.</p>
+
+  <div class="code-exhibit">
+    <div class="file">models/integration/_unit_tests/integrator_ticketing_fan_club_relationship.yml</div>
+    <pre>unit_tests:
+
+  # ============================================================
+  # Logic area: fan-to-club PARTY_RELATIONSHIP
+  # A relationship is the join of two party roles.
+  # Tenancy lives on the edge: one fan, two clubs, two rows.
+  # ============================================================
+
+  # Path 1: fan and club both resolved, one edge built
+  - name: ut_fan_club_edge_created
+    model: integrator_ticketing_fan_club_relationship
+    given:
+      - input: ref('hist_ticketing_membership')
+        rows:
+          - { membership_hkey: 'm1', fan_id: 411, club_id: 77,
+              member_since: '2024-10-01', load_ts_utc: '2026-03-01 00:00:00' }
+      - input: ref('party_read')
+        rows:
+          - { party_id: 'p_jessica', party_code: 'TIX|FAN|411' }
+          - { party_id: 'p_club_77', party_code: 'TIX|CLUB|77' }
+      - input: ref('person_read')
+        rows:
+          - { party_id: 'p_jessica', first_name: 'Jessica' }
+      - input: ref('organization_read')
+        rows:
+          - { party_id: 'p_club_77', organization_name: 'Club Seventy Seven' }
+    expect:
+      rows:
+        - { from_date: '2024-10-01', thru_date: null }
+
+  # Path 2: club not yet integrated, no edge and no orphan
+  - name: ut_no_club_no_edge
+    model: integrator_ticketing_fan_club_relationship
+    given:
+      - input: ref('hist_ticketing_membership')
+        rows:
+          - { membership_hkey: 'm1', fan_id: 411, club_id: 99,
+              member_since: '2024-10-01', load_ts_utc: '2026-03-01 00:00:00' }
+      - input: ref('party_read')
+        rows:
+          - { party_id: 'p_jessica', party_code: 'TIX|FAN|411' }
+      - input: ref('person_read')
+        rows:
+          - { party_id: 'p_jessica', first_name: 'Jessica' }
+      - input: ref('organization_read')
+        rows: []
+    expect:
+      rows: []
+
+  # Path 3: one fan, two clubs. Two edges, still one person.
+  - name: ut_one_fan_two_clubs_two_edges
+    model: integrator_ticketing_fan_club_relationship
+    given:
+      - input: ref('hist_ticketing_membership')
+        rows:
+          - { membership_hkey: 'm1', fan_id: 411, club_id: 77,
+              member_since: '2024-10-01', load_ts_utc: '2026-03-01 00:00:00' }
+          - { membership_hkey: 'm2', fan_id: 411, club_id: 88,
+              member_since: '2025-02-14', load_ts_utc: '2026-03-01 00:00:00' }
+      - input: ref('party_read')
+        rows:
+          - { party_id: 'p_jessica', party_code: 'TIX|FAN|411' }
+          - { party_id: 'p_club_77', party_code: 'TIX|CLUB|77' }
+          - { party_id: 'p_club_88', party_code: 'TIX|CLUB|88' }
+      - input: ref('person_read')
+        rows:
+          - { party_id: 'p_jessica', first_name: 'Jessica' }
+      - input: ref('organization_read')
+        rows:
+          - { party_id: 'p_club_77', organization_name: 'Club Seventy Seven' }
+          - { party_id: 'p_club_88', organization_name: 'Club Eighty Eight' }
+    expect:
+      rows:
+        - { from_date: '2024-10-01', thru_date: null }
+        - { from_date: '2025-02-14', thru_date: null }</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">The test file mirrors production discipline: one logic area, named paths, mocked inputs, explicit expectations. Path one proves the edge is built when both sides resolve. Path two proves a missing club produces no orphan. Path three is the one that matters: one fan, memberships at two clubs, and the expectation is two relationship rows and still one person. Here the founding decision has an enforcer. If tenancy ever drifts onto the fan, this test fails and the build stops.</p>
+
+  <p class="lede" style="margin-top:14px">The third exhibit is where dbt gets extended rather than only used. dbt ships tables, views, and incremental models. A platform with one canonical relationship table and many sources writing into it earns its own materialization, and every writer declares the same contract:</p>
+
+  <div class="code-exhibit">
+    <div class="file">models/integration/merch/integrator_merch_customer_club_relationship.sql</div>
+    <pre>-- A second source, the merch store, writing to the same canonical table.
+-- Different source keys, identical contract, identical guarantees.
+
+{{
+    config(
+        materialized="merge_into",
+        meta={
+            "target_schema": "INTEGRATION",
+            "target_table": "PARTY_RELATIONSHIP",
+            "unique_key": "PARTY_RELATIONSHIP_ID",
+            "diff_key": "PARTY_RELATIONSHIP_HDIFF",
+            "ts_key": "UPDATED_AT",
+        },
+    )
+}}</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">The materialization behind that contract makes three guarantees. Each run merges on the unique key, so writers are idempotent and reruns are safe. The hash diff means unchanged rows are never rewritten, which keeps warehouse cost proportional to real change. The timestamp key means late-arriving data can never regress newer state. Ticketing, merch, and every source after them inherit all three by declaring the same few lines, and that is how one table stays canonical while the source count grows.</p>
+
+  <p class="lede" style="margin-top:14px">Four more patterns run underneath these exhibits and get named rather than shown. Every source lands as history and models read current state from it, which buys replay and audit. Ephemeral read markers declare dependencies on shared tables, so build order is enforced and unit tests can mock cleanly. A verification layer reconciles each build against a captured baseline before the build counts. And a normalization macro family standardizes messy source values in one governed place. Each is a pattern the team inherits, and the guides below teach them.</p>
 </section>
 
 <section>
