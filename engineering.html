@@ -47,7 +47,7 @@
 <section>
   <div class="kicker">The Patterns</div>
   <h2>Working code carries the claims.</h2>
-  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows four exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Every table, name, and number in them is illustrative. The first three put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan. The fourth shows what building a loader looks like when no connector exists.</p>
+  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows five exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Every table, name, and number in them is illustrative. The first three put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan. The fourth shows what building a loader looks like when no connector exists, and the fifth shows the storage pattern both loading paths land in.</p>
 
   <div class="code-exhibit">
     <div class="file">models/integration/ticketing/integrator_ticketing_fan_club_relationship.sql</div>
@@ -261,7 +261,70 @@ COMMIT;
   </div>
   <p class="lede" style="margin-top:14px">When Fivetran covers a source, the platform buys the connector. When nothing does, this is what building looks like: the loader&rsquo;s whole infrastructure is code in the same repository, file selection is a date-windowed pattern, and every landed row knows exactly where it came from. The two paths converge at landing, and everything downstream treats them identically.</p>
 
-  <p class="lede" style="margin-top:14px">Four more patterns run underneath these exhibits and get named rather than shown. Every source lands as history and models read current state from it, which buys replay and audit. Ephemeral read markers declare dependencies on shared tables, so build order is enforced and unit tests can mock cleanly. A verification layer reconciles each build against a captured baseline before the build counts. And a normalization macro family standardizes messy source values in one governed place. Each is a pattern the team inherits, and the guides below teach them.</p>
+  <div class="code-exhibit">
+    <div class="file">macros/storage/save_history.sql + current_from_history.sql (the storage pair)</div>
+    <pre>-- Every source lands as insert-only history. Nothing a
+-- source ever said is updated or deleted; new versions are
+-- appended, and the anti-join below means history grows
+-- only by real change. Current state is not a table anyone
+-- maintains. It is one window function over history.
+-- Production adds filter and high-watermark options; the
+-- shape is what matters.
+
+{% macro save_history(
+    input_rel, key_column, diff_column,
+    load_ts_column="LOAD_TS_UTC"
+) -%}
+
+    {{ config(materialized="incremental") }}
+
+    with
+
+        {%- if is_incremental() %}
+            current_from_history as (
+                {{ current_from_history(
+                    history_rel=this,
+                    key_column=key_column,
+                    selection_expr=diff_column
+                ) }}
+            ),
+
+            load_from_input as (
+                select i.*
+                from {{ input_rel }} as i
+                left outer join current_from_history as h
+                    on h.{{ diff_column }} = i.{{ diff_column }}
+                where h.{{ diff_column }} is null
+            )
+
+        {%- else %}
+            load_from_input as (
+                select * from {{ input_rel }}
+            )
+        {%- endif %}
+
+    select * from load_from_input
+
+{%- endmacro %}
+
+{% macro current_from_history(
+    history_rel, key_column,
+    selection_expr="*", load_ts_column="LOAD_TS_UTC"
+) -%}
+
+    select {{ selection_expr }}
+    from {{ history_rel }}
+    qualify
+        row_number() over (
+            partition by {{ key_column }}
+            order by {{ load_ts_column }} desc
+        ) = 1
+
+{%- endmacro %}</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">The pair closes a loop the first exhibit opened: the relationship integrator&rsquo;s source CTE called current_from_history, and this is what it called. save_history is self-referential, asking its own history what it already knows and inserting only versions whose hash diff is new. The guarantees fall out of the shape. Replay is possible because nothing is ever lost. Audit is possible because every version a source sent is still there. And current state cannot drift from history because it is derived from it, one window function, with no update logic to get wrong.</p>
+
+  <p class="lede" style="margin-top:14px">Three more patterns run underneath these exhibits and get named rather than shown. Ephemeral read markers declare dependencies on shared tables, so build order is enforced and unit tests can mock cleanly. A verification layer reconciles each build against a captured baseline before the build counts. And a normalization macro family standardizes messy source values in one governed place. Each is a pattern the team inherits, and the guides below teach them.</p>
 </section>
 
 <section>
