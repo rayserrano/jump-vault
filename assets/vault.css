@@ -224,3 +224,12 @@ section.dark .agents-note strong { color: var(--white); }
 .cake-pop li b { color: #ab0033; }
 .cake-pop .close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 1.6rem; line-height: 1; color: #8a8a8a; cursor: pointer; }
 
+
+/* Three Views orienting strip */
+.views-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+.view-card { border: 1px solid #d4d4d4; border-radius: 10px; padding: 18px 20px; background: #ffffff; }
+.view-card .vn { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; }
+.view-card b { display: block; font-size: 1.05rem; color: #1f1f1f; font-weight: 700; margin: 4px 0 6px; letter-spacing: -0.01em; }
+.view-card small { display: block; font-size: 0.85rem; color: #6f6f6f; line-height: 1.4; }
+@media (max-width: 640px) { .views-strip { grid-template-columns: 1fr; } }
+

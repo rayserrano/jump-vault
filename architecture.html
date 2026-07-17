@@ -7,7 +7,7 @@
 <title>Jump Vault | Architecture</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vault.css?v=22">
+<link rel="stylesheet" href="assets/vault.css?v=23">
 </head>
 <body>
 
@@ -31,9 +31,20 @@
 </section>
 
 
+<section>
+  <div class="kicker">The Platform, Three Views</div>
+  <h2>One platform, read three ways.</h2>
+  <p class="lede" style="margin-top:14px">An architecture is never one picture. This one is read from three angles: the layers it is built from, the decisions it exists to serve, and the speed at which it moves. Each view answers a different question, and together they are the whole platform.</p>
+  <div class="views-strip">
+    <div class="view-card"><span class="vn">View 1</span><b>The Stack</b><small>The anatomy. Every layer, sources to consumers, and what happens inside each one.</small></div>
+    <div class="view-card"><span class="vn">View 2</span><b>The Decisions</b><small>How value comes out. Who reads the governed truth, through which tool, to answer which question.</small></div>
+    <div class="view-card"><span class="vn">View 3</span><b>The Speed</b><small>Two temperatures. The analytical plane in hours, the operational plane in minutes.</small></div>
+  </div>
+</section>
+
 <section id="layercake">
-  <div class="kicker">The Layer Cake</div>
-  <h2>A data platform is layers. Here are Jump&rsquo;s, and what each one does.</h2>
+  <div class="kicker">View 1 &middot; The Stack</div>
+  <h2>The Layer Cake: a data platform is layers, and here are Jump&rsquo;s.</h2>
   <p class="lede" style="margin-top:14px">The Map shows the platform at a glance. This goes a level deeper: the layers themselves, sources narrowing to one governed integration layer and fanning back out to the tools that consume it. Tap any layer to see what happens inside it.</p>
 
   <div class="cake">
@@ -52,6 +63,62 @@
     <div class="cake-row"><span class="cake-n">7</span><button class="cake-layer half" data-k="analysts"><b>Analysts &amp; Execs</b><small>ad-hoc questions, strategic KPIs</small></button><button class="cake-layer half" data-k="agents"><b>Agentic Layer</b><small>the four agents, autonomous action</small></button></div>
   </div>
 </section>
+<section id="view-decisions">
+  <div class="kicker">View 2 &middot; The Decisions</div>
+  <h2>How value comes out: one governed truth, every path ending in a decision.</h2>
+  <p class="lede" style="margin-top:14px">The stack exists to be consumed. This view fans the top of it out: every consumer reaches the same governed source, through the tool that fits them, and each path ends not in a dashboard but in a decision. The one split that matters is whether the metric is defined once and governed, or improvised per team.</p>
+  <div class="diagram-wrap" data-zoom style="margin-top:22px">
+    <svg viewBox="0 0 760 430" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Consumer fan-out: governed marts through an access layer and tools to four consumers, each ending in a decision">
+      <defs><marker id="dv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8a8a8a"/></marker></defs>
+      <!-- source -->
+      <text x="24" y="42" font-family="Inter, Arial" font-size="10" font-weight="700" fill="#8a8a8a">SOURCE</text>
+      <rect x="150" y="24" width="460" height="42" rx="8" fill="#1f1f1f"/>
+      <text x="380" y="42" text-anchor="middle" font-family="Inter, Arial" font-size="11" font-weight="700" fill="#ccff00">CLUB MARTS</text>
+      <text x="380" y="57" text-anchor="middle" font-family="Inter, Arial" font-size="9" fill="#ffffff">governed, stamped from the integration layer</text>
+      <line x1="380" y1="66" x2="380" y2="86" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#dv)"/>
+      <!-- access layer: tribal vs canonical -->
+      <text x="24" y="112" font-family="Inter, Arial" font-size="10" font-weight="700" fill="#8a8a8a">ACCESS</text>
+      <rect x="150" y="88" width="220" height="48" rx="8" fill="#faf3f4" stroke="#ab0033" stroke-width="1.3"/>
+      <text x="260" y="107" text-anchor="middle" font-family="Inter, Arial" font-size="10.5" font-weight="700" fill="#1f1f1f">SELF-SERVE</text>
+      <text x="260" y="124" text-anchor="middle" font-family="Inter, Arial" font-size="9" fill="#ab0033">metrics defined per team &mdash; they drift</text>
+      <rect x="390" y="88" width="220" height="48" rx="8" fill="#f2f7f2" stroke="#79bc43" stroke-width="1.3"/>
+      <text x="500" y="107" text-anchor="middle" font-family="Inter, Arial" font-size="10.5" font-weight="700" fill="#1f1f1f">SEMANTIC LAYER</text>
+      <text x="500" y="124" text-anchor="middle" font-family="Inter, Arial" font-size="9" fill="#3d3d3d">one definition, governed &mdash; they agree</text>
+      <line x1="380" y1="136" x2="380" y2="156" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#dv)"/>
+      <!-- consumers -->
+      <text x="24" y="196" font-family="Inter, Arial" font-size="10" font-weight="700" fill="#8a8a8a">WHO</text>
+      <g font-family="Inter, Arial" text-anchor="middle">
+        <rect x="150" y="166" width="105" height="52" rx="8" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/>
+        <text x="202" y="186" font-size="10" font-weight="700" fill="#1f1f1f">EXECS</text>
+        <text x="202" y="202" font-size="8" fill="#6f6f6f">strategic KPIs</text>
+        <rect x="268" y="166" width="105" height="52" rx="8" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/>
+        <text x="320" y="186" font-size="10" font-weight="700" fill="#1f1f1f">DEPT HEADS</text>
+        <text x="320" y="202" font-size="8" fill="#6f6f6f">operations</text>
+        <rect x="386" y="166" width="105" height="52" rx="8" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/>
+        <text x="438" y="186" font-size="10" font-weight="700" fill="#1f1f1f">ANALYSTS</text>
+        <text x="438" y="202" font-size="8" fill="#6f6f6f">ad-hoc</text>
+        <rect x="504" y="166" width="106" height="52" rx="8" fill="#000000"/>
+        <text x="557" y="186" font-size="10" font-weight="700" fill="#ccff00">THE 4 AGENTS</text>
+        <text x="557" y="202" font-size="8" fill="#e6e6e6">autonomous</text>
+      </g>
+      <!-- decision table -->
+      <text x="24" y="250" font-family="Inter, Arial" font-size="10" font-weight="700" fill="#8a8a8a">ENDS IN</text>
+      <line x1="150" y1="238" x2="610" y2="238" stroke="#e0e0e0" stroke-width="1"/>
+      <g font-family="Inter, Arial" font-size="9" font-weight="700" fill="#8a8a8a">
+        <text x="160" y="264">CONSUMER</text><text x="330" y="264">PATH</text><text x="470" y="264">TOOL</text><text x="560" y="264">THE DECISION</text>
+      </g>
+      <g font-family="Inter, Arial" font-size="10">
+        <text x="160" y="290" fill="#1f1f1f">Execs</text><text x="330" y="290" fill="#79bc43">governed</text><text x="470" y="290" fill="#3d3d3d">BI</text><text x="560" y="290" fill="#1f1f1f" font-weight="700">&#8220;Where do we invest?&#8221;</text>
+        <text x="160" y="314" fill="#1f1f1f">Dept Heads</text><text x="330" y="314" fill="#79bc43">governed</text><text x="470" y="314" fill="#3d3d3d">BI</text><text x="560" y="314" fill="#1f1f1f" font-weight="700">&#8220;What needs attention?&#8221;</text>
+        <text x="160" y="338" fill="#1f1f1f">Analysts</text><text x="330" y="338" fill="#79bc43">governed</text><text x="470" y="338" fill="#3d3d3d">SQL / BI</text><text x="560" y="338" fill="#1f1f1f" font-weight="700">&#8220;Why did renewals dip?&#8221;</text>
+        <text x="160" y="362" fill="#1f1f1f">Agents</text><text x="330" y="362" fill="#79bc43">governed</text><text x="470" y="362" fill="#3d3d3d">MCP</text><text x="560" y="362" fill="#1f1f1f" font-weight="700">&#8220;Reprice these 400 seats.&#8221;</text>
+      </g>
+      <text x="380" y="404" text-anchor="middle" font-family="Inter, Arial" font-size="12.5" font-weight="700" fill="#1f1f1f">Same governed truth underneath every answer &mdash; so the numbers reconcile no matter who asks.</text>
+    </svg>
+  </div>
+  <p class="lede" style="margin-top:14px">The distinction that carries this view is governance. Self-serve tools let each team define its own metrics, and those definitions drift until two dashboards disagree. The semantic layer defines each metric once and serves it everywhere, so an executive, an analyst, and an agent are all standing on the same number. Every consumer ends in a decision rather than a report, and because the ground under them is one governed truth, the decisions are consistent by construction.</p>
+</section>
+
 
 <section>
   <div class="kicker">Rung 1 &middot; The Foundation</div>
