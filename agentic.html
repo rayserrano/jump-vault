@@ -105,9 +105,9 @@
   <div class="kicker">The Horizon</div>
   <h2>Everything on this page still waits to be asked.</h2>
   <p class="lede" style="margin-top:14px">There are three eras of intelligence on data. The first is agents you invoke: ask, think, answer, sleep. Everything above lives there, and it is real and it is good. The second is intelligence you compile: the models, the rules, and the metric libraries this site has been assembling page by page. The third is cognition that streams: a continuous process standing on the business event stream, aware of every fan transaction as it happens, watching everything cheaply and thinking only when something deserves it. Today agents visit the data. The horizon is an intelligence that lives on it.</p>
-  <p class="lede" style="margin-top:14px">The industry already ships this pattern. Confluent sells it as Streaming Agents: event-driven agents built and orchestrated natively on Flink, embedded in the stream itself, in open preview since 2025 and production-grade in the current platform. The shape is standard: the event backbone carries what happens, stateful stream processing holds each club&rsquo;s context as keyed state, a salience gate decides what deserves thought, the language model is invoked only at that gate, and every output compiles back into the governed layer as rules, features, and materializations. The economics are the physiology: watching is stream-processing cheap, and tokens are spent only where thinking happens.</p>
+  <p class="lede" style="margin-top:14px">The industry already ships this pattern. Confluent sells it as Streaming Agents: event-driven agents built and orchestrated natively on Flink, embedded in the stream itself, in open preview since 2025 and production-grade in the current platform. Most of the shape is standard, and Confluent ships it: the event backbone carries what happens, stateful stream processing holds each club&rsquo;s context as keyed state, the model is invoked only when the gate opens, and every output compiles back into the governed layer as rules, features, and materializations. The gate itself is the exception. Confluent ships the primitives a gate is built from, anomaly detection and forecasting, but not the judgment of what deserves a thought. A threshold fires on every anomaly and over-invokes the model; a scored salience function, weighing recency, state, cost, and relevance into one decision, is what makes thinking genuinely rare. That scoring is the open problem this study actively researches, and it is the one box on this diagram that is a frontier rather than a product. The economics are the physiology: watching is stream-processing cheap, and tokens are spent only where thinking happens.</p>
 <div class="diagram-wrap" data-zoom style="margin-top:22px">
-  <svg viewBox="0 0 760 474" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The horizon architecture, top to bottom: an event backbone carries every fan transaction; stateful stream processing holds each club's context as keyed state; a salience gate decides what deserves thought; the language model is invoked only at that gate; and outputs compile back into the governed layer as rules, features, and materializations. Watching is cheap, thinking is rare.">
+  <svg viewBox="0 0 760 490" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The horizon architecture, top to bottom: an event backbone carries every fan transaction; stateful stream processing holds each club's context as keyed state; a salience gate decides what deserves thought, and scoring that salience is the study&rsquo;s own research problem rather than a shipped Confluent primitive; the language model is invoked only at that gate; and outputs compile back into the governed layer as rules, features, and materializations. Watching is cheap, thinking is rare.">
     <defs><marker id="hz" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8a8a8a"/></marker></defs>
 
     <!-- 1: event backbone (reserved streaming color) -->
@@ -122,31 +122,35 @@
     <text x="380" y="137" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">each club&rsquo;s context held as keyed state &middot; isolated by construction</text>
     <line x1="380" y1="152" x2="380" y2="176" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#hz)"/>
 
-    <!-- 3: salience gate -->
-    <rect x="150" y="178" width="460" height="58" rx="8" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.2"/>
-    <text x="380" y="202" text-anchor="middle" font-family="Inter, Arial" font-size="14" font-weight="700" fill="#1f1f1f">SALIENCE GATE</text>
-    <text x="380" y="221" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">decides what deserves thought &middot; almost everything passes through unthought</text>
-    <line x1="380" y1="236" x2="380" y2="260" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#hz)"/>
-    <text x="628" y="211" font-family="Inter, Arial" font-size="12" fill="#8a8a8a">watching: cheap</text>
+    <!-- 3: salience gate - OUR RESEARCH (lime dashed frame) -->
+    <rect x="150" y="178" width="460" height="76" rx="8" fill="#ffffff" stroke="#ccff00" stroke-width="2"/>
+    <rect x="150" y="178" width="460" height="76" rx="8" fill="none" stroke="#1f1f1f" stroke-width="1" stroke-dasharray="3 3"/>
+    <rect x="164" y="169" width="104" height="18" rx="4" fill="#1f1f1f"/>
+    <text x="216" y="182" text-anchor="middle" font-family="Inter, Arial" font-size="11" font-weight="700" fill="#ccff00" letter-spacing="0.5">OUR RESEARCH</text>
+    <text x="380" y="208" text-anchor="middle" font-family="Inter, Arial" font-size="14" font-weight="700" fill="#1f1f1f">SALIENCE GATE</text>
+    <text x="380" y="226" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">anomaly and forecast primitives ship in the box</text>
+    <text x="380" y="242" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#1f1f1f">scored salience, what deserves thought, is the open problem we research</text>
+    <line x1="380" y1="254" x2="380" y2="278" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#hz)"/>
+    <text x="628" y="220" font-family="Inter, Arial" font-size="12" fill="#8a8a8a">watching: cheap</text>
 
     <!-- 4: selective thought -->
-    <rect x="230" y="262" width="300" height="58" rx="8" fill="#1f1f1f"/>
-    <text x="380" y="286" text-anchor="middle" font-family="Inter, Arial" font-size="14" font-weight="700" fill="#ccff00">SELECTIVE THOUGHT</text>
-    <text x="380" y="305" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#cccccc">the model invoked only at the gate</text>
-    <line x1="380" y1="320" x2="380" y2="344" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#hz)"/>
-    <text x="548" y="295" font-family="Inter, Arial" font-size="12" fill="#8a8a8a">thinking: rare</text>
+    <rect x="230" y="280" width="300" height="58" rx="8" fill="#1f1f1f"/>
+    <text x="380" y="304" text-anchor="middle" font-family="Inter, Arial" font-size="14" font-weight="700" fill="#ccff00">SELECTIVE THOUGHT</text>
+    <text x="380" y="323" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#cccccc">the model invoked only at the gate</text>
+    <line x1="380" y1="338" x2="380" y2="362" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#hz)"/>
+    <text x="548" y="313" font-family="Inter, Arial" font-size="12" fill="#8a8a8a">thinking: rare</text>
 
     <!-- 5: compiled outputs, back to the governed layer -->
-    <rect x="150" y="346" width="460" height="58" rx="8" fill="#1f1f1f"/>
-    <text x="380" y="370" text-anchor="middle" font-family="Inter, Arial" font-size="14" font-weight="700" fill="#ffffff">COMPILED BACK TO THE GOVERNED LAYER</text>
-    <text x="380" y="389" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#cccccc">as rules, features, and materializations</text>
+    <rect x="150" y="364" width="460" height="58" rx="8" fill="#1f1f1f"/>
+    <text x="380" y="388" text-anchor="middle" font-family="Inter, Arial" font-size="14" font-weight="700" fill="#ffffff">COMPILED BACK TO THE GOVERNED LAYER</text>
+    <text x="380" y="407" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#cccccc">as rules, features, and materializations</text>
 
     <!-- return path: outputs feed the backbone again -->
-    <path d="M 150 375 C 60 375 60 42 146 42" fill="none" stroke="#8a8a8a" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#hz)"/>
-    <text x="66" y="212" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#8a8a8a" transform="rotate(-90 66 212)">what it learns rejoins the stream</text>
+    <path d="M 150 393 C 60 393 60 42 146 42" fill="none" stroke="#8a8a8a" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#hz)"/>
+    <text x="66" y="220" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#8a8a8a" transform="rotate(-90 66 220)">what it learns rejoins the stream</text>
 
-    <text x="380" y="440" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">The same shape Confluent ships as Streaming Agents: an intelligence that</text>
-    <text x="380" y="457" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">lives on the event stream, watching cheaply and thinking only when it must.</text>
+    <text x="380" y="456" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">The same shape Confluent ships as Streaming Agents: an intelligence that</text>
+    <text x="380" y="473" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">lives on the event stream, watching cheaply and thinking only when it must.</text>
   </svg>
 </div>
   <p class="lede" style="margin-top:14px">Two properties of this platform carry over intact. Keyed state gives every club its own partition, isolated by construction, the streaming twin of the mart boundary. And the agent on the stream reads the same governed definitions as the agent in the conversation, so the third era inherits the semantic layer rather than escaping it. The pages before this one are the prerequisites of that future. The author of this study has designed and operated event-driven agent systems on this exact stack.</p>
