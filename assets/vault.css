@@ -238,3 +238,8 @@ section.dark .agents-note strong { color: var(--white); }
 .code-exhibit { background: var(--black-light); border-radius: 8px; padding: 18px 20px; margin-top: 14px; overflow-x: auto; }
 .code-exhibit .file { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
 .code-exhibit pre { margin: 0; font-family: 'Courier New', monospace; font-size: 0.82rem; line-height: 1.5; color: var(--medium-grey); white-space: pre; }
+
+/* v25: diagram popup hotspots */
+.dg { cursor: pointer; }
+.dg:hover { opacity: 0.82; }
+.dg:focus { outline: 2px solid #ccff00; outline-offset: 2px; }
