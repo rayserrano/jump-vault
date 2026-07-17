@@ -156,7 +156,8 @@ footer .tagline { margin-bottom: 8px; font-style: italic; color: var(--green); }
 .build-stamp { font-size: 0.7rem; color: #cfcfcf; margin-top: 10px; letter-spacing: 0.05em; font-family: 'Courier New', monospace; }
 
 /* Dark phase (full-black beat, e.g. Compounding) */
-section.dark { background: var(--black); border-bottom-color: #333; padding: 44px 22px; border-radius: 14px; margin: 8px 0; }
+section.dark { background: var(--black); border-bottom-color: #333; padding: 44px 46px; border-radius: 0; margin: 8px -24px; }
+@media (max-width: 640px) { section.dark { padding: 44px 24px; } }
 section.dark h2 { color: var(--white); }
 section.dark .diagram-wrap { background: var(--black); border-color: #333; }
 section.dark .caption { color: #cfcfcf; border-left-color: var(--green); }
@@ -251,6 +252,3 @@ section.dark .agents-note strong { color: var(--white); }
 section.dark .lede { color: #d4d4d4; }
 section.dark .crimson-emph { color: #ff5c7a; }
 
-/* v29: square-cornered full-container dark band (Agentic preview; promote to section.dark if approved) */
-section.dark.band { border-radius: 0; margin-left: -24px; margin-right: -24px; padding-left: 46px; padding-right: 46px; }
-@media (max-width: 640px) { section.dark.band { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; } }
