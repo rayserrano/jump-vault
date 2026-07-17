@@ -198,3 +198,29 @@ section.dark .agents-note strong { color: var(--white); }
 .framing { max-width: 46rem; margin: 16px auto 0; padding: 12px 18px; border-left: 3px solid #ab0033; background: #faf3f4; border-radius: 0 8px 8px 0; font-size: 0.95rem; color: #3d3d3d; }
 .framing strong { color: #ab0033; }
 
+
+/* The Layer Cake (interactive architecture diagram) */
+.cake { max-width: 720px; margin: 26px auto 0; }
+.cake-row { display: flex; gap: 12px; align-items: stretch; position: relative; }
+.cake-n { position: absolute; left: -26px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: #8a8a8a; font-weight: 700; }
+.cake-layer { flex: 1; text-align: left; padding: 16px 20px; border-radius: 10px; border: 1px solid #d4d4d4; background: #ffffff; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.12s ease; font-family: inherit; }
+.cake-layer:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+.cake-layer b { display: block; font-size: 0.98rem; color: #1f1f1f; font-weight: 700; }
+.cake-layer small { display: block; margin-top: 3px; font-size: 0.82rem; color: #6f6f6f; }
+.cake-layer.half { flex: 1; }
+.cake-layer.hero { background: #000000; border-color: #000000; }
+.cake-layer.hero b { color: #ccff00; }
+.cake-layer.hero small { color: #e6e6e6; }
+.cake-arrow { text-align: center; color: #b4b4b4; font-size: 1rem; margin: 6px 0; }
+.cake-pop-overlay { position: fixed; inset: 0; background: rgba(15,15,15,0.55); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; }
+.cake-pop-overlay.is-open { display: flex; }
+.cake-pop { background: #ffffff; border-radius: 14px; max-width: 460px; width: 100%; padding: 28px 30px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.cake-pop h3 { font-size: 1.3rem; font-weight: 700; color: #1f1f1f; margin: 0; letter-spacing: -0.02em; }
+.cake-pop .sub { font-size: 0.9rem; color: #6f6f6f; margin: 4px 0 16px; }
+.cake-pop p { font-size: 0.95rem; color: #3d3d3d; line-height: 1.5; margin: 0 0 12px; }
+.cake-pop .lead { font-weight: 700; color: #1f1f1f; }
+.cake-pop ul { margin: 0 0 12px; padding-left: 18px; }
+.cake-pop li { font-size: 0.92rem; color: #3d3d3d; margin-bottom: 6px; }
+.cake-pop li b { color: #ab0033; }
+.cake-pop .close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 1.6rem; line-height: 1; color: #8a8a8a; cursor: pointer; }
+
