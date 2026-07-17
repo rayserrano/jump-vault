@@ -246,3 +246,7 @@ section.dark .agents-note strong { color: var(--white); }
 
 /* v26: reusable crimson emphasis - the site's established 'this is the charged thing' ink (cf. Summon your instinct). One apex sentence per page, max. */
 .crimson-emph { color: #ab0033; font-weight: 700; }
+
+/* v28: dark-panel body text + apex emphasis on black */
+section.dark .lede { color: #d4d4d4; }
+section.dark .crimson-emph { color: #ff5c7a; }
