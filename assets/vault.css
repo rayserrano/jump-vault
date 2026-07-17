@@ -244,5 +244,5 @@ section.dark .agents-note strong { color: var(--white); }
 .dg:hover { opacity: 0.82; }
 .dg:focus { outline: 2px solid #ccff00; outline-offset: 2px; }
 
-/* v26: reusable lime emphasis underline - for the single apex sentence on a page */
-.lime-underline { background-image: linear-gradient(transparent 60%, rgba(204,255,0,0.55) 60%); padding: 0 1px; }
+/* v26: reusable crimson emphasis - the site's established 'this is the charged thing' ink (cf. Summon your instinct). One apex sentence per page, max. */
+.crimson-emph { color: #ab0033; font-weight: 700; }
