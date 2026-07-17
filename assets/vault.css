@@ -186,3 +186,10 @@ section.dark .agents-note strong { color: var(--white); }
 .lb-hint { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; color: #cfcfcf; font-size: 0.8rem; letter-spacing: 0.05em; }
 @media (max-width: 480px) { .lb-overlay { padding: 10px; } .lb-stage, .lb-stage svg { max-height: 82vh; } }
 
+
+/* Breakeven chart: fill container height so lines get vertical room; taller on mobile */
+.chart-wrap { position: relative; height: 340px; }
+.chart-wrap canvas { width: 100% !important; height: 100% !important; }
+@media (max-width: 760px) { .chart-wrap { height: 420px; padding: 16px; } }
+@media (max-width: 480px) { .chart-wrap { height: 460px; padding: 12px; } }
+
