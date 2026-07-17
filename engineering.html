@@ -38,15 +38,16 @@
   <p class="lede" style="margin-top:14px">Snowflake holds every layer the Stack view drew, from landed source data to the club marts. It also enforces the ownership promise: each club&rsquo;s mart is a separate space with its own access controls, so ownership is something the warehouse guarantees rather than something a diagram claims. The cost is shared compute that needs governing, and the platform budgets for that from the first day.</p>
   <p class="lede" style="margin-top:14px">dbt is where the Universal Data Model integration layer gets built, tested, and versioned. Every transformation is code in one repository, reviewed before it merges and repeatable after, which is what turns onboarding a new club from custom work into a pattern the team stamps again.</p>
   <p class="lede" style="margin-top:14px">The dbt Semantic Layer enforces what the Decisions view promised. A metric is defined once, in code, and every consumer receives that same definition at query time. Self-serve stops drifting because there is nothing local left to drift.</p>
-  <p class="lede" style="margin-top:14px">Agents and language models reach the platform through the Model Context Protocol, the open standard that connects them to the dbt Semantic Layer. The intelligence layer asks the same governed definitions a dashboard uses, so an agent&rsquo;s answer and an analyst&rsquo;s answer agree by construction.</p>
-  <p class="lede" style="margin-top:14px">Ingestion follows one buying rule: use an off-the-shelf connector where a good one exists, build only where the source demands it, and hold both to the same tests and monitoring. The integration library then grows as a set of operable patterns rather than a pile of one-off jobs.</p>
+  <p class="lede" style="margin-top:14px">Agents and language models reach the platform through the Model Context Protocol, the open standard that connects them to the dbt Semantic Layer. The intelligence layer asks the same governed definitions a dashboard uses, so an agent&rsquo;s answer and an analyst&rsquo;s answer agree by construction. And the stack is moving the same direction: dbt&rsquo;s first launches after its June 2026 merger with Fivetran included Agents Schema, an open standard that publishes metric definitions, semantic models, and lineage into a governed schema in the warehouse as shared context for agents. Betting on governed agent access is betting with the stack&rsquo;s own roadmap.</p>
+  <p class="lede" style="margin-top:14px">Ingestion follows one buying rule: use an off-the-shelf connector where a good one exists, build only where the source demands it, and hold both to the same tests and monitoring. The default is Fivetran, for the depth of its managed connector library, and because it is now one company with dbt, which puts the platform&rsquo;s loading and transformation layers on a single roadmap.</p>
+  <p class="lede" style="margin-top:14px">Sports produces sources no catalog covers: a club&rsquo;s legacy system, a league feed that arrives as files, a venue system that speaks only SFTP. Those get a custom loader, and the discipline is that a custom loader earns no exceptions. It lands as history like every other source, carries the same namespaced keys, and passes the same tests and monitoring, so from the integration layer inward, hand-built and off-the-shelf are indistinguishable. The loader pattern itself appears below.</p>
   <p class="lede" style="margin-top:14px">Version control, code review, CI/CD, automated testing, lineage, and observability run under all of it. They are what let the platform take on new clients and new sources without growing brittle.</p>
 </section>
 
 <section>
   <div class="kicker">The Patterns</div>
   <h2>Working code carries the claims.</h2>
-  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows three exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Every table, name, and number in them is illustrative. Together they put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan.</p>
+  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows four exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Every table, name, and number in them is illustrative. The first three put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan. The fourth shows what building a loader looks like when no connector exists.</p>
 
   <div class="code-exhibit">
     <div class="file">models/integration/ticketing/integrator_ticketing_fan_club_relationship.sql</div>
@@ -220,6 +221,45 @@ SELECT * FROM final</pre>
 }}</pre>
   </div>
   <p class="lede" style="margin-top:14px">The materialization behind that contract makes three guarantees. Each run merges on the unique key, so writers are idempotent and reruns are safe. The hash diff means unchanged rows are never rewritten, which keeps warehouse cost proportional to real change. The timestamp key means late-arriving data can never regress newer state. Ticketing, merch, and every source after them inherit all three by declaring the same few lines, and that is how one table stays canonical while the source count grows.</p>
+
+  <div class="code-exhibit">
+    <div class="file">macros/landing/ingest_into_landing.sql (custom loader for a file-drop source)</div>
+    <pre>-- The league schedule arrives as gzipped TSV files on S3,
+-- date-stamped, with no connector in any catalog. The loader
+-- is still dbt code: the stage, the file format, and the
+-- landing schema are themselves created by macros in this
+-- same repository, reviewed and run like every other model.
+
+{% macro ingest_into_landing_sql(
+        full_table_name, field_count,
+        file_pattern, full_stage_name, full_format_name
+) %}
+BEGIN TRANSACTION;
+
+COPY INTO {{ full_table_name }}
+FROM (
+    SELECT
+        {% for i in range(1, field_count+1) %}${{i}},{% endfor %}
+
+        METADATA$FILENAME        AS from_file,
+        METADATA$FILE_ROW_NUMBER AS file_row_number,
+        '{{ run_started_at }}'   AS ingestion_ts_utc
+
+    FROM @{{ full_stage_name }}/
+)
+PATTERN = '{{ file_pattern }}'
+, FILE_FORMAT = (FORMAT_NAME = '{{ full_format_name }}')
+;
+
+COMMIT;
+{%- endmacro %}
+
+-- Every landed row carries its provenance: the file it came
+-- from, the row of that file, and the moment it arrived. A
+-- support question about one game in one schedule reaches
+-- the source file in one hop.</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">When Fivetran covers a source, the platform buys the connector. When nothing does, this is what building looks like: the loader&rsquo;s whole infrastructure is code in the same repository, file selection is a date-windowed pattern, and every landed row knows exactly where it came from. The two paths converge at landing, and everything downstream treats them identically.</p>
 
   <p class="lede" style="margin-top:14px">Four more patterns run underneath these exhibits and get named rather than shown. Every source lands as history and models read current state from it, which buys replay and audit. Ephemeral read markers declare dependencies on shared tables, so build order is enforced and unit tests can mock cleanly. A verification layer reconciles each build against a captured baseline before the build counts. And a normalization macro family standardizes messy source values in one governed place. Each is a pattern the team inherits, and the guides below teach them.</p>
 </section>
