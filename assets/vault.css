@@ -193,3 +193,8 @@ section.dark .agents-note strong { color: var(--white); }
 @media (max-width: 760px) { .chart-wrap { height: 420px; padding: 16px; } }
 @media (max-width: 480px) { .chart-wrap { height: 460px; padding: 12px; } }
 
+
+/* Framing aside - crimson left border, sets a reading frame */
+.framing { max-width: 46rem; margin: 16px auto 0; padding: 12px 18px; border-left: 3px solid #ab0033; background: #faf3f4; border-radius: 0 8px 8px 0; font-size: 0.95rem; color: #3d3d3d; }
+.framing strong { color: #ab0033; }
+
