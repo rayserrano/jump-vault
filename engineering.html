@@ -47,7 +47,7 @@
 <section>
   <div class="kicker">The Patterns</div>
   <h2>Working code carries the claims.</h2>
-  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows five exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Every table, name, and number in them is illustrative. The first three put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan. The fourth shows what building a loader looks like when no connector exists, and the fifth shows the storage pattern both loading paths land in.</p>
+  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows six exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Every table, name, and number in them is illustrative. The first four put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan. The fifth shows what building a loader looks like when no connector exists, and the sixth shows the storage pattern both loading paths land in.</p>
 
   <div class="code-exhibit">
     <div class="file">models/integration/ticketing/integrator_ticketing_fan_club_relationship.sql</div>
@@ -221,6 +221,81 @@ SELECT * FROM final</pre>
 }}</pre>
   </div>
   <p class="lede" style="margin-top:14px">The materialization behind that contract makes three guarantees. Each run merges on the unique key, so writers are idempotent and reruns are safe. The hash diff means unchanged rows are never rewritten, which keeps warehouse cost proportional to real change. The timestamp key means late-arriving data can never regress newer state. Ticketing, merch, and every source after them inherit all three by declaring the same few lines, and that is how one table stays canonical while the source count grows.</p>
+  <p class="lede" style="margin-top:14px">And this is the machinery those guarantees come from:</p>
+
+  <div class="code-exhibit">
+    <div class="file">macros/materializations/merge_into.sql (the custom materialization)</div>
+    <pre>-- Custom materialization: merge_into
+-- dbt assumes one model builds one table. The integration
+-- layer needs the opposite: many source models writing one
+-- canonical table. This materialization is the bridge. The
+-- model's SELECT is the transformation; the MERGE is the
+-- load; there is no buffer table between them.
+-- Production adds an exclude-from-update list to protect
+-- audit columns; the shape is what matters.
+
+{% materialization merge_into, adapter='snowflake' %}
+
+    {%- set meta = config.get('meta', {}) -%}
+    {%- set target_schema = meta.get('target_schema', target.schema) -%}
+    {%- set target_table = meta.get('target_table') -%}
+    {%- set unique_key = meta.get('unique_key') -%}
+    {%- set diff_key = meta.get('diff_key') -%}
+    {%- set ts_key = meta.get('ts_key', 'UPDATED_AT') -%}
+
+    {% if not target_table or not unique_key %}
+        {{ exceptions.raise_compiler_error(
+            "merge_into requires meta.target_table and meta.unique_key"
+        ) }}
+    {% endif %}
+
+    -- The canonical table is DDL-owned, not dbt-managed.
+    {%- set target_relation = api.Relation.create(
+        database=target.database,
+        schema=target_schema,
+        identifier=target_table
+    ) -%}
+
+    -- Build the update list from the target's own columns.
+    {%- set columns = adapter.get_columns_in_relation(target_relation) -%}
+    {%- set column_names = columns | map(attribute='name') | list -%}
+
+    {%- set merge_sql -%}
+        MERGE INTO {{ target_relation }} AS tgt
+        USING ( {{ sql }} ) AS src
+        ON tgt.{{ unique_key }} = src.{{ unique_key }}
+
+        WHEN MATCHED
+            AND tgt.{{ diff_key }} != src.{{ diff_key }}
+            AND src.{{ ts_key }} >= tgt.{{ ts_key }}
+        THEN UPDATE SET
+            {% for col in column_names if col != unique_key %}
+            tgt.{{ col }} = src.{{ col }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+
+        WHEN NOT MATCHED THEN INSERT (
+            {% for col in column_names %}
+            {{ col }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        )
+        VALUES (
+            {% for col in column_names %}
+            src.{{ col }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        )
+    {%- endset -%}
+
+    {%- call statement('main') -%}
+        {{ merge_sql }}
+    {%- endcall -%}
+
+    -- The model owns no relation of its own; the canonical
+    -- table is the product.
+    {{ return({'relations': []}) }}
+
+{% endmaterialization %}</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">A materialization is the deepest extension point dbt offers, and this one bridges the framework&rsquo;s one-model-one-table assumption to the integration layer&rsquo;s needs. The model&rsquo;s SELECT is the transformation, the MERGE is the load, and there is no buffer table between them. The materialization refuses to compile without the key contract, builds its update list from the target table&rsquo;s own columns, and applies the hash diff and newer-wins rules inside the MERGE itself, so no writer can opt out of them. Every integrator that declares a few lines of config inherits the same implementation of merge correctness.</p>
 
   <div class="code-exhibit">
     <div class="file">macros/landing/ingest_into_landing.sql (custom loader for a file-drop source)</div>
