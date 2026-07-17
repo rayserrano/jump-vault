@@ -250,3 +250,7 @@ section.dark .agents-note strong { color: var(--white); }
 /* v28: dark-panel body text + apex emphasis on black */
 section.dark .lede { color: #d4d4d4; }
 section.dark .crimson-emph { color: #ff5c7a; }
+
+/* v29: square-cornered full-container dark band (Agentic preview; promote to section.dark if approved) */
+section.dark.band { border-radius: 0; margin-left: -24px; margin-right: -24px; padding-left: 46px; padding-right: 46px; }
+@media (max-width: 640px) { section.dark.band { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; } }
