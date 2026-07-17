@@ -228,7 +228,83 @@ SELECT * FROM final</pre>
   <div class="kicker">The Enablement</div>
   <h2>The platform is finished when the team can run it without its author.</h2>
   <p class="lede" style="margin-top:14px">A strong engineer leaves behind working systems. A platform leader leaves behind a team that can extend them. This section holds implementation guides written for the engineers who will live in the stack, and every guide follows the same shape: prerequisites, the steps, the reason behind each step, how to validate the result, and the mistakes to expect. The shape is the point. A guide built this way keeps the platform teachable rather than tribal, and it is how standards survive a growing team.</p>
-  <p class="caption" style="margin-top:14px">Build note: the first two guides land here in the next pass: onboarding a new club mart, and adding a metric to the semantic layer.</p>
+
+  <div class="code-exhibit">
+    <div class="file">guides/onboarding_a_new_club_mart.md (structure)</div>
+    <pre># Guide 1: Onboarding a New Club Mart (v2)
+
+## Reference: the club mart design document, section 4
+## Status: v2, post-audit. The implementing engineer's v1
+## review produced findings; every v2 change below is tagged
+## with the finding it answers.
+
+## 1. Scope
+##    What this guide produces: one governed mart for one new
+##    club, stamped from the integration layer. Three
+##    boundaries: what each layer gets, what stays the same,
+##    and what is intentionally not done here.
+
+## 2. Prerequisites
+##    Access, roles, and the two facts to confirm with the
+##    club before any code: the source system inventory and
+##    the club_code that namespaces every key.
+
+## 3. The Model Changes
+##    Annotated code for each new file, in build order. Every
+##    block states what it does and why it is done this way.
+
+## 4. Tests, by Layer
+##    What each testing layer must cover before the mart
+##    counts, from schema YAML to reconciliation against
+##    source totals.
+
+## 5. Deployment
+##    The exact run sequence, and what a healthy first build
+##    looks like in the logs.
+
+## 6. Validation
+##    The checklist that turns "it ran" into "it is right."
+##    Row counts, spot joins, one fan traced end to end.
+
+## 7. Rollback
+##    How to remove the mart cleanly if the club is not
+##    ready, and what must never be rolled back with it.
+
+## 8. Common Mistakes
+##    The three ways this goes wrong in practice, and the
+##    symptom each one shows first.
+
+## 9. Open Items and References</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">Three parts of the skeleton carry most of the weight. The scope section draws boundaries, and the sharpest one is what is intentionally not done, because knowing where a task ends is what keeps club work out of the shared layers. The tests section makes the layers a gate rather than a suggestion. And the rollback section treats reversal as a designed path, which is what makes engineers willing to ship. Two excerpts show the voice inside:</p>
+
+  <div class="code-exhibit">
+    <div class="file">guides/onboarding_a_new_club_mart.md (excerpts)</div>
+    <pre>## 1.3 What is intentionally not done
+
+This guide does not touch identity resolution. The mart
+consumes resolved parties from the integration layer; it
+never creates or merges them. If onboarding surfaces fans
+the platform cannot resolve, that is integration-layer work
+and it has its own guide. Doing it here would put club-scoped
+logic inside the shared layer, and the whole tenancy model
+depends on that line staying where it is.
+
+## 6.4 Validation: trace one fan end to end
+
+Pick one real membership from the club's source extract and
+follow it: source row, history row, resolved party, party
+role, relationship edge, mart row. Every hop should take one
+query, and the fan's party_id must be identical at every hop.
+If any hop needs two queries, stop and find out why before
+sign-off. This ten-minute trace catches more onboarding
+defects than any automated layer, because it walks the exact
+path a support question will walk later.</pre>
+  </div>
+
+  <p class="lede" style="margin-top:14px">The version line at the top is the part that matters most. Guides ship as v1, and the implementing engineer audits them before executing. The audit comes back as findings, and v2 answers every finding by name in its own header. This is practiced rather than invented: in the delivery history behind this page, implementation guides carry version headers naming which engineering audit each revision answers. A guide the engineer can audit and change is the difference between a team that executes instructions and a team that owns the platform, and the version history is the receipt.</p>
+
+  <p class="lede" style="margin-top:14px">Guide 2, Adding a Metric to the Semantic Layer, follows the same shape at smaller scope: from the metric&rsquo;s business definition, through its declaration in code, to the proof that every consumer, dashboard or agent, now returns the same number.</p>
 </section>
 
 </div>
