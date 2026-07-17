@@ -252,3 +252,6 @@ section.dark .agents-note strong { color: var(--white); }
 section.dark .lede { color: #d4d4d4; }
 section.dark .crimson-emph { color: #ff5c7a; }
 
+
+/* v31: exhibit key chips linking the chain diagram letters to the code exhibits */
+.exhibit-key { display: inline-block; background: #ccff00; color: #1f1f1f; font-weight: 700; width: 1.4em; height: 1.4em; line-height: 1.4em; text-align: center; border-radius: 3px; margin-right: 8px; font-size: 0.8rem; }

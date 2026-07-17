@@ -7,7 +7,7 @@
 <title>Jump Vault | Engineering</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vault.css?v=30">
+<link rel="stylesheet" href="assets/vault.css?v=31">
 </head>
 <body>
 
@@ -112,12 +112,12 @@
     <path d="M 380 360 L 490 360 L 490 370" fill="none" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#ec)"/>
 
     <text x="380" y="452" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">Seven exhibits, one system: a source becomes a governed answer, and the same</text>
-    <text x="380" y="469" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">definition serves the dashboard and the agent. The exhibits below follow this order.</text>
+    <text x="380" y="469" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">definition serves the dashboard and the agent. Each letter marks its exhibit below.</text>
   </svg>
   </div>
 
   <div class="code-exhibit">
-    <div class="file">models/integration/ticketing/integrator_ticketing_fan_club_relationship.sql</div>
+    <div class="file"><span class="exhibit-key">A</span>models/integration/ticketing/integrator_ticketing_fan_club_relationship.sql</div>
     <pre>-- Ticketing memberships -> PARTY_RELATIONSHIP.
 -- Links a fan (FAN role) to a club (CLUB role), one row per fan-club edge.
 -- Tenancy lives here, on the relationship, never on the fan: the same
@@ -188,7 +188,7 @@ SELECT * FROM final</pre>
   <p class="lede" style="margin-top:14px">The walk from top to bottom. The source reads current membership state from history. Resolution joins each side to the party layer through namespaced source keys, and the subtype joins prove the fan is a person and the club is an organization before any edge is built. The surrogate keys then compose the two party roles, fan on one end and club on the other, into one relationship row. When a second club arrives, nothing about the fan changes. The fan stays one party, and the platform adds an edge.</p>
 
   <div class="code-exhibit">
-    <div class="file">models/integration/_unit_tests/integrator_ticketing_fan_club_relationship.yml</div>
+    <div class="file"><span class="exhibit-key">B</span>models/integration/_unit_tests/integrator_ticketing_fan_club_relationship.yml</div>
     <pre>unit_tests:
 
   # ============================================================
@@ -270,7 +270,7 @@ SELECT * FROM final</pre>
   <p class="lede" style="margin-top:14px">The third exhibit is where dbt gets extended rather than only used. dbt ships tables, views, and incremental models. A platform with one canonical relationship table and many sources writing into it earns its own materialization, and every writer declares the same contract:</p>
 
   <div class="code-exhibit">
-    <div class="file">models/integration/merch/integrator_merch_customer_club_relationship.sql</div>
+    <div class="file"><span class="exhibit-key">C</span>models/integration/merch/integrator_merch_customer_club_relationship.sql</div>
     <pre>-- A second source, the merch store, writing to the same canonical table.
 -- Different source keys, identical contract, identical guarantees.
 
@@ -291,7 +291,7 @@ SELECT * FROM final</pre>
   <p class="lede" style="margin-top:14px">And this is the machinery those guarantees come from:</p>
 
   <div class="code-exhibit">
-    <div class="file">macros/materializations/merge_into.sql (the custom materialization)</div>
+    <div class="file"><span class="exhibit-key">D</span>macros/materializations/merge_into.sql (the custom materialization)</div>
     <pre>-- Custom materialization: merge_into
 -- dbt assumes one model builds one table. The integration
 -- layer needs the opposite: many source models writing one
@@ -365,7 +365,7 @@ SELECT * FROM final</pre>
   <p class="lede" style="margin-top:14px">A materialization is the deepest extension point dbt offers, and this one bridges the framework&rsquo;s one-model-one-table assumption to the integration layer&rsquo;s needs. The model&rsquo;s SELECT is the transformation, the MERGE is the load, and there is no buffer table between them. The materialization refuses to compile without the key contract, builds its update list from the target table&rsquo;s own columns, and applies the hash diff and newer-wins rules inside the MERGE itself, so no writer can opt out of them. Every integrator that declares a few lines of config inherits the same implementation of merge correctness.</p>
 
   <div class="code-exhibit">
-    <div class="file">macros/landing/ingest_into_landing.sql (custom loader for a file-drop source)</div>
+    <div class="file"><span class="exhibit-key">E</span>macros/landing/ingest_into_landing.sql (custom loader for a file-drop source)</div>
     <pre>-- The league schedule arrives as gzipped TSV files on S3,
 -- date-stamped, with no connector in any catalog. The loader
 -- is still dbt code: the stage, the file format, and the
@@ -404,7 +404,7 @@ COMMIT;
   <p class="lede" style="margin-top:14px">When Fivetran covers a source, the platform buys the connector. When nothing does, this is what building looks like: the loader&rsquo;s whole infrastructure is code in the same repository, file selection is a date-windowed pattern, and every landed row knows exactly where it came from. The two paths converge at landing, and everything downstream treats them identically.</p>
 
   <div class="code-exhibit">
-    <div class="file">macros/storage/save_history.sql + current_from_history.sql (the storage pair)</div>
+    <div class="file"><span class="exhibit-key">F</span>macros/storage/save_history.sql + current_from_history.sql (the storage pair)</div>
     <pre>-- Every source lands as insert-only history. Nothing a
 -- source ever said is updated or deleted; new versions are
 -- appended, and the anti-join below means history grows
@@ -467,7 +467,7 @@ COMMIT;
   <p class="lede" style="margin-top:14px">The pair closes a loop the first exhibit opened: the relationship integrator&rsquo;s source CTE called current_from_history, and this is what it called. save_history is self-referential, asking its own history what it already knows and inserting only versions whose hash diff is new. The guarantees fall out of the shape. Replay is possible because nothing is ever lost. Audit is possible because every version a source sent is still there. And current state cannot drift from history because it is derived from it, one window function, with no update logic to get wrong.</p>
 
   <div class="code-exhibit">
-    <div class="file">models/mart/semantic_membership_fact.yml (the semantic layer, and the agent&rsquo;s briefing)</div>
+    <div class="file"><span class="exhibit-key">G</span>models/mart/semantic_membership_fact.yml (the semantic layer, and the agent&rsquo;s briefing)</div>
     <pre># The descriptions below are written for two readers: the
 # engineer who maintains this file, and the agent that
 # serves it. An agent that can quote a definition can
