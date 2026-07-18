@@ -47,9 +47,9 @@
 </section>
 
 <section>
-  <div class="kicker">The Patterns</div>
+  <div class="kicker">The Foundation Patterns</div>
   <h2>Working code carries the claims.</h2>
-  <p class="lede" style="margin-top:14px">Everything above is easy to say. So this section shows seven exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Not every pattern is built from scratch: the storage and loader macros extrapolate from available libraries, borrowed shamelessly where the license grants it. The craft is knowing what to borrow, what to extend, and what the platform must own. Every table, name, and number in them is illustrative. The first four put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan. The fifth shows what building a loader looks like when no connector exists, the sixth shows the storage pattern both loading paths land in, and the seventh shows the semantic definitions every consumer, human or agent, receives.</p>
+  <p class="lede" style="margin-top:14px">Everything above is easy to say. So the three sections that follow show seven exhibits from the pattern library, written fresh for this study in Jump&rsquo;s own domain of fans, clubs, tickets, and orders. Not every pattern is built from scratch: the storage and loader macros extrapolate from available libraries, borrowed shamelessly where the license grants it. The craft is knowing what to borrow, what to extend, and what the platform must own. Every table, name, and number in them is illustrative. The first four put the founding decision into running code: a relationship is the join of two party roles, and tenancy lives on the relationship, never on the fan. The fifth shows what building a loader looks like when no connector exists, the sixth shows the storage pattern both loading paths land in, and the seventh shows the semantic definitions every consumer, human or agent, receives.</p>
 
   <div class="diagram-wrap" data-zoom style="margin-top:22px">
   <svg viewBox="0 0 760 500" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The exhibit chain, top to bottom: a source lands as history; current state is one window over history; the integrator resolves it into the canonical PARTY_RELATIONSHIP table, which is guarded by unit tests and written by the merge materialization; the semantic layer serves it; every consumer, dashboard or agent, reads the same definitions. Each stage names the exhibit that shows its code.">
@@ -365,6 +365,13 @@ SELECT * FROM final</pre>
   </div>
   <p class="lede" style="margin-top:14px">A materialization is the deepest extension point dbt offers, and this one bridges the framework&rsquo;s one-model-one-table assumption to the integration layer&rsquo;s needs. The model&rsquo;s SELECT is the transformation, the MERGE is the load, and there is no buffer table between them. The materialization refuses to compile without the key contract, builds its update list from the target table&rsquo;s own columns, and applies the hash diff and newer-wins rules inside the MERGE itself, so no writer can opt out of them. Every integrator that declares a few lines of config inherits the same implementation of merge correctness.</p>
 
+</section>
+
+<section>
+  <div class="kicker">The Intake Patterns</div>
+  <h2>Data arrives, and the platform remembers.</h2>
+  <p class="lede" style="margin-top:14px">Two patterns govern the door and the memory: a loader that stamps provenance on everything it touches, and a storage pair that keeps history immutable while the current view stays fast.</p>
+
   <div class="code-exhibit">
     <div class="file"><span class="exhibit-key">E</span>macros/landing/ingest_into_landing.sql (custom loader for a file-drop source)</div>
     <pre>-- The league schedule arrives as gzipped TSV files on S3,
@@ -466,6 +473,13 @@ COMMIT;
 {%- endmacro %}</pre>
   </div>
   <p class="lede" style="margin-top:14px">The pair closes a loop the first exhibit opened: the relationship integrator&rsquo;s source CTE called current_from_history, and this is what it called. save_history is self-referential, asking its own history what it already knows and inserting only versions whose hash diff is new. The guarantees fall out of the shape. Replay is possible because nothing is ever lost. Audit is possible because every version a source sent is still there. And current state cannot drift from history because it is derived from it, one window function, with no update logic to get wrong.</p>
+
+</section>
+
+<section>
+  <div class="kicker">The Agent&#8217;s Briefing</div>
+  <h2>The seventh exhibit is written for the second consumer.</h2>
+  <p class="lede" style="margin-top:14px">One file closes the library, and it reads two ways: a human takes it as documentation, a digital intelligence takes it as a briefing. It is the bridge to everything the Agentic page describes.</p>
 
   <div class="code-exhibit">
     <div class="file"><span class="exhibit-key">G</span>models/mart/semantic_membership_fact.yml (the semantic layer, and the agent&rsquo;s briefing)</div>
