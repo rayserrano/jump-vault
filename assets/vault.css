@@ -255,3 +255,8 @@ section.dark .crimson-emph { color: #ff5c7a; }
 
 /* v31: exhibit key chips linking the chain diagram letters to the code exhibits */
 .exhibit-key { display: inline-block; background: #ccff00; color: #1f1f1f; font-weight: 700; width: 1.4em; height: 1.4em; line-height: 1.4em; text-align: center; border-radius: 3px; margin-right: 8px; font-size: 0.8rem; }
+
+/* v32: zoom affordance - lime chip with black magnifier on every lightboxed diagram */
+.diagram-wrap[data-zoom] { position: relative; cursor: zoom-in; }
+.diagram-wrap[data-zoom]::after { content: ""; position: absolute; right: 12px; bottom: 12px; width: 26px; height: 26px; border-radius: 8px; background-color: #ccff00; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10' cy='10' r='6' fill='none' stroke='%23000000' stroke-width='2.4'/%3E%3Cline x1='14.5' y1='14.5' x2='19.5' y2='19.5' stroke='%23000000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"); background-position: center; background-size: 14px 14px; background-repeat: no-repeat; pointer-events: none; }
+.diagram-wrap[data-zoom]:hover::after { background-color: #dbff4d; }
