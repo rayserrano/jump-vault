@@ -47,14 +47,122 @@
 
 <section>
   <div class="kicker">The Method, Applied</div>
-  <h2>The Engineering guides are the method at work.</h2>
-  <p class="lede" style="margin-top:14px">The guides stay on the <a href="engineering.html">Engineering page</a>, where the code lives. Each one takes a piece of Jump&rsquo;s own stack and walks it in the delivery format the method prescribes: annotated code with its grain assumptions wired to tests, inline warnings that carry their provenance, and validation written as a query with its expected result.</p>
+  <h2>The platform is finished when the team can run it without its author.</h2>
+  <p class="lede" style="margin-top:14px">A strong engineer leaves behind working systems. A platform leader leaves behind a team that can extend them. This section holds implementation guides written for the engineers who will live in the stack, and every guide follows the same shape: prerequisites, the steps with a worked example beside each one, the reason behind each step, validation checks with expected results, and the mistakes to expect. The shape is the point. A guide built this way keeps the platform teachable rather than tribal, and it is how standards survive a growing team.</p>
+
+  <div class="code-exhibit">
+    <div class="file">guides/onboarding_a_new_club_mart.md (structure)</div>
+    <pre># Guide 1: Onboarding a New Club Mart (v2)
+
+## Reference: the club mart design document, section 4
+## Status: v2, post-audit. The implementing engineer's v1
+## review produced findings; every v2 change below is tagged
+## with the finding it answers.
+
+## 1. Scope
+##    What this guide produces: one governed mart for one new
+##    club, stamped from the integration layer. Three
+##    boundaries: what each layer gets, what stays the same,
+##    and what is intentionally not done here.
+
+## 2. Prerequisites
+##    Access, roles, and the two facts to confirm with the
+##    club before any code: the source system inventory and
+##    the club_code that namespaces every key.
+
+## 3. The Model Changes
+##    Annotated code for each new file, in build order. Every
+##    grain assumption is stated where it lives and wired to
+##    the test that enforces it.
+
+## 4. Tests, by Layer
+##    What each testing layer must cover before the mart
+##    counts, from schema YAML to reconciliation against
+##    source totals.
+
+## 5. Deployment
+##    The exact run sequence, and what a healthy first build
+##    looks like in the logs.
+
+## 6. Validation
+##    Numbered checks. Each is a runnable query paired with
+##    its expected result and where that number comes from.
+
+## 7. Rollback
+##    How to remove the mart cleanly if the club is not
+##    ready, and what must never be rolled back with it.
+
+## 8. Common Mistakes
+##    The three ways this goes wrong in practice, and the
+##    symptom each one shows first.
+
+## 9. Open Items and References</pre>
+  </div>
+  <p class="lede" style="margin-top:14px">Three parts of the skeleton carry most of the weight. The scope section draws boundaries, and the sharpest one is what is intentionally not done, because knowing where a task ends is what keeps club work out of the shared layers. The tests section makes the layers a gate rather than a suggestion. And the rollback section treats reversal as a designed path, which is what makes engineers willing to ship. Three excerpts show the method inside:</p>
+
+  <div class="code-exhibit">
+    <div class="file">guides/onboarding_a_new_club_mart.md (excerpts)</div>
+    <pre>## 1.3 What is intentionally not done
+
+This guide does not touch identity resolution. The mart
+consumes resolved parties from the integration layer; it
+never creates or merges them. If onboarding surfaces fans
+the platform cannot resolve, that is integration-layer work
+and it has its own guide. Doing it here would put club-scoped
+logic inside the shared layer, and the whole tenancy model
+depends on that line staying where it is.
+
+## 3.2 The membership CTE, annotated
+
+-- Current and lapsed memberships for the club being
+-- onboarded. Grain assumption: one membership row per
+-- (fan_id, club_id). If the source carries renewals as new
+-- rows this CTE row-multiplies, and the uniqueness test on
+-- (fan_id, club_id) declared in section 4.1 is what catches
+-- it on the first build.
+-- IMPORTANT: do not add WHERE thru_date IS NULL here to
+-- take only active members. The renewal metrics in section
+-- 3.4 need lapsed rows, and the active flag is derived
+-- downstream. Adding the filter here silently zeroes every
+-- renewal metric while every schema test still passes.
+-- (v2: warning added after the v1 audit flagged this line.)
+memberships AS (
+    SELECT
+        m.fan_id,
+        m.club_id,
+        m.member_since,
+        m.thru_date
+    FROM {{ ref('int_ticketing_membership') }} m
+    WHERE m.club_code = 'CLUB_77'
+),
+
+## 6.3 Validation check three: relationship edge count
+
+SELECT COUNT(*) AS edge_count
+FROM INTEGRATION.PARTY_RELATIONSHIP pr
+INNER JOIN INTEGRATION.PARTY_ROLE r
+    ON pr.to_party_role_id = r.party_role_id
+INNER JOIN INTEGRATION.PARTY p
+    ON r.party_id = p.party_id
+WHERE p.party_code = 'TIX|CLUB|77';
+
+Expected: within two percent of the club's source
+membership count (illustrative: 41,900 to 42,700 against a
+42,310-row extract). A count far below means resolution is
+dropping fans. A count above means the uniqueness test in
+section 4.1 has a gap. Either way, stop before the mart
+build and find out which.</pre>
+  </div>
+
+  <p class="lede" style="margin-top:14px">The version line at the top is the part that matters most. Guides ship as v1, and the implementing engineer audits them before executing. The audit comes back as findings, and v2 answers every finding by name in its own header. Open questions get the same routing, split between what is already resolved and what the engineer can answer from the repo and the source data. This is practiced rather than invented: the delivery history behind this page carries exactly these headers. A guide the engineer can audit and change is the difference between a team that executes instructions and a team that owns the platform, and the version history is the receipt.</p>
+
+  <p class="lede" style="margin-top:14px">Guide 2, Adding a Metric to the Semantic Layer, follows the same shape at smaller scope: from the metric&rsquo;s business definition, through its declaration in code, to the proof that every consumer, dashboard or agent, now returns the same number.</p>
 </section>
 
 <section>
   <div class="kicker">The Audit Loop</div>
   <h2>Review is what makes the guides version.</h2>
-  <p class="lede" style="margin-top:14px">Shipped work gets audited, and the findings feed back into the guides. The storage guide on the Engineering page carries a v2 status line because a v1 audit flagged a specific line, and the warning that replaced it names its origin. An engineer&rsquo;s growth shows up the same way, as the measurable distance between their v1 and their v2.</p>
+  <p class="lede" style="margin-top:14px">Shipped work gets audited, and the findings feed the guides. Guide 1 above carries its v2 status header because the implementing engineer&rsquo;s v1 audit came back with findings, and the header answers each one by name. An engineer&rsquo;s growth shows up the same way, as the measurable distance between their v1 and their v2.</p>
 </section>
 
 </div>
