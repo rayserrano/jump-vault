@@ -27,7 +27,7 @@
 </nav>
 
 <div class="masthead">
-  <div class="wordmark">JUMP <span class="vault">VAULT</span> 130</div>
+  <div class="wordmark">JUMP <span class="vault">VAULT</span> 131</div>
   <div class="mast-sub">The Unified Data Platform, powered by the Universal Data Model.</div>
   <div class="mast-sub2">under the fan experience</div>
   <div class="tagline">Lighting the way from red to black. Dunks included.</div>
@@ -397,22 +397,30 @@
 <section id="breakeven">
   <div class="kicker">Series B Highway and Beyond</div>
   <h2>The Path to Black</h2>
-  <p class="lede" style="margin-top:14px">The three scenarios are cumulative: each turns on more engines than the last, and all three win at different speeds. The gap between the crossing points is the value of the platform, measured in months. These are public-information estimates: you know the real numbers, so plug them in. <strong>The model is the point, not the numbers we guessed.</strong></p>
+  <p class="lede" style="margin-top:14px">A client business has three levers: how fast clients arrive, how much each one pays, and how long they stay. Each engine turns one of them. Onboard drives velocity, Yield drives revenue per client, and Bench drives retention, because the comparative insight only exists inside the network. Frameworks like this hang on many walls; the difference here is that each lever comes with the engine that runs it, agentically, on the governed platform the rest of this site describes. The paths below are cumulative: each turns on one more engine, and all four win at different speeds. Velocity moves the date. Compounding moves the ceiling. These are public-information estimates: you know the real numbers, so plug them in. <strong>The model is the point, not the numbers we guessed.</strong></p>
 
   <p class="lede" style="margin-top:6px;color:#ab0033;font-weight:700">Summon your instinct. Drag the sliders and make the numbers real.</p>
 
   <div class="controls">
     <div class="control">
-      <label>New clients per year (baseline) <span class="val" id="v-clients">4</span></label>
-      <input type="range" id="s-clients" min="1" max="10" step="1" value="4">
+      <label>New clients per year (baseline) <span class="val" id="v-clients">3</span></label>
+      <input type="range" id="s-clients" min="1" max="10" step="1" value="3">
     </div>
     <div class="control">
-      <label>Blended revenue per client <span class="val" id="v-rev">$1.5M</span></label>
-      <input type="range" id="s-rev" min="0.5" max="3" step="0.1" value="1.5">
+      <label>Blended revenue per client <span class="val" id="v-rev">$1.2M</span></label>
+      <input type="range" id="s-rev" min="0.5" max="3" step="0.1" value="1.2">
     </div>
     <div class="control">
-      <label>Yield lift per year (engines on) <span class="val" id="v-yield">15%</span></label>
-      <input type="range" id="s-yield" min="0" max="30" step="1" value="15">
+      <label>Onboard: client velocity multiplier <span class="val" id="v-vel">1.75&times;</span></label>
+      <input type="range" id="s-vel" min="1" max="3" step="0.05" value="1.75">
+    </div>
+    <div class="control">
+      <label>Yield: revenue lift per year <span class="val" id="v-yield">12%</span></label>
+      <input type="range" id="s-yield" min="0" max="30" step="1" value="12">
+    </div>
+    <div class="control">
+      <label>Bench: net revenue retention <span class="val" id="v-nrr">106%</span></label>
+      <input type="range" id="s-nrr" min="95" max="120" step="1" value="106">
     </div>
     <div class="control">
       <label>Opex growth per year <span class="val" id="v-opex">8%</span></label>
@@ -426,23 +434,31 @@
 
   <div class="readouts">
     <div class="readout">
-      <div class="path-name" style="color:#6f6f6f">Path 1 &middot; Steady Climb</div>
+      <div class="path-name" style="color:#6f6f6f">Path 1 &middot; Baseline</div>
       <div class="cross" id="r-base">&hellip;</div>
-      <div class="gain"></div>
+      <div class="gain" id="e-base"></div>
     </div>
     <div class="readout">
-      <div class="path-name" style="color:#425df0">Path 2 &middot; Onboard On</div>
+      <div class="path-name" style="color:#657dff">Path 2 &middot; + Onboard</div>
       <div class="cross" id="r-onb">&hellip;</div>
       <div class="gain" id="g-onb"></div>
+      <div class="gain" id="e-onb"></div>
     </div>
     <div class="readout">
-      <div class="path-name" style="color:#000000">Path 3 &middot; All Engines On</div>
+      <div class="path-name" style="color:#425df0">Path 3 &middot; + Yield</div>
+      <div class="cross" id="r-yld">&hellip;</div>
+      <div class="gain" id="g-yld"></div>
+      <div class="gain" id="e-yld"></div>
+    </div>
+    <div class="readout">
+      <div class="path-name" style="color:#000000">Path 4 &middot; All Engines On</div>
       <div class="cross" id="r-full">&hellip;</div>
       <div class="gain" id="g-full"></div>
+      <div class="gain" id="e-full"></div>
     </div>
   </div>
 
-  <p class="assumptions">The starting point is fixed and not adjustable on this page: roughly 6 clients live, $9M in run-rate revenue, and $14M in opex, the midpoint of public $13&ndash;16M estimates. Vault Onboard is modeled as a 75% increase in client velocity. Yield &amp; Bench are modeled as per-client revenue compounding at the slider rate. The paths are cumulative, so Path 3 includes Onboard&rsquo;s velocity. Every number here is illustrative and yours to overwrite.</p>
+  <p class="assumptions">The starting point is fixed and not adjustable on this page: roughly 6 clients live, $9M in run-rate revenue, and $16M in opex, inside the public $13&ndash;16M estimates. The paths are cumulative. Onboard multiplies client velocity. Yield compounds revenue per client. Bench holds and expands the base as net revenue retention, the moat a club gives up by leaving the network. Every assumption is a slider above; nothing is buried in the code. Every number here is illustrative and yours to overwrite.</p>
 </section>
 
 <section id="two-markets">
@@ -491,28 +507,30 @@
 (function () {
   var QUARTERS = 18;            // mid-2026 through 2030
   var START_CLIENTS = 6;        // live clients at t0 (public estimate)
-  var START_OPEX = 14;          // $M, midpoint of public 13-16 estimate
-  var ONBOARD_VELOCITY = 1.75;  // Onboard modeled as +75% client velocity
+  var START_OPEX = 16;          // $M, inside public 13-16 estimate
 
   function qLabel(q) {
-    var totalMonths = 6 + q * 3;                 // t0 = July 2026
+    var totalMonths = 6 + q * 3;
     var year = 2026 + Math.floor(totalMonths / 12);
     var quarter = Math.floor((totalMonths % 12) / 3) + 1;
     return 'Q' + quarter + ' ' + year;
   }
 
-  function series(params) {
-    var base = [], onb = [], full = [], opex = [];
+  function series(p) {
+    var base = [], onb = [], yld = [], full = [], opex = [];
     for (var q = 0; q < QUARTERS; q++) {
       var years = q / 4;
-      var cBase = START_CLIENTS + params.clientsPerYear * years;
-      var cOnb  = START_CLIENTS + params.clientsPerYear * ONBOARD_VELOCITY * years;
-      base.push(cBase * params.revPerClient);
-      onb.push(cOnb * params.revPerClient);
-      full.push(cOnb * params.revPerClient * Math.pow(1 + params.yieldLift / 100, years));
-      opex.push(START_OPEX * Math.pow(1 + params.opexGrowth / 100, years));
+      var cBase = START_CLIENTS + p.clientsPerYear * years;
+      var cOnb  = START_CLIENTS + p.clientsPerYear * p.onboardVel * years;
+      var yliftF = Math.pow(1 + p.yieldLift / 100, years);
+      var nrrF   = Math.pow(p.benchNRR / 100, years);
+      base.push(cBase * p.revPerClient);
+      onb.push(cOnb * p.revPerClient);
+      yld.push(cOnb * p.revPerClient * yliftF);
+      full.push(cOnb * p.revPerClient * yliftF * nrrF);
+      opex.push(START_OPEX * Math.pow(1 + p.opexGrowth / 100, years));
     }
-    return { base: base, onb: onb, full: full, opex: opex };
+    return { base: base, onb: onb, yld: yld, full: full, opex: opex };
   }
 
   function crossing(rev, opex) {
@@ -539,7 +557,9 @@
     return {
       clientsPerYear: parseFloat(document.getElementById('s-clients').value),
       revPerClient:   parseFloat(document.getElementById('s-rev').value),
+      onboardVel:     parseFloat(document.getElementById('s-vel').value),
       yieldLift:      parseFloat(document.getElementById('s-yield').value),
+      benchNRR:       parseFloat(document.getElementById('s-nrr').value),
       opexGrowth:     parseFloat(document.getElementById('s-opex').value)
     };
   }
@@ -553,57 +573,40 @@
     data: {
       labels: labels,
       datasets: [
-        { label: 'Path 1 · Steady Climb', data: [], borderColor: '#929292', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, tension: 0.25 },
-        { label: 'Path 2 · Onboard On', data: [], borderColor: '#657dff', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 0, tension: 0.25 },
-        { label: 'Path 3 · All Engines On', data: [], borderColor: '#1f1f1f', backgroundColor: 'transparent', borderWidth: 3.5, pointRadius: 0, tension: 0.25 },
-        { label: 'Opex', data: [], borderColor: '#ab0033', backgroundColor: 'transparent', borderWidth: 2, borderDash: [7, 6], pointRadius: 0, tension: 0.1 }
+        { label: 'Baseline',        data: [], borderColor: '#929292', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, tension: 0.3 },
+        { label: '+ Onboard',       data: [], borderColor: '#657dff', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, tension: 0.3 },
+        { label: '+ Yield',         data: [], borderColor: '#425df0', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, tension: 0.3 },
+        { label: 'All Engines On',  data: [], borderColor: '#1f1f1f', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 0, tension: 0.3 },
+        { label: 'Opex',            data: [], borderColor: '#ab0033', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,4], pointRadius: 0, tension: 0.3 }
       ]
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: {
-          position: 'top',
-          align: 'center',
-          labels: {
-            color: '#3d3d3d',
-            font: { family: 'Inter', size: 11 },
-            usePointStyle: true,
-            pointStyle: 'line',
-            boxWidth: 24,
-            padding: 14
-          }
-        },
+        legend: { labels: { color: '#3d3d3d', usePointStyle: true, pointStyle: 'line' } },
         tooltip: {
-          usePointStyle: true,
           callbacks: {
             label: function (item) {
               return item.dataset.label + ': $' + item.parsed.y.toFixed(1) + 'M';
-            },
-            labelPointStyle: function () {
-              return { pointStyle: 'line', rotation: 0 };
             }
           }
         }
       },
       scales: {
         x: {
+          grid: { display: false },
           ticks: {
             color: '#6f6f6f',
-            maxRotation: 0,
             callback: function (val, idx) {
               var l = this.getLabelForValue(val);
               return l.indexOf('Q1') === 0 ? l.slice(3) : '';
             }
-          },
-          grid: { color: '#e6e6e6' }
+          }
         },
         y: {
-          title: { display: true, text: 'Annual run-rate ($M)', color: '#6f6f6f' },
-          ticks: { color: '#6f6f6f', callback: function (v) { return '$' + v + 'M'; } },
-          grid: { color: '#e6e6e6' }
+          grid: { color: '#ececec' },
+          ticks: { color: '#6f6f6f', callback: function (v) { return '$' + v + 'M'; } }
         }
       }
     }
@@ -616,33 +619,51 @@
     return '+' + months + ' months earlier than baseline';
   }
 
+  function fmtEnd(arr) {
+    return '$' + Math.round(arr[arr.length - 1]) + 'M by 2030';
+  }
+
   function update() {
     var p = readParams();
     document.getElementById('v-clients').textContent = p.clientsPerYear;
     document.getElementById('v-rev').textContent = '$' + p.revPerClient.toFixed(1) + 'M';
+    document.getElementById('v-vel').textContent = p.onboardVel.toFixed(2) + '\u00d7';
     document.getElementById('v-yield').textContent = p.yieldLift + '%';
+    document.getElementById('v-nrr').textContent = p.benchNRR + '%';
     document.getElementById('v-opex').textContent = p.opexGrowth + '%';
 
     var s = series(p);
     chart.data.datasets[0].data = s.base;
     chart.data.datasets[1].data = s.onb;
-    chart.data.datasets[2].data = s.full;
-    chart.data.datasets[3].data = s.opex;
-    chart.update('none');
+    chart.data.datasets[2].data = s.yld;
+    chart.data.datasets[3].data = s.full;
+    chart.data.datasets[4].data = s.opex;
+    chart.update();
 
     var cBase = crossing(s.base, s.opex);
     var cOnb  = crossing(s.onb, s.opex);
+    var cYld  = crossing(s.yld, s.opex);
     var cFull = crossing(s.full, s.opex);
+
     document.getElementById('r-base').textContent = crossLabel(cBase);
     document.getElementById('r-onb').textContent  = crossLabel(cOnb);
+    document.getElementById('r-yld').textContent  = crossLabel(cYld);
     document.getElementById('r-full').textContent = crossLabel(cFull);
+
     document.getElementById('g-onb').textContent  = fmtGain(cOnb, cBase);
+    document.getElementById('g-yld').textContent  = fmtGain(cYld, cBase);
     document.getElementById('g-full').textContent = fmtGain(cFull, cBase);
+
+    document.getElementById('e-base').textContent = fmtEnd(s.base);
+    document.getElementById('e-onb').textContent  = fmtEnd(s.onb);
+    document.getElementById('e-yld').textContent  = fmtEnd(s.yld);
+    document.getElementById('e-full').textContent = fmtEnd(s.full);
   }
 
-  ['s-clients', 's-rev', 's-yield', 's-opex'].forEach(function (id) {
+  ['s-clients', 's-rev', 's-vel', 's-yield', 's-nrr', 's-opex'].forEach(function (id) {
     document.getElementById(id).addEventListener('input', update);
   });
+
   update();
 })();
 </script>
