@@ -7,7 +7,7 @@
 <title>Jump Vault | Architecture</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vault.css?v=33">
+<link rel="stylesheet" href="assets/vault.css?v=34">
 </head>
 <body>
 
@@ -211,7 +211,7 @@
   <div class="kicker">The Foundation</div>
   <p class="principle">One layer absorbs the complexity; the rest inherit simplicity</p>
   <h2>One integration layer beats fifty stitched marts.</h2>
-  <p class="lede" style="margin-top:14px">Everything on this site has quietly been Inmon&rsquo;s Corporate Information Factory wearing Jump clothes. The Map&rsquo;s data platform diagram is the factory. The Onboard page is the integration layer working on camera. This page says the name out loud: one integration layer holds the canonical fan, client marts are derived above it, and the alternative of fifty club warehouses stitched together after the fact is how two-truths disease starts.</p>
+  <p class="lede" style="margin-top:14px">This is Inmon&rsquo;s Corporate Information Factory: one integration layer holds the canonical fan, and client marts are derived above it. The alternative, fifty club warehouses stitched together after the fact, is how two-truths disease starts. The integration-first approach is the correct one, and the one teams most often avoid, because it front-loads the hard modeling work before anything ships. That calculus is what the agentic era changes. The work that made the integration layer too expensive to build by hand is exactly the work an agent now absorbs, so the reason to skip it no longer holds.</p>
 </section>
 
 <section>
@@ -314,32 +314,38 @@
   <div class="kicker">The Intelligence</div>
   <p class="principle">Give each kind of intelligence the job it does best</p>
   <h2>Models predict. Agents author. Rules execute.</h2>
-  <p class="lede" style="margin-top:14px">The division of labor is strict. Models predict: propensity, uplift, and the scores on every fan row. Agents author: they read the warehouse, write rules, build assets, and retire what stops working. Rules execute: every high-volume decision runs deterministically. Nothing with a per-transaction cost sits inside a language model loop.</p>
+  <p class="lede" style="margin-top:14px">The division of labor is strict. ML models predict: propensity, uplift, and the scores on every fan row. Agents author: they read the warehouse, write rules, build assets, and retire what stops working. Rules execute: every high-volume decision runs deterministically. A rule is predefined if-this-then-that logic a machine runs the same way every time. Nothing with a per-transaction cost sits inside a language model loop.</p>
 </section>
 
 <section>
   <div class="kicker">The Serving</div>
-  <p class="principle">Separate the thinking from the answering</p>
-  <h2>The warehouse thinks. The serving layer answers.</h2>
-  <p class="lede" style="margin-top:14px">Agents changed the shape of the query load. Club analysts ran bursty dashboards where seconds were fine. Embedded analytics for every club, fan-facing surfaces, and agents in reasoning loops produce thousands of small queries around the clock, and a slow answer stalls an agent mid-thought. Pointing that workload at the thinking tier buys a warehouse that never sleeps: warehouse-seconds economics applied to a workload that wants cost-per-query economics. This tradeoff has been run in production, and the page carries the judgment.</p>
-  <div class="panel">
-    <table class="temps">
-      <tr><th>TIER</th><th>SYSTEM</th><th>JOB</th><th>LATENCY CLASS</th></tr>
-      <tr><td>OLTP</td><td>The nine applications&rsquo; operational stores</td><td>It transacts</td><td>Operational</td></tr>
-      <tr><td>WAREHOUSE</td><td>Integration layer, marts, semantic layer, training</td><td>It thinks</td><td>Seconds</td></tr>
-      <tr><td>SERVING</td><td>High-concurrency OLAP for surfaces and agents</td><td>It answers</td><td>Milliseconds</td></tr>
-      <tr><td>RULES</td><td>Compiled decisions in the transaction path</td><td>It decides</td><td>Per transaction</td></tr>
-    </table>
+  <p class="principle">Match the serving engine to the workload</p>
+  <h2>Analytics at scale is a new paradigm, and the warehouse grew an arm to meet it.</h2>
+  <p class="lede" style="margin-top:14px">The query load changed shape. Club analysts once ran bursty dashboards where a few seconds were fine. Now embedded analytics for every club, fan-facing surfaces, and agents in reasoning loops produce thousands of small queries around the clock, where a slow answer stalls an agent mid-reasoning. This workload wants cost-per-query economics, not the warehouse-seconds the core is priced in.</p>
+  <div class="tier-cards">
+    <div class="tier-card">
+      <div class="tier-name">WAREHOUSE</div>
+      <div class="tier-what">Integration layer, marts, semantic layer, training</div>
+      <div class="tier-job">It computes, in seconds.</div>
+    </div>
+    <div class="tier-card tier-arm">
+      <div class="tier-name">SERVING <span class="tier-tag">the new arm</span></div>
+      <div class="tier-what">High-concurrency OLAP for surfaces and agents</div>
+      <div class="tier-job">It answers, in milliseconds.</div>
+    </div>
   </div>
-  <p class="lede" style="margin-top:18px">The semantic layer spans the temperatures. The serving store materializes governed metrics and never redefines them, and data flows one way: integration, then marts, then materialize, then serve. A serving copy outside the warehouse makes freshness and consistency governed properties too; ignore that and you reinvent the two-truths disease the platform exists to cure.</p>
-  <p class="lede" style="margin-top:14px">Whether one platform now fills both analytical temperatures or two engines share one contract is a criteria decision: concurrency, latency, cost per query, operations burden, and semantic-layer integration. The warehouse vendors moved into interactive serving this year, and the dedicated engines are not standing still. The architecture holds either way, and the choice is margin engineering: platform cost per client lands directly on the Path to Black.</p>
+  <p class="lede" style="margin-top:18px">So the warehouse grew an arm for it: a serving tier of high-concurrency, millisecond answers, materializing governed metrics from the semantic layer, with data flowing one way: integration, then marts, then materialize, then serve. A serving copy makes freshness and consistency governed properties too; ignore that and you reinvent the two-truths disease the platform exists to cure.</p>
+  <p class="lede" style="margin-top:14px">Everywhere else on this site the vendors are settled. Here they are not, and deliberately so. The arm the warehouse grew is Snowflake&rsquo;s Interactive Analytics, serving inside the governed platform; the alternative is a ClickHouse-class engine, a dedicated specialist faster at the extremes. Which one is a criteria decision: concurrency, latency, cost per query, operations burden, and semantic-layer integration. The warehouse vendors moved into interactive serving this year, and the dedicated engines are not standing still. The architecture holds either way, and the choice is margin engineering: platform cost per client lands directly on the Path to Black.</p>
 </section>
 
 <section>
   <div class="kicker">The Execution</div>
   <p class="principle">Decide in the cheap engine, not the expensive one</p>
   <h2>The rules engine decides at zero token cost.</h2>
-  <p class="lede" style="margin-top:14px">Rules engines are a category with a graveyard, and this page says so. They died because humans could not maintain thousands of rules, and sprawl rotted every deployment. Agents fix the exact failure that killed the category: an agent observes outcomes through the warehouse, retires stale rules, proposes refinements, and backtests before anything deploys. And rules fix what stalls agents, because tokens cannot price a per-transaction decision, while a compiled rule decides at a marginal cost near zero. AI makes rules possible. Rules make AI possible at scale.</p>
+  <p>Rules engines are the right way to make high-volume decisions, and the one constraint that ever held them back was the human labor of maintaining rules at scale. Thousands of rules are more than a team can keep current by hand, and that maintenance cost, not any flaw in the approach, kept rules engines from their promise. That constraint is what the agentic era removes: an agent observes outcomes through the warehouse, retires stale rules, proposes refinements, and backtests before anything deploys, so the labor that limited the engine is the labor the agent now carries.</p>
+  <p>This is not unique to rules engines. It is a pattern. The integration-first data platform on this page is the same story: correct, and set aside because the modeling work came before anything shipped. d3, the most expressive visualization library there is, is the same story again: teams reach for an off-the-shelf tool like Tableau because d3 asks for hand-work they cannot spend. Each is a superior capability the field abandoned under one accepted wisdom, that it costs too much by hand. The agentic era voids that wisdom, because the hand-work is exactly what an agent now absorbs.</p>
+  <p>The advice follows: resist surrendering to accepted wisdom the new era has made obsolete. The advantage goes to whoever builds the superior capability while the field still believes it is too expensive. Most teams will keep reaching for the convenient option, on priors that were true a year ago and are not true now. That gap is the opening.</p>
+  <p>And rules fix what stalls agents, because tokens cannot price a per-transaction decision, while a compiled rule decides at a marginal cost near zero. AI makes rules possible. Rules make AI possible at scale.</p>
   <p class="lede" style="margin-top:14px">The loop is the flywheel&rsquo;s inner gearbox: the agent analyzes the warehouse, proposes a rule, the backtest scores it, a human approves inside guardrails, the engine deploys, telemetry flows back, and the agent refines. Every decision traces to a rule version: inspectable, reversible, and auditable, which matters more the day the first European club goes live and automated decisions meet European regulation. This pattern is also a field report: agents composing rules against a governed warehouse is a system that has run in production, not a concept from a slide.</p>
   <p class="lede" style="margin-top:14px">Jump&rsquo;s own launch copy describes the Pricing Manager modeling scenarios and pushing pricing changes across events in minutes. That is rule authorship and deployment, already shipped. Five of the nine applications are rules domains wearing product clothes: pricing, yield, journey triggers, loyalty accrual, and ingress entitlements. Vault proposes one governed decision layer instead of five embedded ones. The general law follows: the agent is the composer and the analytics estate is the composition. Models, rules, and BI assets are all authored expensively in tokens, executed at near-zero cost, and governed by the same semantic constitution.</p>
 </section>
@@ -348,16 +354,16 @@
   <div class="kicker">The Boundary</div>
   <p class="principle">Centralize the integration, federate the consumption</p>
   <h2>One truth in the middle, many copies at the edge.</h2>
-  <p class="lede" style="margin-top:14px">Centralization and mesh stop being rivals when each takes the half it is good at. The integration stays centralized: one canonical fan, one place identity resolves. The consumption federates: capable organizations receive governed data products, with contracts and lineage attached, published into their own stacks. That is the third DWaaS tier from the Map, and it is the boundary where the platform ends on purpose.</p>
+  <p class="lede" style="margin-top:14px">Data mesh is an ownership discipline, not a decentralization of truth: each domain owns its data and publishes it as a product. Read as decentralization, mesh looks like the rival of one central truth. It is not. Centralization and mesh stop being rivals when each takes the half it is good at. The integration stays centralized: one canonical fan, one place identity resolves. The consumption federates: capable organizations receive governed data products, with contracts and lineage attached, published into their own stacks. That is the third DWaaS tier from the Map, and it is the boundary where the platform ends on purpose: a mesh of governed products stamped from one model, a Universal Data Mesh, if you will.</p>
 </section>
 
 <section>
   <div class="kicker">The Identity</div>
   <p class="principle">Resolve the person once, own the relationship locally</p>
-  <h2>The whole person lives in the platform. Each club owns its truth.</h2>
-  <p class="lede" style="margin-top:14px">The identity ontology follows the layering. The integration layer holds the resolved party: a fan, an account, an organization, whichever entity is hardest to join in a given deployment, with every source key mapped, every relationship typed. Each club&rsquo;s mart carries only that club&rsquo;s truth. Progressive profiling, customer 360, and lifetime value are all views stamped from the same resolved party, which is why they agree with each other, and why the fan graph option on the Bench page costs nothing to keep open.</p>
-  <p class="lede" style="margin-top:14px">Because tenancy lives on the relationship and not on the fan, the model never assumes what kind of tenant it serves. A club and a touring act look the same to it: fans, transactions, and a lifecycle to own. The UDM would handle music fans exactly as it handles sports fans, with the same resolved person, the same governed marts, for whenever someone decides to make them Jump.</p>
-  <p class="lede" style="margin-top:14px">The same shared person makes something else possible. Because every club reads the same resolved party, the platform can recognize when non-competing clubs, a basketball club and a football club in one market, are serving the same supporter. Each still owns its own relationship with her; what a network of clubs chooses to build on that recognition, under governance, is the opportunity that sits above the platform.</p>
+  <h2>The whole person lives in the platform. Each club owns its relationship.</h2>
+  <p class="lede" style="margin-top:14px">The integration layer holds the resolved party: every source key mapped, every relationship typed, one record for the person no matter how many systems she arrived from. Each club&rsquo;s mart carries only that club&rsquo;s relationship with her. Progressive profiling, customer 360, and lifetime value are views stamped from the same resolved party, which is why they agree with each other, and why the fan graph option on the Bench page costs nothing to keep open.</p>
+  <p class="lede" style="margin-top:14px">Tenancy lives on the relationship, not on the person, so the model never assumes what kind of tenant it serves. A club and a touring act look the same to it: fans, transactions, and a lifecycle to own. The UDM would handle music fans exactly as it handles sports fans, same resolved person, same governed marts, for whenever someone decides to make them Jump.</p>
+  <p class="lede" style="margin-top:14px">The shared person is also an option on the future. Because every club reads the same resolved party, the platform can recognize when non-competing clubs, a basketball club and a football club in one market, are serving the same supporter. Each still owns its relationship with her. What a network of clubs chooses to build on that recognition, under governance, is the opportunity that sits above the platform.</p>
 </section>
 
 </div>

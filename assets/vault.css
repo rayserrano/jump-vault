@@ -152,6 +152,18 @@ footer .tagline { margin-bottom: 8px; font-style: italic; color: var(--green); }
 /* Architecture page: the expression box and The Fort */
 .expr-box { background: var(--black-light); border-radius: 8px; padding: 20px; margin: 20px auto; max-width: 34rem; text-align: center; font-family: 'Courier New', monospace; font-size: 1.05rem; color: var(--green); }
 .temps th:first-child, .temps td:first-child { font-weight: 700; }
+
+.tier-cards { display: flex; flex-direction: column; gap: 10px; margin: 8px 0; }
+.tier-card { border: 1px solid #d4d4d4; border-radius: 10px; padding: 14px 16px; background: #fafafa; }
+.tier-card.tier-arm { border-color: #79bc43; background: #f2f7f2; }
+.tier-name { font-weight: 700; font-size: 0.95rem; color: #1f1f1f; letter-spacing: 0.04em; }
+.tier-tag { font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #5a8f2f; background: #e4f0d8; padding: 2px 8px; border-radius: 999px; margin-left: 8px; }
+.tier-what { font-size: 0.92rem; color: #6f6f6f; margin-top: 4px; }
+.tier-job { font-size: 0.95rem; color: #1f1f1f; font-weight: 600; margin-top: 6px; }
+.dark .tier-card { background: #1a1a1a; border-color: #333; }
+.dark .tier-card.tier-arm { background: #14210e; border-color: #79bc43; }
+.dark .tier-name, .dark .tier-job { color: #f4f4f4; }
+.dark .tier-what { color: #a8a8a8; }
 .fort { background: var(--black); border-radius: 12px; padding: 44px 30px; text-align: center; margin-top: 10px; }
 .fort .dedication { color: var(--white); font-size: 1.25rem; font-weight: 600; line-height: 1.65; max-width: 42rem; margin: 0 auto; }
 .fort .dedication span { color: var(--green); white-space: nowrap; }
