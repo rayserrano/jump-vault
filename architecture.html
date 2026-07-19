@@ -219,9 +219,9 @@
   <div class="kicker">Layer 2b &middot; Proposal &middot; The Model, Weighed</div>
   <h2>Most models die of sprawl. This one absorbs change as data.</h2>
   <p class="lede" style="margin-top:14px">Every data model in the industry faces the same slow death. A new business concept arrives, someone alters a table, and the model grows a column; a few years of that and an entity carries hundreds of flag columns, most of them storing the word no. Sprawl compounds, every change becomes a migration, and the platform calcifies until replacing it is cheaper than changing it. This is the ordinary way data platforms die.</p>
-  <p class="lede" style="margin-top:14px">The Universal Data Model is the compression of that whole problem. Data engineers who hear Vault and think hubs and satellites are thinking of a different school; the model here is Silverston, and the pedigree runs decades deep. Eight proven patterns, composed once, give every entity the same onboarding move: at most six new tables, often fewer, and everything else arrives as rows in structures that already exist.</p>
+  <p class="lede" style="margin-top:14px">The Universal Data Model is the compression of that whole problem. Data engineers who hear Vault and think hubs and satellites are thinking of a different school; the model here is Silverston, and the pedigree runs decades deep. The macro pattern is a conglomeration of proven patterns, composed once. Classification is a pattern, a set of tables. Status is a pattern, a set of tables. So is item, so is role. Onboarding a new entity is not building tables; it is applying those patterns, which already exist. Each application leaves only a thin per-entity trace, and everything else it needs arrives as rows in structures that are already built.</p>
   <div class="diagram-wrap" data-zoom style="margin-top:22px">
-    <svg viewBox="0 0 760 300" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Before and after: the sprawling entity with hundreds of boolean flag columns where every change alters the schema, versus the same entity onboarded with six tables at most while everything else arrives as rows in structures that already exist. Eight patterns composed once; the model never sprawls.">
+    <svg viewBox="0 0 760 300" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Before and after: the sprawling entity with hundreds of boolean flag columns where every change alters the schema, versus the same entity onboarded by applying proven patterns that already exist, leaving only a thin per-entity trace while everything else arrives as rows. Eight patterns composed once; the model never sprawls.">
       <defs><marker id="m2b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f1f1f"/></marker></defs>
       <text x="190" y="28" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#ab0033">THE SPRAWL</text>
       <text x="570" y="28" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#1f1f1f">THE MOVE</text>
@@ -239,13 +239,32 @@
       <line x1="356" y1="130" x2="402" y2="130" stroke="#1f1f1f" stroke-width="1.5" marker-end="url(#m2b)"/>
       <rect x="410" y="40" width="320" height="180" rx="8" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.3"/>
       <rect x="410" y="40" width="320" height="26" rx="8" fill="#000000"/>
-      <text x="570" y="58" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#ccff00" letter-spacing="0.5">FAN &middot; SIX TABLES AT MOST</text>
+      <text x="570" y="58" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#ccff00" letter-spacing="0.5">FAN &middot; THE PATTERNS APPLIED</text>
       <rect x="428" y="84" width="284" height="46" rx="6" fill="#f2f2f2" stroke="#c9c9c9"/>
       <text x="570" y="103" text-anchor="middle" font-family="Inter, Arial" font-size="12" font-weight="700" fill="#1f1f1f">EVERYTHING ELSE ARRIVES AS ROWS</text>
       <text x="570" y="121" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">status types &middot; categories &middot; roles &middot; rules</text>
-      <text x="570" y="162" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">the schema never changes</text>
+      <text x="570" y="162" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">a thin trace per entity; the schema never changes</text>
       <text x="570" y="206" text-anchor="middle" font-family="Inter, Arial" font-size="12" font-weight="700" fill="#1f1f1f">every new idea is an INSERT</text>
       <text x="380" y="266" text-anchor="middle" font-family="Inter, Arial" font-size="13" fill="#6f6f6f">Eight of Silverston&rsquo;s patterns, composed once and applied to every entity. The model never sprawls.</text>
+    </svg>
+  </div>
+  <p class="lede" style="margin-top:14px">One pattern makes the whole idea concrete. Take classification, the pattern that answers what a fan <em>is</em>. The sprawling model on the left grows a column for every label, which is why it drowns in flags storing no. The pattern holds the labels as rows instead, so a fan can carry any number of them and a brand-new label is a single insert. The season a club invents a new tier, no table changes.</p>
+  <div class="diagram-wrap" data-zoom style="margin-top:18px">
+    <svg viewBox="0 0 760 150" width="100%" style="max-width:620px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Classification as rows: one fan carries three labels as three rows, and a fourth new label is added as one more row, with no change to the schema.">
+      <rect x="30" y="30" width="150" height="70" rx="8" fill="#1f1f1f"/>
+      <text x="105" y="60" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#ccff00">ONE FAN</text>
+      <text x="105" y="80" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#ffffff">Jessica</text>
+      <g stroke="#79bc43" stroke-width="1.3">
+        <line x1="180" y1="46" x2="250" y2="40"/><line x1="180" y1="58" x2="250" y2="66"/><line x1="180" y1="70" x2="250" y2="92"/>
+      </g>
+      <g font-family="Inter, Arial" font-size="12" fill="#1f1f1f">
+        <rect x="252" y="28" width="230" height="24" rx="6" fill="#f2f2f2" stroke="#c9c9c9"/><text x="266" y="44">PREMIUM &middot; a row</text>
+        <rect x="252" y="56" width="230" height="24" rx="6" fill="#f2f2f2" stroke="#c9c9c9"/><text x="266" y="72">SEASON TICKET HOLDER &middot; a row</text>
+        <rect x="252" y="84" width="230" height="24" rx="6" fill="#f2f2f2" stroke="#c9c9c9"/><text x="266" y="100">LAPSED IN 2024 &middot; a row</text>
+        <rect x="252" y="114" width="230" height="24" rx="6" fill="#ffffff" stroke="#79bc43" stroke-width="1.5" stroke-dasharray="4 3"/><text x="266" y="130" font-weight="700" fill="#3d3d3d">NEW TIER &middot; one more row</text>
+      </g>
+      <text x="600" y="76" text-anchor="middle" font-family="Inter, Arial" font-size="12" font-weight="700" fill="#1f1f1f">no ALTER.</text>
+      <text x="600" y="94" text-anchor="middle" font-family="Inter, Arial" font-size="12" font-weight="700" fill="#1f1f1f">one INSERT.</text>
     </svg>
   </div>
   <p class="lede" style="margin-top:14px">The consequence is the platform&rsquo;s youth. New requirements become inserts instead of migrations. Club twelve onboards exactly the way club three did. The marts, the semantic layer, and the agents all stand on a model that does not shift under them. The pattern library and the rules for composing it are precisely what the implementation guides on the <a href="mentoring.html">Mentoring page</a> teach.</p>
