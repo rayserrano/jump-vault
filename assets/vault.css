@@ -204,15 +204,17 @@ section.dark .agents-note strong { color: var(--white); }
 .cake { max-width: 720px; margin: 26px auto 0; }
 .cake-row { display: flex; gap: 12px; align-items: stretch; position: relative; }
 .cake-n { position: absolute; left: -26px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: #8a8a8a; font-weight: 700; }
-.cake-layer { flex: 1; text-align: left; padding: 16px 20px; border-radius: 10px; border: 1px solid #d4d4d4; background: #ffffff; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.12s ease; font-family: inherit; }
-.cake-layer:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
-.cake-layer b { display: block; font-size: 0.98rem; color: #1f1f1f; font-weight: 700; }
-.cake-layer small { display: block; margin-top: 3px; font-size: 0.82rem; color: #6f6f6f; }
+.cake-layer { flex: 1; text-align: left; padding: 16px 20px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease; font-family: inherit; }
+.cake-layer:hover { transform: translateY(-1px); border-color: #ccff00; }
+.cake-layer b { display: block; font-size: 0.98rem; color: #f4f4f4; font-weight: 700; }
+.cake-layer small { display: block; margin-top: 3px; font-size: 0.82rem; color: #a8a8a8; }
 .cake-layer.half { flex: 1; }
-.cake-layer.hero { background: #000000; border-color: #000000; }
+.cake-layer.hero { background: #000000; border: 1.5px solid #ccff00; }
 .cake-layer.hero b { color: #ccff00; }
 .cake-layer.hero small { color: #e6e6e6; }
-.cake-arrow { text-align: center; color: #b4b4b4; font-size: 1rem; margin: 6px 0; }
+.cake-arrow { text-align: center; color: #666; font-size: 1rem; margin: 6px 0; }
+
+.cake-hint { text-align: center; color: #8a8a8a; font-size: 0.85rem; margin: 16px auto 0; font-style: italic; }
 .cake-pop-overlay { position: fixed; inset: 0; background: rgba(15,15,15,0.55); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px; }
 .cake-pop-overlay.is-open { display: flex; }
 .cake-pop { background: #ffffff; border-radius: 14px; max-width: 460px; width: 100%; padding: 28px 30px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
