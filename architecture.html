@@ -229,42 +229,9 @@
     </svg>
   </div>
   <p class="lede" style="margin-top:14px">The upside is a platform that does not compound its maintenance cost as it grows. New requirements become inserts instead of migrations. The same pattern absorbs permutations no one designed for: many labels at once, labels that change over time, whole new dimensions of them. Requirements shift the way business always shifts, and the model meets them with rows rather than a maintenance project, so <span class="crimson-emph">the cost that normally compounds with every change never accrues.</span> Club twelve onboards exactly the way club three did. The marts, the semantic layer, and the agents all stand on a model that does not shift under them. The pattern library and the rules for composing it are precisely what the implementation guides on the <a href="mentoring.html">Mentoring page</a> teach.</p>
-  <div class="diagram-wrap" data-zoom style="margin-top:22px">
-    <svg viewBox="0 0 760 340" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The macro pattern: any new entity receives the same six-component decomposition, new tables bounded, shared structures reused as rows">
-      <defs>
-        <marker id="mp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6f6f6f"/></marker>
-      </defs>
-      <!-- center entity -->
-      <rect x="320" y="150" width="120" height="44" rx="8" fill="#1f1f1f"/>
-      <text x="380" y="170" text-anchor="middle" font-family="Inter, Arial" font-size="12" font-weight="700" fill="#ccff00">ANY ENTITY</text>
-      <text x="380" y="185" text-anchor="middle" font-family="Inter, Arial" font-size="9" fill="#ffffff">fan, order, agreement...</text>
-      <!-- six components fanning out -->
-      <g font-family="Inter, Arial" font-size="9.5" font-weight="700" fill="#1f1f1f" text-anchor="middle">
-        <rect x="40" y="40" width="130" height="34" rx="7" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/><text x="105" y="61">ITEM</text>
-        <rect x="315" y="40" width="130" height="34" rx="7" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/><text x="380" y="61">STATUS</text>
-        <rect x="590" y="40" width="130" height="34" rx="7" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/><text x="655" y="61">ROLE</text>
-        <rect x="40" y="270" width="130" height="34" rx="7" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/><text x="105" y="291">CLASSIFICATION</text>
-        <rect x="315" y="270" width="130" height="34" rx="7" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/><text x="380" y="291">CONTACT MECH</text>
-        <rect x="590" y="270" width="130" height="34" rx="7" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/><text x="655" y="291">(fewer if unused)</text>
-      </g>
-      <g stroke="#6f6f6f" stroke-width="1.2">
-        <line x1="330" y1="150" x2="140" y2="74" marker-end="url(#mp)"/>
-        <line x1="380" y1="150" x2="380" y2="74" marker-end="url(#mp)"/>
-        <line x1="430" y1="150" x2="620" y2="74" marker-end="url(#mp)"/>
-        <line x1="330" y1="194" x2="140" y2="270" marker-end="url(#mp)"/>
-        <line x1="380" y1="194" x2="380" y2="270" marker-end="url(#mp)"/>
-      </g>
-      <!-- reused-as-rows band -->
-      <rect x="500" y="150" width="240" height="44" rx="8" fill="#f2f2f2" stroke="#ccff00" stroke-width="1.5"/>
-      <text x="620" y="168" text-anchor="middle" font-family="Inter, Arial" font-size="9.5" font-weight="700" fill="#1f1f1f">SHARED STRUCTURES</text>
-      <text x="620" y="184" text-anchor="middle" font-family="Inter, Arial" font-size="9" fill="#6f6f6f">reused as rows, not new tables</text>
-      <line x1="440" y1="172" x2="500" y2="172" stroke="#79bc43" stroke-width="1.4" stroke-dasharray="4 3"/>
-      <text x="380" y="326" text-anchor="middle" font-family="Inter, Arial" font-size="12.5" font-weight="700" fill="#1f1f1f">Every entity onboards the same way: six components at most, and the rest is data.</text>
-    </svg>
-  </div>
+  
   <section class="dark">
-  <p class="lede" style="margin-top:0; font-size:13px; opacity:0.6"><strong>COMPARISON &middot; NEW TEAM VIEW</strong> (scaffolding: same idea as the diagram above, shown a second way; the weaker one gets removed)</p>
-  <p class="lede" style="margin-top:14px">There is another way to see the same move. The macro pattern is a team of collaborating patterns, each one a small, proven solution to a recurring modeling problem: how to classify a thing, how to track where it is in its life, how it takes part, what its pieces are. The patterns already exist and already work together. Onboarding a new entity is not building it from parts; it is handing it to a team that is standing by.</p>
+  <p class="lede" style="margin-top:14px">The macro pattern is best seen as a team of collaborating patterns, each one a small, proven solution to a recurring modeling problem: how to classify a thing, how to track where it is in its life, how it takes part, what its pieces are. The patterns already exist and already work together. Onboarding a new entity is not building it from parts; it is handing it to a team that is standing by.</p>
   <div class="diagram-wrap" data-zoom style="margin-top:10px">
     <svg viewBox="0 0 760 320" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A team of patterns that already exists: classification, status, role, item, and contact mechanism sit together on a shared pattern library that is already built, with an open edge signaling more patterns exist. A new entity arrives below and plugs up into several patterns at once; what is new is only a thin per-entity trace, while the library is not rebuilt.">
       <defs><marker id="tm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#79bc43"/></marker></defs>
@@ -288,8 +255,7 @@
       <rect x="280" y="250" width="200" height="50" rx="8" fill="#1f1f1f"/>
       <text x="380" y="271" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#ccff00">A NEW ENTITY</text>
       <text x="380" y="288" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#ffffff">a fan, a ticket, an agreement</text>
-      <text x="530" y="279" font-family="Inter, Arial" font-size="12" fill="#c9c9c9">plugs into patterns</text>
-      <text x="530" y="294" font-family="Inter, Arial" font-size="12" fill="#c9c9c9">that already exist</text>
+      
       <text x="380" y="317" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#ffffff">A new entity draws on patterns already built. What is new is a thin trace; the library is not rebuilt.</text>
     </svg>
   </div>
