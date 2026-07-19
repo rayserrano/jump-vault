@@ -27,7 +27,7 @@
 </nav>
 
 <div class="masthead">
-  <div class="wordmark">JUMP <span class="vault">VAULT</span> 131</div>
+  <div class="wordmark">JUMP <span class="vault">VAULT</span> 132</div>
   <div class="mast-sub">The Unified Data Platform, powered by the Universal Data Model.</div>
   <div class="mast-sub2">under the fan experience</div>
   <div class="tagline">Lighting the way from red to black. Dunks included.</div>
@@ -582,27 +582,44 @@
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { labels: { color: '#3d3d3d', usePointStyle: true, pointStyle: 'line' } },
+        legend: {
+          position: 'top',
+          align: 'center',
+          labels: {
+            color: '#3d3d3d',
+            font: { family: 'Inter', size: 11 },
+            usePointStyle: true,
+            pointStyle: 'line',
+            boxWidth: 24,
+            padding: 14
+          }
+        },
         tooltip: {
+          usePointStyle: true,
           callbacks: {
             label: function (item) {
               return item.dataset.label + ': $' + item.parsed.y.toFixed(1) + 'M';
+            },
+            labelPointStyle: function () {
+              return { pointStyle: 'line', rotation: 0 };
             }
           }
         }
       },
       scales: {
         x: {
-          grid: { display: false },
           ticks: {
             color: '#6f6f6f',
+            maxRotation: 0,
             callback: function (val, idx) {
               var l = this.getLabelForValue(val);
               return l.indexOf('Q1') === 0 ? l.slice(3) : '';
             }
-          }
+          },
+          grid: { color: '#e6e6e6' }
         },
         y: {
           grid: { color: '#ececec' },
