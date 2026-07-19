@@ -7,7 +7,7 @@
     storage: { t: "Storage Layer", s: "persistent history, full audit trail", b: "<p>The permanent, append-only history. Every version of every record, kept. This is what lets the platform answer questions about the past, not just the present.</p><p>Nothing is overwritten. History is an asset, not a cost.</p>" },
     ods: { t: "Operational Layer", s: "real-time operational reporting", b: "<p>The fast lane. For questions that need an answer now rather than tomorrow: live operations, current-state reporting, the near-real-time view.</p><p>Same source, different temperature.</p>" },
     udm: { t: "Integration Layer", s: "Universal Data Model", b: "<p class='lead'>The translator. Different sources speaking the same language.</p><p>What happens here:</p><ul><li><b>Standardization</b> &mdash; \"fan\" means the same thing everywhere</li><li><b>Resolution</b> &mdash; the same person across four systems becomes one record</li><li><b>Enrichment</b> &mdash; scattered data points combine into one complete picture</li></ul><p>The Universal Data Model is the Rosetta Stone. Every layer above it inherits one governed truth, which is why they all agree with each other.</p>" },
-    ml: { t: "Model Layer", s: "propensity, lifetime value, next best action", b: "<p>Models read from the one resolved record, so their predictions rest on complete history rather than a fragment. Propensity to churn, lifetime value, next best action.</p><p>Better input, not just a better algorithm.</p>" },
+    ml: { t: "ML Layer", s: "propensity, lifetime value, next best action", b: "<p>Models read from the one resolved record, so their predictions rest on complete history rather than a fragment. Propensity to churn, lifetime value, next best action.</p><p>Better input, not just a better algorithm.</p>" },
     marts: { t: "Club Marts", s: "each club's own governed copy", b: "<p>Every club gets its own mart, stamped from the integration layer. Their data, their metrics, wholly owned, never forked from the shared truth.</p><p>Ownership without divergence.</p>" },
     semantic: { t: "Semantic Layer", s: "one metric definition", b: "<p>One definition per metric, defined once and served everywhere. \"Active fan\" means the same thing in a dashboard, an API, and an agent's answer.</p><p>Governed in dbt MetricFlow, so nobody redefines the number in a spreadsheet.</p>" },
     bi: { t: "BI Layer", s: "dashboards, reports, APIs", b: "<p>The classic consumption surface: dashboards, scheduled reports, APIs. All reading the same governed metrics, so the numbers reconcile no matter who pulls them.</p>" },
@@ -32,7 +32,7 @@
     }
     function close() { ov.classList.remove("is-open"); document.body.style.overflow = ""; }
 
-    layers.forEach(function (el) { el.addEventListener("click", function () { open(el.getAttribute("data-k")); }); });
+    layers.forEach(function (el) { el.addEventListener("click", function (e) { e.stopPropagation(); open(el.getAttribute("data-k")); }); });
     ov.addEventListener("click", function (e) { if (e.target === ov || e.target === closeBtn) close(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && ov.classList.contains("is-open")) close(); });
   }
