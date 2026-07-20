@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Instance Model Preview</title>
+<link rel="stylesheet" href="assets/vault.css?v=37">
+<style>
+  body { background:#0d0d0d; margin:0; padding:24px; }
+  .im-stage { max-width:840px; margin:0 auto; background:#141414; border-radius:12px; padding:16px; }
+  .im-cap { color:#8a8a8a; font-family:Inter,Arial,sans-serif; font-size:0.8rem; text-align:center; margin:10px 0 0; }
+</style>
+</head>
+<body>
+<div class="im-stage">
+<svg viewBox="0 0 800 730" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Instance model. One person, Jessica Alvarez, and one club, NC Courage, are both parties. Each plays a role in PARTY_ROLE: Jessica Alvarez as FAN, NC Courage as CLUB, referencing the ROLE list. PARTY_RELATIONSHIP joins the two party roles with type FAN_OF. A ticket transaction links to the same two party roles through FAN_TRANSACTION_ROLE, and to the event in FAN_TRANSACTION. Every join lands on a named party role; the club is never a text value on a row.">
+  <defs>
+    <marker id="im-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8a8a8a"/></marker>
+  </defs>
+
+  <!-- ROLE (reference) -->
+  <g>
+    <rect x="310" y="24" width="180" height="104" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="324" y="50" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">ROLE</text>
+    <line x1="318" y1="58" x2="482" y2="58" stroke="#333"/>
+    <text x="324" y="78" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">role</text>
+    <text x="324" y="99" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">FAN</text>
+    <text x="324" y="119" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">CLUB</text>
+  </g>
+
+  <!-- sources note -->
+  <text x="40" y="162" font-family="Inter,Arial" font-size="11.5" fill="#9a9a9a">3 sources resolve to one party:</text>
+  <text x="40" y="180" font-family="'Courier New',monospace" font-size="10.5" fill="#6f6f6f">Ticketing 88213 &#183; Commerce C-4471 &#183; App 7f3a</text>
+
+  <!-- PARTY -->
+  <g>
+    <rect x="40" y="196" width="250" height="104" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="54" y="222" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">PARTY</text>
+    <line x1="48" y1="230" x2="282" y2="230" stroke="#333"/>
+    <text x="54" y="250" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">party</text>
+    <text x="54" y="271" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">Jessica Alvarez</text>
+    <text x="54" y="291" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">NC Courage</text>
+  </g>
+  <path d="M110,184 L110,195" stroke="#6f6f6f" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#im-arrow)"/>
+
+  <!-- PARTY_ROLE (hub, lime) -->
+  <g>
+    <rect x="330" y="330" width="300" height="104" rx="8" fill="#1f1f1f" stroke="#ccff00" stroke-width="1.6"/>
+    <text x="344" y="356" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#ccff00">PARTY_ROLE</text>
+    <line x1="338" y1="364" x2="622" y2="364" stroke="#444"/>
+    <text x="344" y="384" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">party_role</text>
+    <text x="344" y="405" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">Jessica Alvarez as FAN</text>
+    <text x="344" y="425" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">NC Courage as CLUB</text>
+  </g>
+  <!-- PARTY_ROLE -> ROLE -->
+  <path d="M430,330 L420,130" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
+  <!-- PARTY_ROLE -> PARTY -->
+  <path d="M330,378 L292,262" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
+
+  <!-- PARTY_RELATIONSHIP -->
+  <g>
+    <rect x="40" y="486" width="270" height="132" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="54" y="512" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">PARTY_RELATIONSHIP</text>
+    <line x1="48" y1="520" x2="302" y2="520" stroke="#333"/>
+    <text x="54" y="540" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">type: FAN_OF</text>
+    <text x="54" y="562" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">from: Jessica Alvarez as FAN</text>
+    <text x="54" y="586" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">to:&#160;&#160; NC Courage as CLUB</text>
+  </g>
+  <!-- REL -> PARTY_ROLE x2 -->
+  <path d="M175,486 L370,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
+  <path d="M215,486 L410,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
+
+  <!-- FAN_TRANSACTION_ROLE -->
+  <g>
+    <rect x="470" y="486" width="290" height="132" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="484" y="512" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">FAN_TRANSACTION_ROLE</text>
+    <line x1="478" y1="520" x2="752" y2="520" stroke="#333"/>
+    <text x="484" y="540" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">txn joins party_roles</text>
+    <text x="484" y="562" font-family="'Courier New',monospace" font-size="12" fill="#f4f4f4">TKT-Mar14 &#8594; Jessica Alvarez as FAN</text>
+    <text x="484" y="586" font-family="'Courier New',monospace" font-size="12" fill="#f4f4f4">TKT-Mar14 &#8594; NC Courage as CLUB</text>
+  </g>
+  <!-- TXNROLE -> PARTY_ROLE x2 -->
+  <path d="M545,486 L525,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
+  <path d="M600,486 L585,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
+  <!-- TXNROLE -> FAN_TRANSACTION -->
+  <path d="M632,618 L632,636" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
+
+  <!-- FAN_TRANSACTION -->
+  <g>
+    <rect x="505" y="640" width="255" height="82" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="519" y="666" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">FAN_TRANSACTION</text>
+    <line x1="513" y1="674" x2="752" y2="674" stroke="#333"/>
+    <text x="519" y="702" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">TKT-Mar14 &#183; TICKET &#183; $1,840</text>
+  </g>
+</svg>
+<p class="im-cap">Preview only. Every relationship and transaction join lands inside the lime PARTY_ROLE box, on a named row. The club is a party playing a role, never a text value.</p>
+</div>
+</body>
+</html>
