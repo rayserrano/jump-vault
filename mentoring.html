@@ -168,9 +168,9 @@ memberships AS (
     WHERE m.club_code = 'CLUB_77'
 ),
 
-## 6.3 Validation check three: relationship edge count
+## 6.3 Validation check three: relationship count
 
-SELECT COUNT(*) AS edge_count
+SELECT COUNT(*) AS relationship_count
 FROM INTEGRATION.PARTY_RELATIONSHIP pr
 INNER JOIN INTEGRATION.PARTY_ROLE r
     ON pr.to_party_role_id = r.party_role_id

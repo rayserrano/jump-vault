@@ -72,14 +72,14 @@
     <!-- integrator -->
     <rect x="250" y="154" width="260" height="46" rx="8" fill="#ffffff" stroke="#1f1f1f" stroke-width="1.1"/>
     <text x="380" y="174" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#1f1f1f">THE INTEGRATOR RESOLVES</text>
-    <text x="380" y="190" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">two party roles joined into one edge</text>
+    <text x="380" y="190" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#6f6f6f">two party roles joined into one relationship</text>
     <text x="524" y="181" font-family="Inter, Arial" font-size="12" font-weight="700" fill="#657dff">A</text>
     <line x1="380" y1="200" x2="380" y2="222" stroke="#8a8a8a" stroke-width="1.4" marker-end="url(#ec)"/>
 
     <!-- canonical table (dark - the product) with guards on the sides -->
     <rect x="230" y="224" width="300" height="54" rx="8" fill="#1f1f1f"/>
     <text x="380" y="246" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="700" fill="#ffffff">CANONICAL PARTY_RELATIONSHIP</text>
-    <text x="380" y="263" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#cccccc">one table, many writers, tenancy on the edge</text>
+    <text x="380" y="263" text-anchor="middle" font-family="Inter, Arial" font-size="12" fill="#cccccc">one table, many writers, tenancy on the relationship</text>
 
     <!-- guard: tests (left) -->
     <rect x="30" y="228" width="168" height="46" rx="8" fill="#faf3f4" stroke="#ab0033" stroke-width="1.2"/>
@@ -120,9 +120,9 @@
   <div class="code-exhibit">
     <div class="file"><span class="exhibit-key">A</span>models/integration/ticketing/integrator_ticketing_fan_club_relationship.sql</div>
     <pre>-- Ticketing memberships -> PARTY_RELATIONSHIP.
--- Links a fan (FAN role) to a club (CLUB role), one row per fan-club edge.
+-- Links a fan (FAN role) to a club (CLUB role), one row per fan-club relationship.
 -- Tenancy lives here, on the relationship, never on the fan: the same
--- person holding memberships at two clubs produces two edges and stays
+-- person holding memberships at two clubs produces two relationships and stays
 -- one PARTY. Rows are only built where both sides already resolved.
 
 {{
@@ -186,7 +186,7 @@ final AS (
 
 SELECT * FROM final</pre>
   </div>
-  <p class="lede" style="margin-top:14px">The walk from top to bottom. The source reads current membership state from history. Resolution joins each side to the party layer through namespaced source keys, and the subtype joins prove the fan is a person and the club is an organization before any edge is built. The surrogate keys then compose the two party roles, fan on one end and club on the other, into one relationship row. When a second club arrives, nothing about the fan changes. The fan stays one party, and the platform adds an edge.</p>
+  <p class="lede" style="margin-top:14px">The walk from top to bottom. The source reads current membership state from history. Resolution joins each side to the party layer through namespaced source keys, and the subtype joins prove the fan is a person and the club is an organization before any relationship is built. The surrogate keys then compose the two party roles, fan on one end and club on the other, into one relationship row. When a second club arrives, nothing about the fan changes. The fan stays one party, and the platform adds a relationship.</p>
 
   <div class="code-exhibit">
     <div class="file"><span class="exhibit-key">B</span>models/integration/_unit_tests/integrator_ticketing_fan_club_relationship.yml</div>
@@ -195,11 +195,11 @@ SELECT * FROM final</pre>
   # ============================================================
   # Logic area: fan-to-club PARTY_RELATIONSHIP
   # A relationship is the join of two party roles.
-  # Tenancy lives on the edge: one fan, two clubs, two rows.
+  # Tenancy lives on the relationship: one fan, two clubs, two rows.
   # ============================================================
 
-  # Path 1: fan and club both resolved, one edge built
-  - name: ut_fan_club_edge_created
+  # Path 1: fan and club both resolved, one relationship built
+  - name: ut_fan_club_relationship_created
     model: integrator_ticketing_fan_club_relationship
     given:
       - input: ref('hist_ticketing_membership')
@@ -220,8 +220,8 @@ SELECT * FROM final</pre>
       rows:
         - { from_date: '2024-10-01', thru_date: null }
 
-  # Path 2: club not yet integrated, no edge and no orphan
-  - name: ut_no_club_no_edge
+  # Path 2: club not yet integrated, no relationship and no orphan
+  - name: ut_no_club_no_relationship
     model: integrator_ticketing_fan_club_relationship
     given:
       - input: ref('hist_ticketing_membership')
@@ -239,8 +239,8 @@ SELECT * FROM final</pre>
     expect:
       rows: []
 
-  # Path 3: one fan, two clubs. Two edges, still one person.
-  - name: ut_one_fan_two_clubs_two_edges
+  # Path 3: one fan, two clubs. Two relationships, still one person.
+  - name: ut_one_fan_two_clubs_two_relationships
     model: integrator_ticketing_fan_club_relationship
     given:
       - input: ref('hist_ticketing_membership')
@@ -266,7 +266,7 @@ SELECT * FROM final</pre>
         - { from_date: '2024-10-01', thru_date: null }
         - { from_date: '2025-02-14', thru_date: null }</pre>
   </div>
-  <p class="lede" style="margin-top:14px">The test file mirrors production discipline: one logic area, named paths, mocked inputs, explicit expectations. Path one proves the edge is built when both sides resolve. Path two proves a missing club produces no orphan. Path three is the one that matters: one fan, memberships at two clubs, and the expectation is two relationship rows and still one person. Here the founding decision has an enforcer. If tenancy ever drifts onto the fan, this test fails and the build stops.</p>
+  <p class="lede" style="margin-top:14px">The test file mirrors production discipline: one logic area, named paths, mocked inputs, explicit expectations. Path one proves the relationship is built when both sides resolve. Path two proves a missing club produces no orphan. Path three is the one that matters: one fan, memberships at two clubs, and the expectation is two relationship rows and still one person. Here the founding decision has an enforcer. If tenancy ever drifts onto the fan, this test fails and the build stops.</p>
 
   <p class="lede" style="margin-top:14px">The third exhibit is where dbt gets extended rather than only used. dbt ships tables, views, and incremental models. A platform with one canonical relationship table and many sources writing into it earns its own materialization, and every writer declares the same contract:</p>
 
@@ -494,8 +494,8 @@ semantic_models:
   - name: membership_fact
     description: >
       Fan-club membership fact. Grain: one row per fan-club
-      membership edge, straight from PARTY_RELATIONSHIP.
-      Illustrative population: ~1.6M edges across clubs.
+      membership row, straight from PARTY_RELATIONSHIP.
+      Illustrative population: ~1.6M relationships across clubs.
       Coverage note: memberships whose club has not resolved
       in the integration layer are excluded upstream by the
       integrator's inner joins. The no-orphan unit test in
@@ -522,7 +522,7 @@ semantic_models:
           time_granularity: day
     measures:
       - name: membership_count
-        description: Base additive measure. One per edge.
+        description: Base additive measure. One per relationship.
         agg: sum
         expr: "1"
 
@@ -543,7 +543,7 @@ metrics:
   - name: renewal_rate
     description: >
       Renewals over lapsed memberships. The denominator is
-      lapsed, never total: totals mix active edges into the
+      lapsed, never total: totals mix active relationships into the
       base and make the rate look better than it is. The
       denominator and its reason live here, in the
       definition, so no consumer can pick a different one
