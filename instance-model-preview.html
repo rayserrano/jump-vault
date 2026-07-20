@@ -9,92 +9,86 @@
 <style>
   body { background:#0d0d0d; margin:0; padding:24px; }
   .im-stage { max-width:840px; margin:0 auto; background:#141414; border-radius:12px; padding:16px; }
-  .im-cap { color:#8a8a8a; font-family:Inter,Arial,sans-serif; font-size:0.8rem; text-align:center; margin:10px 0 0; }
+  .im-cap { color:#8a8a8a; font-family:Inter,Arial,sans-serif; font-size:0.8rem; text-align:center; margin:12px 0 0; }
 </style>
 </head>
 <body>
 <div class="im-stage">
-<svg viewBox="0 0 800 730" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Instance model. One person, Jessica Alvarez, and one club, NC Courage, are both parties. Each plays a role in PARTY_ROLE: Jessica Alvarez as FAN, NC Courage as CLUB, referencing the ROLE list. PARTY_RELATIONSHIP joins the two party roles with type FAN_OF. A ticket transaction links to the same two party roles through FAN_TRANSACTION_ROLE, and to the event in FAN_TRANSACTION. Every join lands on a named party role; the club is never a text value on a row.">
+<svg viewBox="0 0 800 664" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Instance model. Jessica Alvarez and NC Courage are both parties. Each plays a role in PARTY_ROLE, referencing ROLE. PARTY_RELATIONSHIP, highlighted as the tenancy, joins the two party roles with type FAN_OF and is where which club owns the fan lives. A ticket transaction joins the same two party roles through FAN_TRANSACTION_ROLE. Arrows point parent to child; every join lands on a named party role and the club is never a text value.">
   <defs>
-    <marker id="im-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8a8a8a"/></marker>
+    <marker id="im-arrow" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#8a8a8a"/></marker>
   </defs>
 
-  <!-- ROLE (reference) -->
+  <!-- ELBOW CONNECTIONS (parent -> child) -->
+  <path d="M120,164 V245 H286" fill="none" stroke="#8a8a8a" stroke-width="1.3" marker-end="url(#im-arrow)"/>
+  <path d="M660,164 V245 H584" fill="none" stroke="#8a8a8a" stroke-width="1.3" marker-end="url(#im-arrow)"/>
+  <path d="M400,314 V356" fill="none" stroke="#8a8a8a" stroke-width="1.3" marker-end="url(#im-arrow)"/>
+  <path d="M580,270 H640 V516" fill="none" stroke="#8a8a8a" stroke-width="1.3" marker-end="url(#im-arrow)"/>
+  <path d="M290,577 H466" fill="none" stroke="#8a8a8a" stroke-width="1.3" marker-end="url(#im-arrow)"/>
+
+  <!-- ROLE -->
   <g>
-    <rect x="310" y="24" width="180" height="104" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
-    <text x="324" y="50" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">ROLE</text>
-    <line x1="318" y1="58" x2="482" y2="58" stroke="#333"/>
-    <text x="324" y="78" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">role</text>
-    <text x="324" y="99" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">FAN</text>
-    <text x="324" y="119" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">CLUB</text>
+    <rect x="40" y="60" width="160" height="104" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="54" y="86" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">ROLE</text>
+    <line x1="48" y1="94" x2="192" y2="94" stroke="#333"/>
+    <text x="54" y="112" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">role</text>
+    <text x="54" y="132" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">FAN</text>
+    <text x="54" y="151" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">CLUB</text>
   </g>
 
-  <!-- sources note -->
-  <text x="40" y="162" font-family="Inter,Arial" font-size="11.5" fill="#9a9a9a">3 sources resolve to one party:</text>
-  <text x="40" y="180" font-family="'Courier New',monospace" font-size="10.5" fill="#6f6f6f">Ticketing 88213 &#183; Commerce C-4471 &#183; App 7f3a</text>
-
-  <!-- PARTY -->
+  <!-- PARTY + sources note -->
+  <text x="574" y="50" font-family="Inter,Arial" font-size="11" font-style="italic" fill="#9a9a9a">resolved from 3 sources</text>
+  <path d="M620,54 V59" fill="none" stroke="#6f6f6f" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#im-arrow)"/>
   <g>
-    <rect x="40" y="196" width="250" height="104" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
-    <text x="54" y="222" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">PARTY</text>
-    <line x1="48" y1="230" x2="282" y2="230" stroke="#333"/>
-    <text x="54" y="250" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">party</text>
-    <text x="54" y="271" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">Jessica Alvarez</text>
-    <text x="54" y="291" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">NC Courage</text>
+    <rect x="560" y="60" width="200" height="104" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="574" y="86" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">PARTY</text>
+    <line x1="568" y1="94" x2="752" y2="94" stroke="#333"/>
+    <text x="574" y="112" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">party</text>
+    <text x="574" y="132" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">Jessica Alvarez</text>
+    <text x="574" y="151" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">NC Courage</text>
   </g>
-  <path d="M110,184 L110,195" stroke="#6f6f6f" stroke-width="1.1" stroke-dasharray="3 3" marker-end="url(#im-arrow)"/>
 
-  <!-- PARTY_ROLE (hub, lime) -->
+  <!-- PARTY_ROLE -->
   <g>
-    <rect x="330" y="330" width="300" height="104" rx="8" fill="#1f1f1f" stroke="#ccff00" stroke-width="1.6"/>
-    <text x="344" y="356" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#ccff00">PARTY_ROLE</text>
-    <line x1="338" y1="364" x2="622" y2="364" stroke="#444"/>
-    <text x="344" y="384" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">party_role</text>
-    <text x="344" y="405" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">Jessica Alvarez as FAN</text>
-    <text x="344" y="425" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">NC Courage as CLUB</text>
+    <rect x="290" y="210" width="294" height="104" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="304" y="236" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">PARTY_ROLE</text>
+    <line x1="298" y1="244" x2="576" y2="244" stroke="#333"/>
+    <text x="304" y="262" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">party_role</text>
+    <text x="304" y="282" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">Jessica Alvarez as FAN</text>
+    <text x="304" y="301" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">NC Courage as CLUB</text>
   </g>
-  <!-- PARTY_ROLE -> ROLE -->
-  <path d="M430,330 L420,130" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
-  <!-- PARTY_ROLE -> PARTY -->
-  <path d="M330,378 L292,262" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
 
-  <!-- PARTY_RELATIONSHIP -->
+  <!-- PARTY_RELATIONSHIP (tenancy, lime, center) -->
   <g>
-    <rect x="40" y="486" width="270" height="132" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
-    <text x="54" y="512" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">PARTY_RELATIONSHIP</text>
-    <line x1="48" y1="520" x2="302" y2="520" stroke="#333"/>
-    <text x="54" y="540" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">type: FAN_OF</text>
-    <text x="54" y="562" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">from: Jessica Alvarez as FAN</text>
-    <text x="54" y="586" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">to:&#160;&#160; NC Courage as CLUB</text>
+    <rect x="253" y="356" width="294" height="126" rx="8" fill="#1f1f1f" stroke="#ccff00" stroke-width="1.7"/>
+    <text x="267" y="382" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#ccff00">PARTY_RELATIONSHIP</text>
+    <text x="500" y="382" font-family="Inter,Arial" font-size="10" fill="#ccff00">tenancy</text>
+    <line x1="261" y1="390" x2="539" y2="390" stroke="#444"/>
+    <text x="267" y="410" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">type: FAN_OF</text>
+    <text x="267" y="434" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">from: Jessica Alvarez as FAN</text>
+    <text x="267" y="458" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">to:&#160;&#160; NC Courage as CLUB</text>
   </g>
-  <!-- REL -> PARTY_ROLE x2 -->
-  <path d="M175,486 L370,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
-  <path d="M215,486 L410,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
-
-  <!-- FAN_TRANSACTION_ROLE -->
-  <g>
-    <rect x="470" y="486" width="290" height="132" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
-    <text x="484" y="512" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">FAN_TRANSACTION_ROLE</text>
-    <line x1="478" y1="520" x2="752" y2="520" stroke="#333"/>
-    <text x="484" y="540" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">txn joins party_roles</text>
-    <text x="484" y="562" font-family="'Courier New',monospace" font-size="12" fill="#f4f4f4">TKT-Mar14 &#8594; Jessica Alvarez as FAN</text>
-    <text x="484" y="586" font-family="'Courier New',monospace" font-size="12" fill="#f4f4f4">TKT-Mar14 &#8594; NC Courage as CLUB</text>
-  </g>
-  <!-- TXNROLE -> PARTY_ROLE x2 -->
-  <path d="M545,486 L525,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
-  <path d="M600,486 L585,436" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
-  <!-- TXNROLE -> FAN_TRANSACTION -->
-  <path d="M632,618 L632,636" stroke="#8a8a8a" stroke-width="1.2" marker-end="url(#im-arrow)"/>
 
   <!-- FAN_TRANSACTION -->
   <g>
-    <rect x="505" y="640" width="255" height="82" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
-    <text x="519" y="666" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">FAN_TRANSACTION</text>
-    <line x1="513" y1="674" x2="752" y2="674" stroke="#333"/>
-    <text x="519" y="702" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">TKT-Mar14 &#183; TICKET &#183; $1,840</text>
+    <rect x="40" y="530" width="250" height="94" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="54" y="556" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">FAN_TRANSACTION</text>
+    <line x1="48" y1="564" x2="282" y2="564" stroke="#333"/>
+    <text x="54" y="584" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">txn &#183; type &#183; amount</text>
+    <text x="54" y="606" font-family="'Courier New',monospace" font-size="12.5" fill="#f4f4f4">TKT-Mar14 &#183; TICKET &#183; $1,840</text>
+  </g>
+
+  <!-- FAN_TRANSACTION_ROLE -->
+  <g>
+    <rect x="470" y="516" width="294" height="126" rx="8" fill="#1f1f1f" stroke="#3a3a3a"/>
+    <text x="484" y="542" font-family="'Courier New',monospace" font-size="13" font-weight="700" fill="#7f97ff">FAN_TRANSACTION_ROLE</text>
+    <line x1="478" y1="550" x2="756" y2="550" stroke="#333"/>
+    <text x="484" y="570" font-family="Inter,Arial" font-size="11" fill="#8a8a8a">txn joins party_roles</text>
+    <text x="484" y="592" font-family="'Courier New',monospace" font-size="12" fill="#f4f4f4">TKT-Mar14 &#8594; Jessica Alvarez as FAN</text>
+    <text x="484" y="614" font-family="'Courier New',monospace" font-size="12" fill="#f4f4f4">TKT-Mar14 &#8594; NC Courage as CLUB</text>
   </g>
 </svg>
-<p class="im-cap">Preview only. Every relationship and transaction join lands inside the lime PARTY_ROLE box, on a named row. The club is a party playing a role, never a text value.</p>
+<p class="im-cap">PARTY_RELATIONSHIP (lime) is the tenancy: which club owns the fan. Arrows point parent to child; every join lands on a named party role, so the club is a party playing a role, never a text value.</p>
 </div>
 </body>
 </html>
