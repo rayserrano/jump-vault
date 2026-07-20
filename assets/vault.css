@@ -286,11 +286,13 @@ section.dark .crimson-emph { color: #ff5c7a; }
 .diagram-wrap[data-zoom]::after { content: ""; position: absolute; right: 12px; bottom: 12px; width: 26px; height: 26px; border-radius: 8px; background-color: #ccff00; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10' cy='10' r='6' fill='none' stroke='%23000000' stroke-width='2.4'/%3E%3Cline x1='14.5' y1='14.5' x2='19.5' y2='19.5' stroke='%23000000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"); background-position: center; background-size: 14px 14px; background-repeat: no-repeat; pointer-events: none; }
 .diagram-wrap[data-zoom]:hover::after { background-color: #dbff4d; }
 
-/* v35: Yield fan-record - governed key/value record, mobile-native, lime derived payoff */
-.fan-record { margin-top: 2px; }
-.fan-record .fr-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 11px 1px; border-bottom: 1px solid #ececec; }
-.fan-record .fr-row:last-child { border-bottom: none; padding-bottom: 2px; }
-.fan-record .fr-field { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; color: #929292; }
-.fan-record .fr-val { font-family: 'Courier New', monospace; font-size: 0.95rem; font-weight: 700; color: #1f1f1f; white-space: nowrap; }
-.fan-record .fr-derived .fr-field { color: #425df0; }
-.fan-record .fr-derived .fr-val { background: #ccff00; color: #000; padding: 3px 11px; border-radius: 6px; }
+/* v36: Yield fan-record - dark governed-record card, code-exhibit aesthetic */
+.fan-record { background: #1f1f1f; border-radius: 8px; padding: 20px 24px; }
+.fan-record .fr-head { font-family: 'Courier New', monospace; color: #7f97ff; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; padding-bottom: 15px; margin-bottom: 4px; border-bottom: 1px solid #333; }
+.fan-record .fr-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid #2b2b2b; }
+.fan-record .fr-row:last-child { border-bottom: none; padding-bottom: 0; }
+.fan-record .fr-field { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; color: #8a8a8a; }
+.fan-record .fr-val { font-family: 'Courier New', monospace; font-size: 0.98rem; font-weight: 700; color: #f4f4f4; white-space: nowrap; }
+.fan-record .fr-derived { margin-top: 6px; padding-top: 15px; border-top: 1px dashed #4a4a4a; border-bottom: none; }
+.fan-record .fr-derived .fr-field { color: #eaeaea; }
+.fan-record .fr-derived .fr-val { background: #ccff00; color: #000; padding: 3px 12px; border-radius: 6px; }
