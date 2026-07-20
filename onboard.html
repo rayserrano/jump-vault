@@ -7,7 +7,7 @@
 <title>Jump Vault | Onboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vault.css?v=36">
+<link rel="stylesheet" href="assets/vault.css?v=37">
 </head>
 <body>
 
@@ -39,31 +39,25 @@
   <p class="lede" style="margin-top:14px">The same fan carries three identities with zero joins, multiplied by every source and every club.</p>
   <div class="panel">
     <div class="split-view">
-      <div class="source-box">
-        <div class="source-header">Ticketing Export <span class="badge tix">SOURCE A</span></div>
-        <table>
-          <tr><th>ACCT_ID</th><td class="hl">88213</td></tr>
-          <tr><th>NAME</th><td>J. Alvarez</td></tr>
-          <tr><th>EMAIL</th><td>jalvarez@mail.com</td></tr>
-          <tr><th>2026 SPEND</th><td>$1,840</td></tr>
-        </table>
+      <div class="fan-record source">
+        <div class="fr-head">Ticketing Export <span class="badge tix">SOURCE A</span></div>
+        <div class="fr-row fr-mismatch"><span class="fr-field">ACCT_ID</span><span class="fr-val">88213</span></div>
+        <div class="fr-row"><span class="fr-field">NAME</span><span class="fr-val">J. Alvarez</span></div>
+        <div class="fr-row"><span class="fr-field">EMAIL</span><span class="fr-val">jalvarez@mail.com</span></div>
+        <div class="fr-row"><span class="fr-field">2026 SPEND</span><span class="fr-val">$1,840</span></div>
       </div>
-      <div class="source-box">
-        <div class="source-header">Commerce / Merch <span class="badge merch">SOURCE B</span></div>
-        <table>
-          <tr><th>CUSTOMER_NO</th><td class="hl">C-4471</td></tr>
-          <tr><th>NAME</th><td>Jessica Alvarez</td></tr>
-          <tr><th>EMAIL</th><td>JALVAREZ@MAIL.COM</td></tr>
-          <tr><th>LTV</th><td>$412</td></tr>
-        </table>
+      <div class="fan-record source">
+        <div class="fr-head">Commerce / Merch <span class="badge merch">SOURCE B</span></div>
+        <div class="fr-row fr-mismatch"><span class="fr-field">CUSTOMER_NO</span><span class="fr-val">C-4471</span></div>
+        <div class="fr-row"><span class="fr-field">NAME</span><span class="fr-val">Jessica Alvarez</span></div>
+        <div class="fr-row"><span class="fr-field">EMAIL</span><span class="fr-val">JALVAREZ@MAIL.COM</span></div>
+        <div class="fr-row"><span class="fr-field">LTV</span><span class="fr-val">$412</span></div>
       </div>
-      <div class="source-box">
-        <div class="source-header">Branded App <span class="badge app">SOURCE C</span></div>
-        <table>
-          <tr><th>USER_GUID</th><td class="hl">7f3a-91c2</td></tr>
-          <tr><th>FAV PLAYER</th><td>#23</td></tr>
-          <tr><th>SESSIONS</th><td>41</td></tr>
-        </table>
+      <div class="fan-record source">
+        <div class="fr-head">Branded App <span class="badge app">SOURCE C</span></div>
+        <div class="fr-row fr-mismatch"><span class="fr-field">USER_GUID</span><span class="fr-val">7f3a-91c2</span></div>
+        <div class="fr-row"><span class="fr-field">FAV PLAYER</span><span class="fr-val">#23</span></div>
+        <div class="fr-row"><span class="fr-field">SESSIONS</span><span class="fr-val">41</span></div>
       </div>
     </div>
     <p class="caption">Per-team identity is the right call for the brand promise, which makes identity resolution underneath the branded surfaces the platform&rsquo;s job rather than the fan&rsquo;s.</p>
@@ -146,19 +140,19 @@
   <p class="lede" style="margin-top:14px">Once a club&rsquo;s sources map into the model, the mart is generated: the same dimensional shapes, the same governed metrics, and only the mapping is client-specific. The dashed box in the Map&rsquo;s data platform diagram is this press waiting for its next job.</p>
   <div class="panel">
     <div class="split-view">
-      <div class="mart-box">
-        <div style="font-weight:700;color:#425df0;margin-bottom:8px">CLUB_A.FAN_360</div>
-        <table>
-          <tr><th>FAN_KEY</th><th>TENURE</th><th>TICKET_SPEND</th><th>MERCH_ATTACH</th></tr>
-          <tr><td>501</td><td>3 SEASONS</td><td>$1,840</td><td>TRUE</td></tr>
-        </table>
+      <div class="fan-record">
+        <div class="fr-head">CLUB_A.FAN_360</div>
+        <div class="fr-row"><span class="fr-field">FAN_KEY</span><span class="fr-val">501</span></div>
+        <div class="fr-row"><span class="fr-field">TENURE</span><span class="fr-val">3 SEASONS</span></div>
+        <div class="fr-row"><span class="fr-field">TICKET_SPEND</span><span class="fr-val">$1,840</span></div>
+        <div class="fr-row"><span class="fr-field">MERCH_ATTACH</span><span class="fr-val">TRUE</span></div>
       </div>
-      <div class="mart-box">
-        <div style="font-weight:700;color:#425df0;margin-bottom:8px">CLUB_B.FAN_360</div>
-        <table>
-          <tr><th>FAN_KEY</th><th>TENURE</th><th>TICKET_SPEND</th><th>MERCH_ATTACH</th></tr>
-          <tr><td>7702</td><td>1 SEASON</td><td>$960</td><td>FALSE</td></tr>
-        </table>
+      <div class="fan-record">
+        <div class="fr-head">CLUB_B.FAN_360</div>
+        <div class="fr-row"><span class="fr-field">FAN_KEY</span><span class="fr-val">7702</span></div>
+        <div class="fr-row"><span class="fr-field">TENURE</span><span class="fr-val">1 SEASON</span></div>
+        <div class="fr-row"><span class="fr-field">TICKET_SPEND</span><span class="fr-val">$960</span></div>
+        <div class="fr-row"><span class="fr-field">MERCH_ATTACH</span><span class="fr-val">FALSE</span></div>
       </div>
     </div>
     <p class="caption">Two clubs, one schema, zero redesign. The second mart cost a mapping, and the third will cost less than the second.</p>
