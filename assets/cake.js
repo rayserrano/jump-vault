@@ -12,7 +12,7 @@
     semantic: { t: "Semantic Layer", s: "one metric definition", b: "<p>One definition per metric, defined once and served everywhere. \"Active fan\" means the same thing in a dashboard, an API, and an agent's answer.</p><p>Governed in dbt MetricFlow, so nobody redefines the number in a spreadsheet.</p>" },
     bi: { t: "BI Layer", s: "dashboards, reports, APIs", b: "<p>The classic consumption surface: dashboards, scheduled reports, APIs. All reading the same governed metrics, so the numbers reconcile no matter who pulls them.</p>" },
     analysts: { t: "Analysts & Execs", s: "ad-hoc questions, strategic KPIs", b: "<p>People asking questions. Analysts run ad-hoc queries; executives watch the KPIs that matter. Both reach the same governed source, so the answer is the same wherever it is asked.</p>" },
-    agents: { t: "Agentic Layer", s: "autonomous action", b: "<p>The four agents act on the platform directly: pricing, inventory, campaigns, fan intelligence. Because they read the one resolved truth, autonomous action rests on the same ground as human decisions.</p><p>Every path in this cake ends in a decision. This is the one that acts on its own.</p>" }
+    agents: { t: "Agentic Layer", s: "autonomous action", b: "<p>The agents act on the platform directly: Pricing Manager and Inventory Manager today, with Campaign Generator on the way. Because they read the one resolved truth, autonomous action rests on the same ground as human decisions.</p><p>Every path in this cake ends in a decision. This is the one that acts on its own.</p>" }
   };
 
   function init() {
